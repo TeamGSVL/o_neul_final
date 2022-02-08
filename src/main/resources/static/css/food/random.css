@@ -1,0 +1,138 @@
+.random-food-container{
+    width: 100%;
+    height: 100%;
+    padding: 50px 100px;
+}
+.random-food-banner{
+    width: 100%;
+}
+/*체크박스*/
+
+.random-food-condition{
+    padding: 50px 0;
+    width: 100%;
+}
+.border-rd{
+    border: 3px groove #ff4e7f;
+    border-radius: 20px;
+    padding: 5px 40px;
+}
+
+
+.con-btn-box{
+    border: 2px dashed #ff4e7f;
+    border-radius: 20px;
+    gap: 5px;
+    padding-left:10px;
+    padding-right:15px;
+}
+.btn_rolling{
+    animation: rotate_image 1s linear infinite;
+    transform-origin: 50% 50%;
+}
+@keyframes rotate_image{
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+fieldset label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+    width: 60px;
+    height: 50px;
+    border: 2px dashed #ff4e7f;
+    border-radius: 40px;
+    /*box-shadow:2px 2px 10px rgba(250,110,110,0.74) inset;*/
+}
+
+.confm-grid{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    gap: 50px;
+}
+.confm-item{
+    text-align: center;
+}
+/*음식 이미지*/
+.random-food-img-info{
+    display: none;
+    width: 100%;
+}
+
+#food_light{
+    color: #ffff82;
+}
+.food-img-box{
+    border-radius: 20px;
+    /*border: 3px solid rgba(252, 148, 148, 0.98) ;*/
+    width: 1500px;
+    height: 400px;
+}
+
+.rdfood-list{
+    display: grid;
+    grid-template-columns: repeat(4,minmax(200px,400px));
+    place-items:center;
+    margin: 0;
+    padding: 0;
+}
+.rdfood-list img{
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    border: 3px solid rgba(252, 148, 148, 0.98) ;
+    border-radius: 30px;
+}
+
+.food-result-nm{
+    font-size: 45px;
+    padding-top: 140px;
+    font-weight: bolder;
+    text-align: center;
+    width: 1700px;
+    height: 400px;
+    background-image: url("/res/img/reco.png");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: 54% center;
+}
+/*맵 띄어주기*/
+.random-food-map{
+    display: none;
+    width: 100%;
+}
+#map_title{
+    font-weight: bolder;
+}
+.map-restbox{
+}
+.restbox{
+    display: grid;
+    grid-template-columns: repeat(5,auto);
+    grid-template-rows: repeat(3,auto);
+    gap: 30px;
+}
+
+.rcrest-img{
+    width: 200px;
+    height: 150px;
+    padding: 10px;
+    border: 3px solid rgba(252, 148, 148, 0.98) ;
+    border-radius: 40px;
+}
+.rcrest-span-nm{
+    font-size: 10px;
+    font-weight: bolder;
+}
+
+/*마지막*/
+.food-caution{
+    text-align: center;
+    color: #555555;
+    font-size: 10px;
+}

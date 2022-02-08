@@ -1,0 +1,285 @@
+*{margin: 0; padding: 0; list-style: none; box-sizing: border-box; }
+
+@font-face {
+    src : url('/font/BMHANNAAir_ttf.ttf');
+    font-family: "bmh";
+}
+
+
+html{
+    scroll-behavior: smooth;
+
+}
+body{
+    font-weight: bolder;
+    font-family: "bmh";
+    overflow-x: hidden;
+}
+
+img{
+    onerror:"this.src = '/img/default.png'";
+}
+/*인풋 박스 테두리용*/
+
+input[type=checkbox]{
+    display: none;
+    margin: 10px;
+}
+input[type=radio]{
+    display: none;
+    margin: 10px;
+}
+.chk-x{
+    background-image: url("/img/con_x.png");
+    background-size: 150%;
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+}
+.chk-o{
+    background-image: url("http://localhost:8090/img/con_o.png");
+    background-size: 180%;
+    background-repeat: no-repeat;
+    background-position: 50% 40%;
+}
+/*인풋 박스 테두리용 끝*/
+.border-rd{
+    border: 3px groove #ff4e7f;
+    border-radius: 20px;
+    padding: 5px 40px;
+}
+
+.content-container{
+    height: auto;
+    min-height: 100%;
+}
+
+.bt-rad{
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.cc{
+    color: #ff4e7f;
+}
+.bg-lightpink{
+    background-color: rgba(187, 161, 163, 0.23);
+}
+
+header{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-content: center;
+    align-items: center;
+    padding: 10px 20px;
+}
+header a{
+    font-weight: bolder;
+    text-decoration: none;
+    color: white;
+}
+header a:hover{
+    color: #e3d0cb;
+}
+.header-logo{
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+}
+.header-search{
+    display: flex;
+    justify-content: center;
+}
+.header-user{
+    display: flex;
+    justify-content: end;
+    margin-right: 30px;
+}
+.search-box{
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+}
+.search-box input{
+    width: 230px;
+    border: none;
+}
+.search-box .search-btn{
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+footer{
+    height: 50px;
+    position : relative;
+    background-color: rgba(255, 234, 234, 0.89);
+    text-align: center;
+    font-size: 13px;
+}
+.flex-c-c{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.flex-c-r{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.w100{
+    width: 100%;
+}
+
+.wh-btn{
+    width: 40px;
+    height: 40px;
+}
+.wh-img{
+    width: 400px;
+    height: 300px;
+}
+
+.g10{
+    gap: 10px;
+}
+
+.g30{
+    gap: 30px;
+}
+.g50{
+    gap: 50px;
+}
+.g100{
+    gap: 100px;
+}
+.f-s-10{
+    font-size: 10px;
+}
+
+.f-s-20{
+    font-size: 20px;
+}
+
+.f-s-30{
+    font-size: 30px;
+}
+.f-s-40{
+    font-size: 40px;
+}
+.mt10{
+    margin-top: 10px;
+}
+.mt20{
+    margin-top: 20px;
+}
+.mt40{
+    margin-top: 40px;
+}
+.mt60{
+    margin-top: 60px;
+}
+
+.mb10{
+    margin-bottom: 10px;
+}
+.mb20{
+    margin-bottom: 20px;
+}
+.mb50{
+    margin-bottom: 50px;
+}
+.mb100{
+    margin-bottom: 100px;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+.mr20{
+    margin-right: 20px;
+}
+.mr50{
+    margin-right: 50px;
+}
+.mr100{
+    margin-right: 100px;
+}
+
+.fsfw{
+    font-size: 22px;
+    font-weight: bolder;
+}
+.fsfw15{
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+
+.circular--img{ display: inline-block; overflow: hidden;border-radius: 50%; border: 4px solid #ecf0f1}
+.circular--img img{width: 100%; height: 100%; object-fit: cover;}
+.circular--size40 { width: 40px; height: 40px;}
+.circular--size200 { width: 200px; height: 200px;}
+.circular--size300 { width: 300px; height: 300px;}
+
+.sizeL{
+    width: 500px; height: 300px;
+}
+.sizeM{ width: 300px; height: 150px; }
+.sizeLogo{ width: 80px;height: 85px }
+
+.hg-100{
+    height: 100px;
+}
+
+.bg-pink{
+    background: linear-gradient(to bottom, #ff4e7f, #fa6e6e) ;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.item-cen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.line{
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: black;
+    font-weight: bolder;
+    font-size: 40px;
+    margin: 8px 0px;
+}
+.line::before{
+    content: "";
+    flex-grow: 1;
+    margin: 0px 16px;
+    background: black;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+}
+.line::after{
+    content: "";
+    flex-grow: 1;
+    margin: 0px 16px;
+    background: black;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+}
+
+.trans-sx{
+    transform: scaleX(-1);
+}

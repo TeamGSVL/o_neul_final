@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsbl.oneul.food.FoodMapper">
+    <select id="selConList">
+
+    </select>
+
+    <select id="selFoodList" resultType="FoodResultVO">
+        SELECT DISTINCT A.ifood,B.key_value AS f_cookery,A.f_nm,
+                        C.key_value AS f_season,D.key_value AS f_worlddiv,A.f_alone,
+            (SELECT group_concat(alkkind) FROM o_alk E
+            JOIN o_food_alk F
+            ON E.alknum = F.alknum
+            WHERE F.ifood = A.ifood )AS alk,
+            (SELECT group_concat(igdkind) FROM o_igd H
+            JOIN o_food_igd I
+            ON H.igdnum = I.igdnum
+            WHERE I.ifood = A.ifood )AS igd FROM o_food A
+        JOIN connect_common B
+        ON B.sub_key = A.f_cookery
+        JOIN connect_common C
+        ON C.sub_key = A.f_season
+        JOIN connect_common D
+        ON D.sub_key = A.f_worlddiv
+        JOIN o_food_igd G
+        ON G.ifood = A.ifood
+        JOIN o_food_alk F
+        ON F.ifood = A.ifood
+        WHERE B.master_key = 2 and C.master_key = 3 and D.master_key = 4
+        <if test="f_cookery!=null">
+            <foreach collection="f_cookery" item="item" >
+                and A.f_cookery != ${item}
+            </foreach>
+        </if>
+        <if test="f_worlddiv!=null">
+            <foreach collection="f_worlddiv" item="item" >
+              and A.f_worlddiv != ${item}
+            </foreach>
+        </if>
+        <if test="igd!=null">
+            <foreach collection="igd" item="item">
+              and  G.ifood not in (SELECT ifood FROM o_food_igd WHERE igdnum = ${item})
+            </foreach>
+        </if>
+        <if test="f_season>0">
+            and A.f_season = ${f_season}
+        </if>
+        <if test="alknum>0">
+            and F.alknum = ${alknum}
+        </if>
+        <if test="alone == 1">
+            and f_alone = ${alone}
+        </if>
+    </select>
+
+</mapper>
