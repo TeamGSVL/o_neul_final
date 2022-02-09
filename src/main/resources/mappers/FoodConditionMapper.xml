@@ -24,8 +24,10 @@
         ON D.sub_key = A.f_worlddiv
         JOIN o_food_igd G
         ON G.ifood = A.ifood
-        JOIN o_food_alk F
-        ON F.ifood = A.ifood
+        <if test="alknum>0">
+            JOIN o_food_alk F
+            ON F.ifood = A.ifood
+        </if>
         WHERE B.master_key = 2 and C.master_key = 3 and D.master_key = 4
         <if test="f_cookery!=null">
             <foreach collection="f_cookery" item="item" >
@@ -51,6 +53,8 @@
         <if test="alone == 1">
             and f_alone = ${alone}
         </if>
+        order by rand()
+        Limit 0,${fdnum}
     </select>
 
 </mapper>

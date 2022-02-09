@@ -3,7 +3,7 @@ const bannerUlElem = document.querySelector('#bannerUl');
 const foodListElem = document.querySelector('#food_list');//오늘의 음식 리스트 Elem
 //=====================메인 공통함수===========================//
 //
-const makeImg = (item,data) =>{
+const makeImg = (item,data,codeNum) =>{
 
     console.log('확인');
     console.log(data);
@@ -17,37 +17,37 @@ const makeImg = (item,data) =>{
     imgElem.addEventListener('error',e=>{
         imgElem.src='/img/imgerr.jpg';
     });
-    imgElem.src = data.result!=null?data.result[0].link:'/img/imgerr.jpg';
-
-    if(data.result){
-        imgElem.src = data.result[0].link;
-    }else {
+    if(data == null || data.result == null || data.result.length==0){
         imgElem.src = '/img/imgerr.jpg';
+    }else {
+        imgElem.src = data.result[0].link;
     }
 
     divElem.append(imgElem);
     divElem.append(spanElem);
 
-    //code에 따라 1계절 2술 3랜덤음식
-    /*
-    if(code==1){
-        spanElem.innerHTML=`
-        [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
-    `;
-        ssListElem.append(divElem);
-    }else if(code==2){
-        spanElem.innerHTML=`
-        [${item.alk}] [${item.f_cookery}] ${item.f_nm}
-    `;
-        acListElem.append(divElem);
-    }else if(code==3){
+    //codeNum으로 어디에 나타낼지 보여줌줌
+   if(codeNum==1){
         spanElem.innerHTML=`
         [${item.f_worlddiv}] [${item.f_cookery}] ${item.f_nm}
     `;
         foodListElem.append(divElem);
+        console.log('worlddiv')
+
+
+    }else if(codeNum==2){
+        spanElem.innerHTML=`
+        [${item.alk}] [${item.f_cookery}] ${item.f_nm}
+    `;
+        acListElem.append(divElem);
+    }else if(codeNum==3){
+        spanElem.innerHTML=`
+        [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
+    `;
+        ssListElem.append(divElem);
     }
 
-     */
+
 }
 
 //------------------배너 --------------------
@@ -72,87 +72,84 @@ new Swiper('.bn-container', {
 
 //------------------오늘의 음식 --------------------
 {
-    //아이콘 이미지 시간마다 바꿔주기
+    //오늘의 음식 이미지 가져오기
+    const getTodaysFood = () =>{
 
-
-    const foodImgElem = document.querySelector('#foodImg');
-    const foodImgArr = new Array(
-        'fa-hamburger','fa-pizza-slice','fa-hotdog','fa-fish','fa-cheese',
-        'fa-carrot','fa-apple-alt','fa-bacon','fa-pepper-hot'
-
-    );
-    const randomFoodImg = ()=>{
-        foodImgElem.classList.forEach(item=>{
-            if(item.includes('fa-')){
-                foodImgElem.classList.remove(item);
-                foodImgElem.classList.add(foodImgArr[Math.floor(Math.random()*foodImgArr.length)]);
-            }
-        });
+        removeChild(foodListElem);
+        getFoodList((data)=>{
+            data.forEach(item=>{
+                getImg(item,makeImg,1,1);
+            });
+        }, {fdnum:8});
     }
-    setInterval(randomFoodImg,2000);
-}
 
-//오늘의 음식 이미지 가져오기
-{
-    let todayParam = {
-        f_cookery:null,
-        f_worlddiv:null,
-        igd:null,
-        alone:0
+    getTodaysFood();
+
+    {
+        //아이콘 이미지 시간마다 바꿔주기
+
+
+        const foodImgElem = document.querySelector('#foodImg');
+        const foodImgArr = new Array(
+            'fa-hamburger','fa-pizza-slice','fa-hotdog','fa-fish','fa-cheese',
+            'fa-carrot','fa-apple-alt','fa-bacon','fa-pepper-hot'
+
+        );
+        const randomFoodImg = ()=>{
+            foodImgElem.classList.forEach(item=>{
+                if(item.includes('fa-')){
+                    foodImgElem.classList.remove(item);
+                    foodImgElem.classList.add(foodImgArr[Math.floor(Math.random()*foodImgArr.length)]);
+                }
+            });
+        }
+        setInterval(randomFoodImg,2000);
     }
-    removeChild(foodListElem);
-    getFoodList((data)=>{
-        console.log(data);
-        data.forEach(item=>{
-            getImg(item,makeImg,1);
-        });
-    },todayParam,1);
-
-}
-
-
 //오늘의음식 버튼
-{
-    const foodReElem = document.querySelector('#foodRe');//다시
-    const foodGoElem = document.querySelector('#foodGo');//상세검색
+    {
+        const foodReElem = document.querySelector('#foodRe');//다시
+        const foodGoElem = document.querySelector('#foodGo');//상세검색
 
-    foodReElem.addEventListener('mouseover',evt => {
-        foodReElem.style.transform = 'rotate(360deg)';
-    });
-    foodReElem.addEventListener('mouseout',evt => {
-        foodReElem.style.transform = 'rotate(0deg)';
-    });
-    foodReElem.addEventListener('click',evt => {
-        setRdFood();
-    });
-    foodGoElem.addEventListener('mouseover',evt => {
-        foodGoElem.classList.remove('far');
-        foodGoElem.classList.add('fas');
-    });
-    foodGoElem.addEventListener('mouseout',evt => {
-        foodGoElem.classList.remove('fas');
-        foodGoElem.classList.add('far');
-    });
-    foodGoElem.addEventListener('click',evt => {
-        location.href='/food/random';
-    });
+        foodReElem.addEventListener('mouseover',evt => {
+            foodReElem.style.transform = 'rotate(360deg)';
+        });
+        foodReElem.addEventListener('mouseout',evt => {
+            foodReElem.style.transform = 'rotate(0deg)';
+        });
+        foodReElem.addEventListener('click',evt => {
+            getTodaysFood();
+        });
+        foodGoElem.addEventListener('mouseover',evt => {
+            foodGoElem.classList.remove('far');
+            foodGoElem.classList.add('fas');
+        });
+        foodGoElem.addEventListener('mouseout',evt => {
+            foodGoElem.classList.remove('fas');
+            foodGoElem.classList.add('far');
+        });
+        foodGoElem.addEventListener('click',evt => {
+            location.href='/food/random';
+        });
+    }
 }
+
 
 //------------------맛집 --------------------
 const jmtListElem = document.querySelector('#jmtList');//리스트
 
 //카카오 json을 통해 음식점 디테일 얻어오기
+//순서2
 const getKakaoJsonMain = (ijmt)=>{
-    fetch(`/map/${ijmt}`,{
+    fetch(`/common/ajax/map/${ijmt}`,{
         'headers': { 'Content-Type': 'application/json;charset=utf-8' }
     })
         .then(res=>res.json())
         .then((data)=>{
-            console.log(data);
             jmtListElem.append(makeJmtDivMain(data));
         });
 }
 //item을 받고 div만들어주기
+//순서3
 const makeJmtDivMain = (item)=>{
     let divElem = document.createElement('div');
     let imgElem = document.createElement('img');
@@ -196,7 +193,8 @@ const makeJmtDivMain = (item)=>{
 
 
 {
-    //현재위치 기반 맛집 6개 뽑아내기
+    //현재위치 기반 맛집 8개 뽑아내기
+    //순서1
     navigator.geolocation.getCurrentPosition(function(pos) {
         let curLoca = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         searchPlaces(curLoca);
@@ -209,8 +207,6 @@ const makeJmtDivMain = (item)=>{
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
-
-            console.log(data);
             //하나하나 넣으면서 kakao 디테일 불러오기
             data.forEach((item)=>{
                 getKakaoJsonMain(item.id);
@@ -251,29 +247,9 @@ new Swiper('.swiper-container', {
 let sTodayElem = document.querySelector('#s_today');
 let ssListElem = document.querySelector('#ss_list');
 let acListElem = document.querySelector('#ac_list');
-//오늘 날짜 세팅 (안씀)
-const setTodayText = ()=>{
-    let today = getTodayKor();
-    let month = new Date().getMonth()+1;
-    console.log(month);
-    let season = getSeason(month);
-    sTodayElem.innerHTML = `${today} ${season}`;
-}
 
 
 
-
-// 음식 랜덤으로 ( 계절:1/술:2/전체:3 코드 보내서 )
-// subCode 는 계절,술의 서브코드
-const getFoodListFromBack = (code,subCode,showFc,fdNum) =>{
-    fetch(`/ajax/common/${subCode}?code=${code}&fdNum=${fdNum}`).
-    then(res=>res.json()).then(data=>{
-        console.log(data);
-        data.forEach(item=>{
-              getImg(item,showFc,code);
-        });
-    });
-}
 
 
 
@@ -307,39 +283,55 @@ getWeather((data)=>{
             seasonCode = 4;
             break;
     }
-    getFoodListFromBack(1,seasonCode,makeImg,4);
+    // 계절 param
+    getFoodList((data)=>{
+        data.forEach(item=>{
+            getImg(item,makeImg,1,3);
+        });
+    },{
+        f_season:seasonCode,
+        fdnum:4
+    });
 });
 /*
 * 계절,술 콜백정리
-* 1. getWeather를 호출하는데, 함수를 바로 써서 넣어줌
-* 2. getWeather마지막에 getSAFood를 호출하는데
-* season/alk을 분기하는 코드 , 계절/술 실제코드, 이미지 만들어주는 함수를 넣어줌
-* 3. getSAFood에서 코드는 파라미터, 실제코드는 restApi로 보내 자바에서 분기를 해서
-* 계절 또는 술 4개의 리스트객체(data)를 받아옴
-* 4. 받아온 data에 forEach를 실행해 각각의 음식이름을 getImg에 넣어줌
-* 5. 받아온 makeImg코드는 그대로 getImg에 넣어주고 분기코드도 같이 넣어줌
-* 6. getImg에서 이미지를 받아오고,분기코드와 받아온 이미지(list)를 myFun(makeImg)에 넣어줌
-* 7. 마지막 makeImg실행
+* 계절
+* 1. getWeather를 호출하는데 함수를 같이 넣어줌 (날씨 나타내주고 계절 가져오는 함수)
+* 2. getFoodList를 마지막에 호출
+* 3. 원하는 만큼의 랜덤음식을 얻고 하나하나 음식이름을 getImg에 넣어줌
+* 4. getImg에서 원하는 만큼의 이미지를 얻고 makeImg로 이미지엘럼을 만들어줌
 * */
 
 //술 radio
 const alkElems = document.querySelectorAll('input[type=radio]');
-alkElems.forEach(item=>{
-    item.addEventListener('click',e=>{
+alkElems.forEach(item=> {
+    item.addEventListener('click', e => {
         let acListElem = document.querySelector('#ac_list');
         //acListElem자식먼저 삭제
         removeChild(acListElem);
         let cko = document.querySelector('.a-chk');
         cko.classList.remove('a-chk');
-        if(item.checked) {
+        if (item.checked) {
             item.parentElement.classList.add('a-chk');
         }
-        getFoodListFromBack(2,item.value,makeImg,4);
+        getFoodList((data) => {
+            data.forEach((item) => {
+                getImg(item, makeImg, 1, 2);
+            });
+        },{
+            alk: item.value,
+            fdnum: 4
+        });
     });
 });
 
+
 //첫 로딩때는 띄어주기
-getFoodListFromBack(2,1,makeImg,4);
+getFoodList(((data)=>{
+    data.forEach(item=>{
+        getImg(item,makeImg,1,2);
+    })}),
+    {alk:1,fdnum:4});
 
 //계절랜덤아이콘이미지 버튼
 const seasonImgElem = document.querySelector('#seasonGo');
@@ -369,4 +361,5 @@ setInterval(rdSeasonImg,1000);
         alkImgElem.classList.add('fa-wine-glass-alt');
     });
 }
+
 

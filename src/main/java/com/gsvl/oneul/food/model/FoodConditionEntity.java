@@ -16,4 +16,5 @@ public class FoodConditionEntity {
     private int f_season;
     private int alknum;
     private int alone;
+    private int fdnum;
 }

@@ -7,6 +7,8 @@ import com.gsvl.oneul.food.model.FoodResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,7 @@ public class CommonRestController {
     private CommonService commonService;
 
 
-    //술과 계절을 분기할수있는 restapi ( 사용안함 )
+    //술과 계절을 분기할수있는 restapi ( 사용안함,food 하나로 사용 )
     /*
     @GetMapping("/{subCode}")
     public List<FoodResultVO> getSeasonList(@PathVariable int subCode, @RequestParam int code,@RequestParam int fdNum, FoodConditionEntity entity){
@@ -41,5 +43,11 @@ public class CommonRestController {
         Map<String,List<SearchImgVO>> map = new HashMap<>();
         map.put("result",list);
         return map;
+    }
+
+    //카카오map에서 가져온 or 데이터베이스에서 가져온 ijmt(id)를 넣으면 json을 보내줌
+    @GetMapping("/map/{ijmt}")
+    public String getKaKaoJson(@PathVariable int ijmt, HttpServletRequest rq) throws UnsupportedEncodingException {
+        return commonService.getkakaoJsonPage(ijmt);
     }
 }

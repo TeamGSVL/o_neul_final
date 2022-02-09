@@ -19,9 +19,9 @@ public class FoodController {
 
     //ajax 조건 리스트
     @ResponseBody
-    @PostMapping("/{fdNum}")
-    public List<FoodResultVO> getConditions(@RequestBody FoodConditionEntity entity, @PathVariable int fdNum){
-        List<FoodResultVO> list = foodService.getFoodList(entity,fdNum);
+    @PostMapping("")
+    public List<FoodResultVO> getConditions(@RequestBody FoodConditionEntity entity){
+        List<FoodResultVO> list = foodService.getFoodList(entity);
         return list;
     }
 

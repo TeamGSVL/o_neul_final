@@ -1,12 +1,13 @@
 //img패치
-const getImg = (item,myFun,num) =>{
-    fetch(`/common/ajax/img/${item.f_nm}?imgNum=${num}`)
+const getImg = (item,myFun,imgNum,codeNum) =>{
+    fetch(`/common/ajax/img/${item.f_nm}?imgNum=${imgNum}`)
         .then(res=> res.json())
         .then((data) =>{
-            console.log("이미지");
-            console.log(data);
-            myFun(item,data);
-        });
+            myFun(item,data,codeNum);
+        }).catch(err=>{
+            console.log(err);
+            myFun(item,null);
+    });
 };
 //날씨 호출
 const getWeather = (myFun)=>{
@@ -100,8 +101,8 @@ const getSeason = (month) =>{
     return season;
 }
 //음식 조건검색
-const getFoodList = (myFt,param,fdNum)=>{
-    fetch(`/food/${fdNum}`,{
+const getFoodList = (myFt,param)=>{
+    fetch(`/food`,{
         'method': 'post',
         'headers': { 'Content-Type': 'application/json' },
         'body': JSON.stringify(param)

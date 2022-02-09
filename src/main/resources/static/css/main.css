@@ -40,12 +40,12 @@
     bottom: auto;
 }
 .bn .swiper-button-prev{
-    background: url("/res/img/con_back.png") no-repeat;
+    background: url("/img/con_back.png") no-repeat;
     background-size: 100%;
     top:auto;
 }
 .bn .swiper-button-next{
-    background: url("/res/img/con_go.png") no-repeat;
+    background: url("/img/con_go.png") no-repeat;
     background-size: 100%;
     top:auto;
 }
@@ -72,21 +72,26 @@
 }
 .rdfood-list{
     display: grid;
-    grid-template-columns: repeat(4,minmax(200px,400px));
+    height: 500px;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(2,auto);
+    gap: 50px;
     place-items:center;
     margin: 0;
     padding: 0;
 }
+
+.rdfood-list img{
+    width: 350px;
+    height: 200px;
+    border-radius: 20px;
+}
+
 .bg{ /*투명배경*/
     background-color:rgba(0, 0, 0, 0.5);
     width:100%;
     height: 100%;
     position: absolute;
-}
-
-.rdfood-img rdfood-text{
-    position: relative;
-    z-index: 1000;
 }
 
 .main-btn-box{
