@@ -3,6 +3,7 @@ package com.gsvl.oneul.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,13 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(              //로그인과 상관없이 매칭.
-                "/","/font/**","/img/**","/css/**","/js/**"
-                        ,"/main","/user/login","/user/join"
-                        ,"/ajax/comment","/ajax/board/**"
-                ).permitAll() // 위 주소창들을 승인하겠다.
-                .anyRequest().authenticated()//위 주소값 이외에 것들은 인증 authenitcated 해야한다
+                "/user/mypage"
+                )//로그인 안됐을때 못들어가게
+                .authenticated()// 위 주소창들은 인증authenitcated을 받아야한다.
+                .anyRequest().permitAll()//나머지는 다 통과
 
                 .and() //그대로 이 값(http)를 사용하겠다
 

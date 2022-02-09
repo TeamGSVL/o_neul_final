@@ -1,5 +1,55 @@
 const bannerUlElem = document.querySelector('#bannerUl');
 
+const foodListElem = document.querySelector('#food_list');//오늘의 음식 리스트 Elem
+//=====================메인 공통함수===========================//
+//
+const makeImg = (item,data) =>{
+
+    console.log('확인');
+    console.log(data);
+    console.log(item);
+    let divElem = document.createElement('div');
+    let spanElem = document.createElement('span');
+    let imgElem = document.createElement('img');
+    divElem.classList.add('flex-c-c');
+
+
+    imgElem.addEventListener('error',e=>{
+        imgElem.src='/img/imgerr.jpg';
+    });
+    imgElem.src = data.result!=null?data.result[0].link:'/img/imgerr.jpg';
+
+    if(data.result){
+        imgElem.src = data.result[0].link;
+    }else {
+        imgElem.src = '/img/imgerr.jpg';
+    }
+
+    divElem.append(imgElem);
+    divElem.append(spanElem);
+
+    //code에 따라 1계절 2술 3랜덤음식
+    /*
+    if(code==1){
+        spanElem.innerHTML=`
+        [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
+    `;
+        ssListElem.append(divElem);
+    }else if(code==2){
+        spanElem.innerHTML=`
+        [${item.alk}] [${item.f_cookery}] ${item.f_nm}
+    `;
+        acListElem.append(divElem);
+    }else if(code==3){
+        spanElem.innerHTML=`
+        [${item.f_worlddiv}] [${item.f_cookery}] ${item.f_nm}
+    `;
+        foodListElem.append(divElem);
+    }
+
+     */
+}
+
 //------------------배너 --------------------
 new Swiper('.bn-container', {
     slidesPerView : 1, // 동시에 보여줄 슬라이드 갯수
@@ -21,55 +71,45 @@ new Swiper('.bn-container', {
 
 
 //------------------오늘의 음식 --------------------
-const foodImgElem = document.querySelector('#foodImg');
-const foodImgArr = new Array(
-'fa-hamburger','fa-pizza-slice','fa-hotdog','fa-fish','fa-cheese',
-    'fa-carrot','fa-apple-alt','fa-bacon','fa-pepper-hot'
+{
+    //아이콘 이미지 시간마다 바꿔주기
 
-);
-const randomFoodImg = ()=>{
-    foodImgElem.classList.forEach(item=>{
-        if(item.includes('fa-')){
-            foodImgElem.classList.remove(item);
-            foodImgElem.classList.add(foodImgArr[Math.floor(Math.random()*foodImgArr.length)]);
-        }
-    });
-}
-//이미지 시간마다 바꿔주기
-setInterval(randomFoodImg,2000);
-//오늘의 음식 이미지 가져오기
-const foodListElem = document.querySelector('#food_list');
-const setRdFood = (num)=>{
-    removeChild(foodListElem);
-    for(let i=0;i<num;i++){
-        fetch(`/food/random`,{
-            'method': 'post',
-            'headers': { 'Content-Type': 'application/json' },
-            'body': JSON.stringify({f_cookery:null,f_worlddiv:null,igd:null,alone:0})
-        }).then(res=>res.json())
-            .then((data)=>{
-                getImg(data,makeImg,3);
-            }).catch(err=>{
-            console.log(err);
+
+    const foodImgElem = document.querySelector('#foodImg');
+    const foodImgArr = new Array(
+        'fa-hamburger','fa-pizza-slice','fa-hotdog','fa-fish','fa-cheese',
+        'fa-carrot','fa-apple-alt','fa-bacon','fa-pepper-hot'
+
+    );
+    const randomFoodImg = ()=>{
+        foodImgElem.classList.forEach(item=>{
+            if(item.includes('fa-')){
+                foodImgElem.classList.remove(item);
+                foodImgElem.classList.add(foodImgArr[Math.floor(Math.random()*foodImgArr.length)]);
+            }
         });
     }
+    setInterval(randomFoodImg,2000);
 }
 
-const getFoodImgMain = (fnm,item) =>{
-    fetch(`/img/search?search=${fnm}`)
-        .then(res=> res.json())
-        .then((data) =>{
-            item.addEventListener('error',e=>{
-                imgElem.src='/res/img/imgerr.jpg';
-            });
-            item.style.backgroundImage="url("+data.result[0].link+")";
-        }).catch(err=>{
-            console.log(err);
-            item.style.backgroundImage="url('/res/img/imgerr.jpg')";
-    });
+//오늘의 음식 이미지 가져오기
+{
+    let todayParam = {
+        f_cookery:null,
+        f_worlddiv:null,
+        igd:null,
+        alone:0
+    }
+    removeChild(foodListElem);
+    getFoodList((data)=>{
+        console.log(data);
+        data.forEach(item=>{
+            getImg(item,makeImg,1);
+        });
+    },todayParam,1);
+
 }
 
-setRdFood(4);//랜덤 음식을 4개만 가져오게 하라
 
 //오늘의음식 버튼
 {
@@ -222,10 +262,12 @@ const setTodayText = ()=>{
 
 
 
+
 // 음식 랜덤으로 ( 계절:1/술:2/전체:3 코드 보내서 )
 // subCode 는 계절,술의 서브코드
 const getFoodListFromBack = (code,subCode,showFc,fdNum) =>{
-    fetch(`/ajax/common/${subCode}?code=${code}&fdNum=${fdNum}`).then(res=>res.json()).then(data=>{
+    fetch(`/ajax/common/${subCode}?code=${code}&fdNum=${fdNum}`).
+    then(res=>res.json()).then(data=>{
         console.log(data);
         data.forEach(item=>{
               getImg(item,showFc,code);
@@ -328,47 +370,3 @@ setInterval(rdSeasonImg,1000);
     });
 }
 
-//////////////////////////공통함수////////////////////////////////
-const makeImg = (data,code,item) =>{
-
-    console.log('확인');
-    console.log(data);
-
-    let divElem = document.createElement('div');
-    let spanElem = document.createElement('span');
-    let imgElem = document.createElement('img');
-    divElem.classList.add('flex-c-c');
-
-
-    imgElem.addEventListener('error',e=>{
-        imgElem.src='/res/img/imgerr.jpg';
-    });
-    imgElem.src = data.result!=null?data.result[0].link:'/res/img/imgerr.jpg';
-
-    if(data.result){
-        imgElem.src = data.result[0].link;
-    }else {
-        imgElem.src = '/res/img/imgerr.jpg';
-    }
-
-    divElem.append(imgElem);
-    divElem.append(spanElem);
-
-    //code에 따라 1계절 2술 3랜덤음식
-    if(code==1){
-        spanElem.innerHTML=`
-        [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
-    `;
-        ssListElem.append(divElem);
-    }else if(code==2){
-        spanElem.innerHTML=`
-        [${item.alk}] [${item.f_cookery}] ${item.f_nm}
-    `;
-        acListElem.append(divElem);
-    }else if(code==3){
-        spanElem.innerHTML=`
-        [${item.f_worlddiv}] [${item.f_cookery}] ${item.f_nm}
-    `;
-        foodListElem.append(divElem);
-    }
-}

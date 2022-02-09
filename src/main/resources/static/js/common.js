@@ -1,9 +1,11 @@
 //img패치
-const getImg = (item,myFun,code) =>{
-    fetch(`/img/search?search=${item.f_nm}`)
+const getImg = (item,myFun,num) =>{
+    fetch(`/common/ajax/img/${item.f_nm}?imgNum=${num}`)
         .then(res=> res.json())
         .then((data) =>{
-            myFun(data,code,item);
+            console.log("이미지");
+            console.log(data);
+            myFun(item,data);
         });
 };
 //날씨 호출
@@ -97,6 +99,18 @@ const getSeason = (month) =>{
     }
     return season;
 }
+//음식 조건검색
+const getFoodList = (myFt,param,fdNum)=>{
+    fetch(`/food/${fdNum}`,{
+        'method': 'post',
+        'headers': { 'Content-Type': 'application/json' },
+        'body': JSON.stringify(param)
+    }).then(res=>res.json()).then(data=>{
+        myFt(data);
+    })
+}
+
+
 //자식 엘레먼트 삭제
 const removeChild= (elem)=>{
     while (elem.hasChildNodes()){

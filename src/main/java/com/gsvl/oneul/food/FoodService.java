@@ -17,7 +17,7 @@ public class FoodService {
     //검색조건 넣고 결과 리스트로 가져오기 (num은 랜덤나올 갯수)
     public List<FoodResultVO> getFoodList(FoodConditionEntity entity,int fdNum){
         List<FoodResultVO> list = foodMapper.selFoodList(entity);
-        //랜덤으로 하나 추출
+        //랜덤으로 fdnum개 추출
         if(list.size()==0){
             return null;
         }
