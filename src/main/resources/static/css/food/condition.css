@@ -4,6 +4,7 @@
     padding: 50px 100px;
 }
 .random-food-banner{
+    height: 330px;
     width: 100%;
 }
 /*체크박스*/
@@ -12,6 +13,8 @@
     padding: 50px 0;
     width: 100%;
 }
+
+
 .border-rd{
     border: 3px groove #ff4e7f;
     border-radius: 20px;
@@ -43,7 +46,7 @@ fieldset label{
     align-items: center;
     justify-content: center;
     margin: 5px 0;
-    width: 60px;
+    width: 65px;
     height: 50px;
     border: 2px dashed #ff4e7f;
     border-radius: 40px;
@@ -67,12 +70,13 @@ fieldset label{
 #food_light{
     color: #ffff82;
 }
-.food-img-box{
-    border-radius: 20px;
-    /*border: 3px solid rgba(252, 148, 148, 0.98) ;*/
-    width: 1500px;
-    height: 400px;
-}
+/**이미지 배너사용으로 인해 사용안함*/
+/*.food-img-box{*/
+/*    border-radius: 20px;*/
+/*    !*border: 3px solid rgba(252, 148, 148, 0.98) ;*!*/
+/*    width: 1500px;*/
+/*    height: 400px;*/
+/*}*/
 
 .rdfood-list{
     display: grid;
@@ -89,6 +93,39 @@ fieldset label{
     border-radius: 30px;
 }
 
+.food-ag-box{
+    background-color: rgba(252, 148, 148, 0.98);
+    width: 80px;
+    height: 80px;
+    margin: 50px 0;
+    border-radius: 20px;
+}
+.food-ag-box i{
+    cursor: pointer;
+    font-size: 40px;
+    color: white;
+}
+.food-ag-box div{
+    font-size: 20px;
+    color: white;
+}
+
+.food-bn-container .swiper-container{
+    width: 1500px;
+}
+.food-bn-container .swiper-slide {
+    text-align:center;
+    display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+    align-items:center; /* 위아래 기준 중앙정렬 */
+    justify-content:center; /* 좌우 기준 중앙정렬 */
+}
+.food-bn-container img{
+    width: 300px;
+    height: 250px;
+    padding: 10px;
+    border-radius: 30px;
+    max-width:100%;
+}
 .food-result-nm{
     font-size: 45px;
     padding-top: 140px;
@@ -96,7 +133,7 @@ fieldset label{
     text-align: center;
     width: 1700px;
     height: 400px;
-    background-image: url("/res/img/reco.png");
+    background-image: url("/img/reco.png");
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: 54% center;
@@ -119,14 +156,13 @@ fieldset label{
 }
 
 .rcrest-img{
-    width: 200px;
-    height: 150px;
+    width: 300px;
+    height: 200px;
     padding: 10px;
-    border: 3px solid rgba(252, 148, 148, 0.98) ;
     border-radius: 40px;
 }
 .rcrest-span-nm{
-    font-size: 10px;
+    font-size: 14px;
     font-weight: bolder;
 }
 
