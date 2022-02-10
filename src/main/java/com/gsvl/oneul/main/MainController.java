@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/main")
 public class MainController {
-
-
-    @GetMapping
+    @GetMapping("/")
+    public String defualt(){
+        return "main";
+    }
+    @GetMapping("/main")
     public void main(){
-
     }
 }

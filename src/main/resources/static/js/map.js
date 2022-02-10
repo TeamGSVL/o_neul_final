@@ -3,7 +3,7 @@ let restboxElem = document.querySelector('#restaurant_box');//마커 클릭시 �
 
 //카카오 json을 통해 음식점 디테일 얻어오기
 const getKakaoJson = (ijmt)=>{
-    fetch(`/map/${ijmt}`,{
+    fetch(`/common/ajax/map/${ijmt}`,{
         'headers': { 'Content-Type': 'application/json;charset=utf-8' }
     })
         .then(res=>res.json())
@@ -22,9 +22,13 @@ const makeJmtDiv = (item)=>{
 
     imgElem.classList.add('rcrest-img');
     imgElem.addEventListener('error',e=>{
-        imgElem.src='/res/img/imgerr.jpg';
+        imgElem.src='/img/imgerr.jpg';
     });
-    imgElem.src= item.photo.photoList[0].list[0].orgurl;
+    if(item.photo&&item.photo.photoList){
+        imgElem.src= item.photo.photoList[0].list[0].orgurl;
+    }else {
+        imgElem.src='/img/imgerr.jpg';
+    }
 
     spanElemNm.classList.add('rcrest-span-nm');
     let addr = item.basicInfo.address.region.newaddrfullname;
@@ -47,7 +51,7 @@ function getMapCurAddrKeyWord(foodNm) {
 
         var options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(latitude, longitude), //지도의 중심좌표.latitude,longitude
-            level: 3 //지도의 레벨(확대, 축소 정도)
+            level: 9 //지도의 레벨(확대, 축소 정도)
         };
         let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
@@ -58,18 +62,9 @@ function getMapCurAddrKeyWord(foodNm) {
 
         marker.setMap(map);
 
-        //코드를 주소로 바꾸었을때 콜백함수
-        let cordAddrCallback = function(result, status) {
-            if (status === kakao.maps.services.Status.OK) {
-
-                searchPlaces(foodNm);
-
-            }
-        };
-
-        var geocoder = new kakao.maps.services.Geocoder();
-
-        geocoder.coord2Address(options.center.getLng(), options.center.getLat(), cordAddrCallback);
+        //좌표를 실제주소로 바꿔주는 함수, 콜백필요(사용x)
+        // var geocoder = new kakao.maps.services.Geocoder();
+        // geocoder.coord2Address(options.center.getLng(), options.center.getLat(), cordAddrCallback);
 
         var markers = [];
 
@@ -79,18 +74,9 @@ function getMapCurAddrKeyWord(foodNm) {
         // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-        // 키워드로 장소를 검색합니다
+        // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+        ps.keywordSearch(foodNm, placesSearchCB,{location:options.center,radius:5000,category_group_code:'FD6'});
 
-        // 키워드 검색을 요청하는 함수입니다
-        function searchPlaces(keyword) {
-
-            if (!keyword.replace(/^\s+|\s+$/g, '')) {
-                return false;
-            }
-
-            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-            ps.keywordSearch( keyword, placesSearchCB,{location:options.center,radius:5000,category_group_code:'FD6'});
-        }
         // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
@@ -101,7 +87,7 @@ function getMapCurAddrKeyWord(foodNm) {
 
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
                 let maptitleElem = document.querySelector('#map_title');
-                maptitleElem.innerHTML = `주변 ${foodNm} 식당이 없습니다`;
+                maptitleElem.innerHTML = `주변(5km) ${foodNm} 식당이 없습니다`;
                 return;
 
             } else if (status === kakao.maps.services.Status.ERROR) {
@@ -113,11 +99,7 @@ function getMapCurAddrKeyWord(foodNm) {
         }
 
         function displayPlaces(places) {
-            var listEl = document.getElementById('placesList'),
-                menuEl = document.getElementById('menu_wrap'),
-                fragment = document.createDocumentFragment(),
-                bounds = new kakao.maps.LatLngBounds(),
-                listStr = '';
+            var bounds = new kakao.maps.LatLngBounds();
 
             // 지도에 표시되고 있는 마커를 제거합니다
             removeMarker();
@@ -174,7 +156,6 @@ function getMapCurAddrKeyWord(foodNm) {
             }
 
             // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-            map.setBounds(bounds);
         }
         // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
         function addMarker(position, idx, title) {

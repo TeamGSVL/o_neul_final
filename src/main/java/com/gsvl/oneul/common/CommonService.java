@@ -1,6 +1,9 @@
 package com.gsvl.oneul.common;
 
 import com.gsvl.oneul.common.model.img.SearchImgVO;
+import com.gsvl.oneul.food.FoodMapper;
+import com.gsvl.oneul.food.model.FoodConditionEntity;
+import com.gsvl.oneul.food.model.FoodResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -10,6 +13,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,10 +21,32 @@ import java.util.List;
 public class CommonService {
     @Autowired
     private MySearchImgApiUtils mySearchImgApiUtils;
+    @Autowired
+    private FoodMapper foodMapper;
 
     //이미지 검색
     public List<SearchImgVO> getImg(String keyWord,int imgNum){
-        List<SearchImgVO> list=mySearchImgApiUtils.searchPlace(keyWord,imgNum);
+        //이미지 검색하기전 DB에 이미지가 있는지 확인
+        FoodConditionEntity entity = new FoodConditionEntity();
+        entity.setF_nm(keyWord);
+        entity.setFdnum(1);
+        List<FoodResultVO> voList = foodMapper.selFoodList(entity);
+        if(voList.get(0).getF_img()==null||imgNum!=1){
+            List<SearchImgVO> list=mySearchImgApiUtils.searchPlace(keyWord,imgNum);
+            if(imgNum!=1){
+                return list;
+            }
+            if(list!=null){
+                entity.setF_img(list.get(0).getLink());
+            }
+            int result = foodMapper.insFoodImg(entity);
+            return list;
+        }
+        List<SearchImgVO> list = new ArrayList();
+        SearchImgVO imgVO = new SearchImgVO();
+        imgVO.setLink(voList.get(0).getF_img());
+        list.add(imgVO);
+
         return list;
     }
 

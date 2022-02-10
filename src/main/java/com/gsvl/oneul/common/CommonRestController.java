@@ -47,7 +47,7 @@ public class CommonRestController {
 
     //카카오map에서 가져온 or 데이터베이스에서 가져온 ijmt(id)를 넣으면 json을 보내줌
     @GetMapping("/map/{ijmt}")
-    public String getKaKaoJson(@PathVariable int ijmt, HttpServletRequest rq) throws UnsupportedEncodingException {
+    public String getKaKaoJson(@PathVariable int ijmt){
         return commonService.getkakaoJsonPage(ijmt);
     }
 }

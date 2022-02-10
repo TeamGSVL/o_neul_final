@@ -14,6 +14,7 @@ public class FoodResultVO {
     private String f_season;
     private String f_worlddiv;
     private String f_alone;
+    private String f_img;
     private String igd;
     private String alk;
 }

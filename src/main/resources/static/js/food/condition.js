@@ -1,6 +1,6 @@
 let foodCheckFrmElem = document.querySelector('#foodCheckFrm');
 let foodImgElem = document.querySelector('#foodImg');
-let foodInfoElem = document.querySelector('#foodInfo');
+let foodInfoElem = document.querySelector('#foodNmInfo');
 let checkInputElems = document.querySelectorAll('input[type=checkbox]');
 let mapElem = document.querySelector('#map');
 let mapInfoElem = document.querySelector('#restaurant_box');
@@ -25,10 +25,8 @@ let mapInfoElem = document.querySelector('#restaurant_box');
         document.querySelector('#food_light').classList.add('far');
         //음식명 리셋
         foodInfoElem.innerHTML=null;
-        //이미지 삭제
-        if(foodImgElem.querySelector('div')){
-            foodImgElem.querySelector('div').remove();
-        }
+
+
         //맵 삭제
         mapElem.innerHTML=null;
         let mapInfoElem = document.querySelector('#restaurant_box');
@@ -69,12 +67,6 @@ aloneElems.forEach(item=>{
 });
 
 
-//에러메세지(사용x)
-let errMsgElem = document.querySelector('#errMsg');
-if(errMsgElem.value.length>0){
-    alert(errMsgElem.value);
-}
-
 //배열node를 받아 배열값을 뽑아줌
 const getCheckValue = (checkElem) =>{
     let returnArr=new Array();
@@ -113,101 +105,120 @@ const setCheckValue = (checkArr,name) =>{
 }
 
 //조건버튼이벤트2 검색
+const conditionResult = ()=>{
+    let alone = document.querySelector('input[name="alone"]:checked').value;
+    let f_cookery = getCheckValue(document.querySelectorAll('input[name="f_cookery"]:checked'));
+    let f_worlddiv = getCheckValue(document.querySelectorAll('input[name="f_worlddiv"]:checked'));
+    let igd = getCheckValue(document.querySelectorAll('input[name="igd"]:checked'));
+    if (alone==null){
+        alert('인원수를 체크해주세요');
+        return;
+    }
+    console.log('검색값 확인')
+    console.log(f_cookery);
+    console.log(f_worlddiv);
+    console.log(igd);
+    console.log(alone);
+    fetch('/food',{
+        'method': 'post',
+        'headers': { 'Content-Type': 'application/json' },
+        'body': JSON.stringify({f_cookery,f_worlddiv,igd,alone,fdnum:1})
+    }).then(res=>res.json())
+        .then((data) => {
+            //디스플레이 block
+            setDisplayItems(1);
+            //전구 켜기
+            document.querySelector('#food_light').classList.remove('far');
+            document.querySelector('#food_light').classList.add('fas');
+            //음식하나 받아옴
+            let oneFood = data[0];
+            //음식 이미지
+            getImg(oneFood,makeFoodImg,10);
+            //음식이름,스크롤 이동
+            document.querySelector('#food_light').scrollIntoView();
+            foodInfoElem.innerHTML = `
+                    ${oneFood.f_nm}
+                `;
+            //맵
+            let mapInfoElem = document.querySelector('#restaurant_box');
+            //맵 이미지삭제
+            removeChild(mapInfoElem);
+            //맵 불러오기
+            getMapCurAddrKeyWord(oneFood.f_nm);
+            //맵타이틀
+            let maptitleElem = document.querySelector('#map_title');
+            maptitleElem.innerHTML = `내 주변(5km) ${oneFood.f_nm} 식당`;
+
+        })
+        .catch((data)=>{
+            console.log(data);
+            alert('검색조건에 맞는 음식이 없습니다');
+        });
+
+}
 
 if(foodCheckFrmElem){
     const btnSeElem = document.querySelector('#btn_search');
+    const btnAgElem = document.querySelector('#food_ag_btn');
     let imgElem = btnSeElem.querySelector('img');
     btnSeElem.addEventListener('mouseover',e=>{
-        imgElem.src='/res/img/con_go.png';
+        imgElem.src='/img/con_go.png';
     });
     btnSeElem.addEventListener('mouseout',e=>{
-        imgElem.src='/res/img/con_go_b.png';
+        imgElem.src='/img/con_go_b.png';
     });
     //버튼클릭
     btnSeElem.addEventListener('click',(e)=>{
         e.preventDefault();
-
-        let alone = document.querySelector('input[name="alone"]:checked').value;
-        console.log(alone);
-        let f_cookery = getCheckValue(document.querySelectorAll('input[name="f_cookery"]:checked'));
-        let f_worlddiv = getCheckValue(document.querySelectorAll('input[name="f_worlddiv"]:checked'));
-        let igd = getCheckValue(document.querySelectorAll('input[name="igd"]:checked'));
-        if (alone==null){
-            alert('인원수를 체크해주세요');
-            return;
-        }
-
-
-        fetch('/food/random',{
-            'method': 'post',
-            'headers': { 'Content-Type': 'application/json' },
-            'body': JSON.stringify({f_cookery,f_worlddiv,igd,alone})
-        }).then(res=>res.json())
-            .then((data) => {
-                //디스플레이 block
-                setDisplayItems(1);
-                //전구 켜기
-                document.querySelector('#food_light').classList.remove('far');
-                document.querySelector('#food_light').classList.add('fas');
-                console.log(data);
-                console.log(data.f_nm);
-                //음식이름,스크롤 이동
-                document.querySelector('#food_light').scrollIntoView();
-                foodInfoElem.innerHTML = `
-                    ${data.f_nm}
-                `;
-                //맵
-                let mapInfoElem = document.querySelector('#restaurant_box');
-                mapInfoElem.innerHTML=null;
-                while (mapInfoElem.hasChildNodes()){
-                    mapInfoElem.removeChild(mapInfoElem.firstChild);
-                }
-
-                getMapCurAddrKeyWord(data.f_nm);
-                //맵타이틀
-                let maptitleElem = document.querySelector('#map_title');
-                maptitleElem.innerHTML = `내 주변 ${data.f_nm} 식당`;
-
-
-
-                //이미지
-                getImgByFdnm(data.f_nm,1);
-            })
-            .catch((data)=>{
-                console.log(data);
-                alert('검색조건에 맞는 음식이 없습니다');
-            });
-
+        conditionResult();
     });
-}
-//키워드로 이미지 가져오기
-function getImgByFdnm(keyword,num){
-    fetch(`/img/search?search=${keyword}`)
-        .then(res=> res.json())
-        .then((data) =>{
-            if(num==1){
-                makeFoodImg(data);
-            }else if(num==2){
-                console.log(data);
-            }
-        });
+    btnAgElem.addEventListener('click',(e)=>{
+        conditionResult();
+    })
+
 }
 //음식 이미지 만들어주기
-function makeFoodImg(data){
-    if(foodImgElem.querySelector('div')){
-        foodImgElem.querySelector('div').remove();
-    }
-    let divElem = document.createElement('div');
-    for (var i = 0;i<4;i++){
+function makeFoodImg(item,data){
+    // if(foodImgElem.querySelector('div')){
+    //     foodImgElem.querySelector('div').remove();
+    // }
+    // console.log('makingImg함수호출')
+    // console.log(data);
+    // let divElem = document.createElement('div');
+    // data.result.forEach(item=>{
+    //     let imgElem = document.createElement('img');
+    //     imgElem.addEventListener('error',e=>{
+    //         imgElem.src='/img/imgerr.jpg';
+    //     });
+    //     imgElem.src = item!=null||item.link!=null?item.link:'/img/imgerr.jpg';
+    //     divElem.append(imgElem);
+    // });
+    // divElem.classList.add('rdfood-list');
+    // foodImgElem.append(divElem);
+
+
+    let swiperFoodBn = document.querySelector('#swiper_fdbn');
+    removeChild(swiperFoodBn);
+    data.result.forEach(item=>{
+        let divSwElem = document.createElement('div');
         let imgElem = document.createElement('img');
         imgElem.addEventListener('error',e=>{
-            imgElem.src='/res/img/imgerr.jpg';
+            imgElem.src='/img/imgerr.jpg';
         });
-        imgElem.src = data.result[i]!=null?data.result[i].link:'/res/img/imgerr.jpg';
-        divElem.append(imgElem);
-    }
-    divElem.classList.add('rdfood-list');
-    foodImgElem.append(divElem);
+        imgElem.src = item!=null||item.link!=null?item.link:'/img/imgerr.jpg';
+        divSwElem.append(imgElem);
+        divSwElem.classList.add('swiper-slide');
+        swiperFoodBn.append(divSwElem);
+    });
+    new Swiper('.food-bn-container', {
+        slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
+        spaceBetween : 50, // 슬라이드간 간격
+        autoplay: {
+            delay:2500,
+            disableOnInteraction : false
+        },
+        loop : true, // 무한 반복
+    });
 }
 
 //이미지,맵 diplay변경

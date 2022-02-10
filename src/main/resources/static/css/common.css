@@ -73,7 +73,8 @@ header{
     padding: 10px 20px;
 }
 header a{
-    font-weight: bolder;
+    font-weight: bold;
+    font-size: 16px;
     text-decoration: none;
     color: white;
 }
@@ -162,17 +163,37 @@ footer{
 .f-s-10{
     font-size: 10px;
 }
+.f-s-15{
+    font-size: 15px;
+}
+.f-s-18{
+    font-size: 18px;
+}
 
 .f-s-20{
     font-size: 20px;
 }
 
+.f-s-23{
+    font-size: 23px;
+}
 .f-s-30{
     font-size: 30px;
 }
 .f-s-40{
     font-size: 40px;
 }
+.f-c-g{
+    color: #343434;
+}
+
+.text-emph{
+    text-align: center;
+    background-color: #555555;
+    color: white;
+    padding: 0 40px;
+}
+
 .mt10{
     margin-top: 10px;
 }
@@ -184,6 +205,12 @@ footer{
 }
 .mt60{
     margin-top: 60px;
+}
+.mt100{
+    margin-top: 100px;
+}
+.mt150{
+    margin-top: 150px;
 }
 
 .mb10{
@@ -239,7 +266,8 @@ footer{
 }
 
 .bg-pink{
-    background: linear-gradient(to bottom, #ff4e7f, #fa6e6e) ;
+    background-color: #ff4e7f;
+    /*background: linear-gradient(to bottom, #ff4e7f, #fa6e6e) ;*/
 }
 
 .pointer{
@@ -258,7 +286,7 @@ footer{
     align-items: center;
     color: black;
     font-weight: bolder;
-    font-size: 40px;
+    font-size: 50px;
     margin: 8px 0px;
 }
 .line::before{

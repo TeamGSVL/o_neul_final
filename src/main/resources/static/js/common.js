@@ -6,7 +6,6 @@ const getImg = (item,myFun,imgNum,codeNum) =>{
             myFun(item,data,codeNum);
         }).catch(err=>{
             console.log(err);
-            myFun(item,null);
     });
 };
 //날씨 호출

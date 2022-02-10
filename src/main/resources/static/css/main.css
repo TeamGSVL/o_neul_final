@@ -31,10 +31,11 @@
 /*}*/
 .bn .swiper-slide img{
     max-width:100%;
-    height: 300px;
+    height: 330px;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .bn .swiper-pagination{
     bottom: auto;
@@ -55,7 +56,7 @@
     display: none;
 }
 .bn .swiper-pagination-clickable .swiper-pagination-bullet{
-    background-color: #fa6e6e;
+    background-color: #ff4e7f;
 }
 
 /*배너끝*/
@@ -75,16 +76,22 @@
     height: 500px;
     grid-template-columns: repeat(4,1fr);
     grid-template-rows: repeat(2,auto);
-    gap: 50px;
+    column-gap: 40px;
+    row-gap: 80px;
     place-items:center;
     margin: 0;
     padding: 0;
 }
 
 .rdfood-list img{
-    width: 350px;
-    height: 200px;
-    border-radius: 20px;
+    width: 380px;
+    height: 220px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.rdfood-spanCon{
+    color: #fa6e6e;
 }
 
 .bg{ /*투명배경*/
@@ -142,20 +149,28 @@
     grid-template-columns: repeat(4,auto);
     grid-template-rows: repeat(2,auto);
     place-items:center;
+    column-gap: 40px;
+    row-gap: 80px;
     margin: 0;
     padding: 0;
 }
 .rcrest-img{
-    width: 350px;
-    height: 200px;
-    border-radius: 20px;
+    width: 380px;
+    height: 220px;
+    border-radius: 15px;
+    margin-bottom: 10px;
 }
 .rcrest-span-nm{
+    font-size: 19px;
     font-weight: bolder;
+    margin-bottom: 5px;
 }
 
 .rcrest-span-fd{
-    font-size: 13px;
+    padding: 0 10px;
+    background-color: #555555;
+    color: #ecf0f1;
+    font-size: 14px;
     font-weight: bolder;
 }
 #jmtGo{

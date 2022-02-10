@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gsvl.oneul.food.FoodMapper">
-    <select id="selConList">
-
+    <select id="selConList" resultType="FoodConNmEntity">
+        <if test="masterNum == 5">
+            select igdnum as conValue, igdkind as conNm from o_igd
+        </if>
+        <if test="masterNum == 6">
+            select alknum as conValue, alkkind as conNm from o_alk
+        </if>
+        <if test="masterNum lt 5">
+            SELECT key_value as conNm,sub_key as conValue  FROM connect_common WHERE master_key = ${masterNum};
+        </if>
     </select>
 
     <select id="selFoodList" resultType="FoodResultVO">
-        SELECT DISTINCT A.ifood,B.key_value AS f_cookery,A.f_nm,
+        SELECT DISTINCT A.ifood,B.key_value AS f_cookery,A.f_nm,A.f_img,
                         C.key_value AS f_season,D.key_value AS f_worlddiv,A.f_alone,
             (SELECT group_concat(alkkind) FROM o_alk E
             JOIN o_food_alk F
@@ -53,8 +61,17 @@
         <if test="alone == 1">
             and f_alone = ${alone}
         </if>
+        <if test="f_nm!=null and f_nm!=''">
+            and A.f_nm = #{f_nm}
+        </if>
         order by rand()
         Limit 0,${fdnum}
     </select>
+
+    <update id="insFoodImg">
+        update o_food
+        set f_img = #{f_img}
+        where f_nm = #{f_nm}
+    </update>
 
 </mapper>

@@ -1,5 +1,3 @@
-const bannerUlElem = document.querySelector('#bannerUl');
-
 const foodListElem = document.querySelector('#food_list');//오늘의 음식 리스트 Elem
 //=====================메인 공통함수===========================//
 //
@@ -10,6 +8,7 @@ const makeImg = (item,data,codeNum) =>{
     console.log(item);
     let divElem = document.createElement('div');
     let spanElem = document.createElement('span');
+    let spanElemCon = document.createElement('span');
     let imgElem = document.createElement('img');
     divElem.classList.add('flex-c-c');
 
@@ -23,14 +22,23 @@ const makeImg = (item,data,codeNum) =>{
         imgElem.src = data.result[0].link;
     }
 
+
     divElem.append(imgElem);
     divElem.append(spanElem);
+
 
     //codeNum으로 어디에 나타낼지 보여줌줌
    if(codeNum==1){
         spanElem.innerHTML=`
-        [${item.f_worlddiv}] [${item.f_cookery}] ${item.f_nm}
-    `;
+        ${item.f_nm}
+        `;
+       spanElemCon.innerHTML=`
+       [${item.f_worlddiv}]&nbsp&nbsp[${item.f_cookery}]&nbsp&nbsp[${item.igd}]
+       `;
+       spanElem.classList.add("f-s-23");
+       spanElem.classList.add("f-c-g");
+       spanElemCon.classList.add('rdfood-spanCon')
+        divElem.append(spanElemCon);
         foodListElem.append(divElem);
         console.log('worlddiv')
 
@@ -39,12 +47,14 @@ const makeImg = (item,data,codeNum) =>{
         spanElem.innerHTML=`
         [${item.alk}] [${item.f_cookery}] ${item.f_nm}
     `;
-        acListElem.append(divElem);
+       spanElem.classList.add("f-s-18");
+       acListElem.append(divElem);
     }else if(codeNum==3){
         spanElem.innerHTML=`
         [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
     `;
-        ssListElem.append(divElem);
+       spanElem.classList.add("f-s-18");
+       ssListElem.append(divElem);
     }
 
 
@@ -128,7 +138,7 @@ new Swiper('.bn-container', {
             foodGoElem.classList.add('far');
         });
         foodGoElem.addEventListener('click',evt => {
-            location.href='/food/random';
+            location.href='/food';
         });
     }
 }
@@ -160,8 +170,9 @@ const makeJmtDivMain = (item)=>{
 
     imgElem.classList.add('rcrest-img');
     imgElem.addEventListener('error',e=>{
-        imgElem.src='/res/img/imgerr.jpg';
+        imgElem.src='/img/imgerr.jpg';
     });
+
     imgElem.src= item.basicInfo.mainphotourl;
 
     spanElemNm.classList.add('rcrest-span-nm');
@@ -197,6 +208,16 @@ const makeJmtDivMain = (item)=>{
     //순서1
     navigator.geolocation.getCurrentPosition(function(pos) {
         let curLoca = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        var geocoder = new kakao.maps.services.Geocoder();
+        let jmtAddrInfoelem = document.querySelector('#jmtAddrInfo');
+        geocoder.coord2Address(curLoca.getLng(), curLoca.getLat(), (result, status)=> {
+            if (status === kakao.maps.services.Status.OK) {
+                console.log(result);
+                jmtAddrInfoelem.innerHTML = `${result[0].address.address_name} 주변 맛집`;
+            }
+        });
+
+
         searchPlaces(curLoca);
     });
     var ps = new kakao.maps.services.Places();
@@ -319,7 +340,7 @@ alkElems.forEach(item=> {
                 getImg(item, makeImg, 1, 2);
             });
         },{
-            alk: item.value,
+            alknum: item.value,
             fdnum: 4
         });
     });
@@ -331,7 +352,7 @@ getFoodList(((data)=>{
     data.forEach(item=>{
         getImg(item,makeImg,1,2);
     })}),
-    {alk:1,fdnum:4});
+    {alknum:1,fdnum:4});
 
 //계절랜덤아이콘이미지 버튼
 const seasonImgElem = document.querySelector('#seasonGo');
