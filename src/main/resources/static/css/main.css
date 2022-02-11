@@ -197,10 +197,8 @@
 방송별 css
 */
 .broad .swiper-container {
-    width: 1300px;
+    width: 1500px;
     height:300px;
-    border:5px solid #ff4e7f;
-    border-radius:50px;
     /*box-shadow:0 0 10px #fa6e6e inset;*/
 }
 .broad .swiper-slide {
