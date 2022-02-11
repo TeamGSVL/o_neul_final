@@ -85,10 +85,16 @@
                 <div class="food-result-nm mb20" id="foodNmInfo"></div>
             </div>
             <div class="flex-c-c">
-                <div class="flex-c-c food-ag-box"><img id="food_ag_btn" src="/img/con_ag_r.png"><div>다시</div></div>
+                <div class="flex-c-r food-ag-box">
+                    <div>다른음식</div>
+                    <img id="food_ag_btn" class="food-ag-img" src="/img/con_ag_r.png">
+                    <div>가져오기</div>
+                </div>
             </div>
-            <div class="food-bn-container">
-                <div class="swiper-wrapper" id="swiper_fdbn">
+            <div class="flex-c-r">
+                <div class="food-bn-container">
+                    <div class="swiper-wrapper" id="swiper_fdbn">
+                    </div>
                 </div>
             </div>
         </section>
@@ -105,3 +111,4 @@
         team-gsvn의 주관적인 의견이 담겨있으며, 이미지들은 naver의 이미지 검색 api를 통해 가져오는 것 이고,
         내주변 식당은 kakao 장소검색 api를 활용해 근방 5km를 탐색한다</div>
 </th:block>
+</html>

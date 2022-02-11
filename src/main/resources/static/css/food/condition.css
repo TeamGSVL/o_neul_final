@@ -95,23 +95,24 @@ fieldset label{
 
 .food-ag-box{
     background-color: rgba(252, 148, 148, 0.98);
-    width: 80px;
-    height: 80px;
-    margin: 50px 0;
     border-radius: 20px;
+    padding: 0 20px;
+    margin-bottom: 100px;
 }
-.food-ag-box i{
+.food-ag-img{
     cursor: pointer;
-    font-size: 40px;
-    color: white;
+    width: 40px;
+    height: 60px;
 }
 .food-ag-box div{
-    font-size: 20px;
+    font-size: 15px;
     color: white;
 }
 
-.food-bn-container .swiper-container{
+.food-bn-container{
+    overflow: hidden;
     width: 1500px;
+    height:300px;
 }
 .food-bn-container .swiper-slide {
     text-align:center;
@@ -120,8 +121,8 @@ fieldset label{
     justify-content:center; /* 좌우 기준 중앙정렬 */
 }
 .food-bn-container img{
-    width: 300px;
-    height: 250px;
+    width: 330px;
+    height: 270px;
     padding: 10px;
     border-radius: 30px;
     max-width:100%;
