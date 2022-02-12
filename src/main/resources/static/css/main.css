@@ -173,15 +173,13 @@
     font-size: 14px;
     font-weight: bolder;
 }
-#jmtGo{
-
-}
-
-#jmtGo:hover {
+.jmtGo{
     transition: all ease 1s;
-    transform: translateX( 40px );
 }
+
+
 .jmt-btn-box{
+    cursor: pointer;
     padding: 10px 30px;
     width: 200px;
     color: white;
