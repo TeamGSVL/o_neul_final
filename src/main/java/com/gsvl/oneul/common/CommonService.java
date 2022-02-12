@@ -1,6 +1,7 @@
 package com.gsvl.oneul.common;
 
 import com.gsvl.oneul.common.model.img.SearchImgVO;
+import com.gsvl.oneul.common.utils.MySearchImgApiUtils;
 import com.gsvl.oneul.food.FoodMapper;
 import com.gsvl.oneul.food.model.FoodConditionEntity;
 import com.gsvl.oneul.food.model.FoodResultVO;

@@ -3,17 +3,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet" th:href="@{/css/broad/brdetail.css}">
-    <script defer th:src="@{/js/broad/brdetail.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/broad/tvdetail.css}">
+    <script defer th:src="@{/js/broad/tvdetail.js}"></script>
     <meta charset="UTF-8">
     <title>Broad</title>
 </head>
 <th:block layout:fragment="content">
-    <section class="br-bn-container">
+    <section class="tv-bn-container">
         <div class="flex-c-c">
             <img src="/img/br_bnr.png">
         </div>
     </section>
-    <section class="br-content-container">
+    <section class="tv-content-container">
+        <th:block th:each="item : ${tvlist}">
+            <div th:text="${item.keyNm}"></div>
+        </th:block>
+    </section>
 </th:block>
 </html>

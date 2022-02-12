@@ -1,4 +1,4 @@
-package com.gsvl.oneul.common;
+package com.gsvl.oneul.common.utils;
 
 import com.google.gson.Gson;
 import com.gsvl.oneul.common.model.img.ImgChannel;

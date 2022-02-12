@@ -28,8 +28,8 @@
                             <fieldset class="w100 flex-c-r g30 border-rd mb50">
                                 <th:block th:each="item:${f_cookery}">
                                     <label th:inline="text">
-                                        [[ ${item.conNm} ]]
-                                        <input type="checkbox" name="f_cookery" th:value="${item.conValue}">
+                                        [[ ${item.keyNm} ]]
+                                        <input type="checkbox" name="f_cookery" th:value="${item.keyValue}">
                                     </label>
                                 </th:block>
                             </fieldset>
@@ -39,8 +39,8 @@
                                     <fieldset class="flex-c-r g30 border-rd mb20">
                                         <th:block th:each="item:${f_worlddiv}">
                                             <label th:inline="text">
-                                                [[ ${item.conNm} ]]
-                                                <input type="checkbox" name="f_worlddiv" th:value="${item.conValue}">
+                                                [[ ${item.keyNm} ]]
+                                                <input type="checkbox" name="f_worlddiv" th:value="${item.keyValue}">
                                             </label>
                                         </th:block>
                                     </fieldset>
@@ -50,8 +50,8 @@
                                     <fieldset class="flex-c-r g30 border-rd mb20">
                                         <th:block th:each="item:${igd}">
                                             <label th:inline="text">
-                                                [[ ${item.conNm} ]]
-                                                <input type="checkbox" name="igd" th:value="${item.conValue}">
+                                                [[ ${item.keyNm} ]]
+                                                <input type="checkbox" name="igd" th:value="${item.keyValue}">
                                             </label>
                                         </th:block>
                                     </fieldset>
