@@ -1,4 +1,4 @@
-package com.gsvl.oneul.common;
+package com.gsvl.oneul.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
