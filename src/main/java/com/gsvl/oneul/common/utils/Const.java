@@ -7,4 +7,6 @@ public class Const {
     public final static String ALKNM = "alknm";
     public final static String F_SEASON = "f_season";
     public final static String TVLIST = "tvlist";
+
+    public final static String SUBKEYENTITY = "subKey";
 }
