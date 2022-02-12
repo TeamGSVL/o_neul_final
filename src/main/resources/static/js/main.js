@@ -200,6 +200,21 @@ const makeJmtDivMain = (item)=>{
     divElem.append(spanElemFd);
     return divElem;
 }
+//맛집 더보기 버튼
+{
+    const jmtListGoBtn = document.querySelector('#jmt_list_go');
+    jmtListGoBtn.addEventListener('click',e=>{
+        location.href='/jmt';
+    });
+    jmtListGoBtn.addEventListener('mouseover',e=>{
+         let iconElem = jmtListGoBtn.querySelector('i');
+         iconElem.style.transform = 'translateX( 40px )';
+    });
+    jmtListGoBtn.addEventListener('mouseout',e=>{
+        let iconElem = jmtListGoBtn.querySelector('i');
+        iconElem.style.transform = 'translateX( 0px )';
+    });
+}
 
 
 
@@ -372,15 +387,22 @@ setInterval(rdSeasonImg,1000);
 
 //계절 술 버튼
 {
+    const alkBtnElem = document.querySelector('#alk_list_go');
     //술 버튼 이벤트
-    alkImgElem.addEventListener('mouseover',e=>{
+    alkBtnElem.addEventListener('mouseover',e=>{
         alkImgElem.classList.remove('fa-wine-glass-alt');
         alkImgElem.classList.add('fa-wine-glass');
     });
-    alkImgElem.addEventListener('mouseout',e=>{
+    alkBtnElem.addEventListener('mouseout',e=>{
         alkImgElem.classList.remove('fa-wine-glass');
         alkImgElem.classList.add('fa-wine-glass-alt');
     });
+    alkBtnElem.addEventListener('click',e=>{
+        location.href = '/alc';
+    });
+    const ssBtnElem = document.querySelector('#season_list_go');
+    ssBtnElem.addEventListener('click',e=>{
+        location.href = '/season'
+    });
 }
-
 

@@ -13,13 +13,13 @@ public class JmtController {
     // /jmt/list로 화면이동
     @GetMapping()
     public String goJmtList(){
-        return "/jmt/list";
+        return "/jmt/jmtlist";
     }
 
     // /jmt/detail로 화면이동
     @GetMapping("/{ijmt}")
     public String goJmtDetail(@PathVariable int ijmt){
         System.out.println(ijmt);
-        return "/jmt/detail";
+        return "/jmt/jmtdetail";
     }
 }

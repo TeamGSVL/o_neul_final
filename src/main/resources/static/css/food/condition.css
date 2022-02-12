@@ -94,18 +94,20 @@ fieldset label{
 }
 
 .food-ag-box{
+    cursor: pointer;
     background-color: rgba(252, 148, 148, 0.98);
     border-radius: 20px;
     padding: 0 20px;
     margin-bottom: 100px;
+    gap : 10px;
 }
 .food-ag-img{
-    cursor: pointer;
-    width: 40px;
+    transition: all ease 1s;
+    width: 50px;
     height: 60px;
 }
 .food-ag-box div{
-    font-size: 15px;
+    font-size: 18px;
     color: white;
 }
 
