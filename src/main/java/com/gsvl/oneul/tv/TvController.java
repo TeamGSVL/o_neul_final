@@ -21,7 +21,15 @@ public class TvController {
 
     @GetMapping("/{tvcode}")
     public String goBroadPage(@PathVariable int tvcode, Model model){
-        model.addAttribute(Const.TVLIST,(List<SubKeyEntity>) appCon.getBean(Const.TVLIST));
+        List<SubKeyEntity> list = (List<SubKeyEntity>) appCon.getBean(Const.TVLIST);
+        model.addAttribute(Const.TVLIST,list);
+        SubKeyEntity subKeyEntity = new SubKeyEntity();
+        for(SubKeyEntity entity : list){
+            if(entity.getKeyValue()==tvcode){
+                subKeyEntity = entity;
+            }
+        }
+        model.addAttribute(Const.SUBKEYENTITY,subKeyEntity);
         return "/tv/tvdetail";
     }
 }

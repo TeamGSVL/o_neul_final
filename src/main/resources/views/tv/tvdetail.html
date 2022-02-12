@@ -3,8 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet" th:href="@{/css/broad/tvdetail.css}">
-    <script defer th:src="@{/js/broad/tvdetail.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/tv/tvdetail.css}">
+    <script defer th:src="@{/js/tv/tvdetail.js}"></script>
     <meta charset="UTF-8">
     <title>Broad</title>
 </head>
@@ -15,9 +15,20 @@
         </div>
     </section>
     <section class="tv-content-container">
-        <th:block th:each="item : ${tvlist}">
-            <div th:text="${item.keyNm}"></div>
-        </th:block>
+        <div class="flex-c-r g100">
+            <th:block th:each="item : ${tvlist}">
+                <div th:text="${item.keyNm}"></div>
+            </th:block>
+        </div>
+        <div>
+            <div class="line"><i class="fas fa-tv"></i></div>
+            <div class="flex-c-r">
+                <div class="text-emph f-s-30 flex-c-r">
+                    <div th:text="${subKey.keyNm}"></div>
+                    <div>&nbsp맛집</div>
+                </div>
+            </div>
+        </div>
     </section>
 </th:block>
 </html>
