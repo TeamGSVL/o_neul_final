@@ -26,7 +26,7 @@
                         <fieldset class="flex-c-c">
                             <div class="fsfw mb20">조리방법</div>
                             <fieldset class="w100 flex-c-r g30 border-rd mb50">
-                                <th:block th:each="item:${@f_cookery}">
+                                <th:block th:each="item:${f_cookery}">
                                     <label th:inline="text">
                                         [[ ${item.conNm} ]]
                                         <input type="checkbox" name="f_cookery" th:value="${item.conValue}">
@@ -37,7 +37,7 @@
                                 <div class="confm-item">
                                     <div class="fsfw mb20">나라별</div>
                                     <fieldset class="flex-c-r g30 border-rd mb20">
-                                        <th:block th:each="item:${@f_worlddiv}">
+                                        <th:block th:each="item:${f_worlddiv}">
                                             <label th:inline="text">
                                                 [[ ${item.conNm} ]]
                                                 <input type="checkbox" name="f_worlddiv" th:value="${item.conValue}">
@@ -48,7 +48,7 @@
                                 <div class="confm-item">
                                     <div class="fsfw mb20">재료별</div>
                                     <fieldset class="flex-c-r g30 border-rd mb20">
-                                        <th:block th:each="item:${@igd}">
+                                        <th:block th:each="item:${igd}">
                                             <label th:inline="text">
                                                 [[ ${item.conNm} ]]
                                                 <input type="checkbox" name="igd" th:value="${item.conValue}">
@@ -85,9 +85,9 @@
                 <div class="food-result-nm mb20" id="foodNmInfo"></div>
             </div>
             <div class="flex-c-c">
-                <div class="flex-c-r food-ag-box">
+                <div class="flex-c-r food-ag-box" id="food_ag_btn">
                     <div>다른음식</div>
-                    <img id="food_ag_btn" class="food-ag-img" src="/img/con_ag_r.png">
+                    <img class="food-ag-img" src="/img/con_ag_r.png">
                     <div>가져오기</div>
                 </div>
             </div>
@@ -109,6 +109,6 @@
     </div>
     <div class="food-caution">주의 : 음식에 해당하는 조건들 중 일부분은
         team-gsvn의 주관적인 의견이 담겨있으며, 이미지들은 naver의 이미지 검색 api를 통해 가져오는 것 이고,
-        내주변 식당은 kakao 장소검색 api를 활용해 근방 5km를 탐색한다</div>
+        내주변 식당은 kakao 장소검색 api를 활용해 근방 5km를 탐색한다
+    </div>
 </th:block>
-</html>
