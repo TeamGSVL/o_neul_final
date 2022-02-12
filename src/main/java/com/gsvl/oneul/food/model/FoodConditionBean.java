@@ -4,13 +4,13 @@ import com.gsvl.oneul.food.FoodMapper;
 import com.gsvl.oneul.food.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class FoodConditionBean {
-
     @Autowired
     private FoodMapper foodMapper;
 
