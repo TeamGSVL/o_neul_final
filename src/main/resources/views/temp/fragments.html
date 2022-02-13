@@ -26,8 +26,8 @@
                     <a class="flex-c-r">로그아웃</a>
             </th:block>
             <th:block sec:authorize="isAnonymous()">
-                    <a class="flex-c-r">로그인</a>
-                    <a class="flex-c-r">회원가입</a>
+                    <a class="flex-c-r" href="/user/login">로그인</a>
+                    <a class="flex-c-r" href="/user/join">회원가입</a>
             </th:block>
         </section>
     </header>

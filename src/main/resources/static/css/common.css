@@ -171,6 +171,11 @@ header a:hover{
     align-items: center;
     justify-content: center;
 }
+.flex-e-r{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
 
 .w100{
     width: 100%;
@@ -349,3 +354,8 @@ header a:hover{
 .trans-sx{
     transform: scaleX(-1);
 }
+
+input[type=password]{
+    font-family: '굴림';
+}
+

@@ -62,12 +62,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT uid as username, upw as password, 1 as enabled "
-                        + " FROM t_user "
-                        + " WHERE uid = ?")
-                .authoritiesByUsernameQuery("SELECT uid as username, auth as authority "
-                        + "FROM t_user "
-                        + "WHERE uid = ?");
+                .usersByUsernameQuery("SELECT u_id as username, u_pw as password, 1 as enabled "
+                        + " FROM o_user "
+                        + " WHERE u_id = ?")
+                .authoritiesByUsernameQuery("SELECT u_id as username, auth as authority "
+                        + "FROM o_user "
+                        + "WHERE u_id = ?");
     }
 
     @Bean
