@@ -17,9 +17,10 @@
 
     <section class="tv-content-container">
         <div class="flex-c-r g100">
-            <th:block th:each="item : ${tvlist}">
-                <div th:text="${item.keyNm}"></div>
-            </th:block>
+            <span th:each="item : ${tvlist}" class="tvpro_box">
+                <div class="tvpro_btn" th:text="${item.keyNm}"></div>
+                <input type="hidden" class="tvpro_name" th:value="${item.keyValue}">
+            </span>
         </div>
 
         <div>

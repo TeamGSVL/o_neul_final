@@ -8,3 +8,13 @@ tvrestnmElems.forEach(item => {
         console.log(url);
     });
 })
+
+let tvproBoxElems = document.querySelectorAll('.tvpro_box');
+tvproBoxElems.forEach(item=>{
+    let tvproBtnElem = item.querySelector('.tvpro_btn');
+    tvproBtnElem.addEventListener('click',e=>{
+        let tvproCode = item.querySelector('.tvpro_name').value;
+        location.href = `/tv/${tvproCode}`;
+    });
+})
+
