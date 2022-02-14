@@ -10,6 +10,6 @@ public class UserController {
 
     @GetMapping("/login")
     public void goLoginPage(){ }
-    @GetMapping("/loginvideo")
-    public void goLoginVideoPage(){ }
+    @GetMapping("/join")
+    public void goJoinPage(){ }
 }
