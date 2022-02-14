@@ -6,6 +6,7 @@ tvrestnmElems.forEach(item => {
         let tvListVal = item.innerText.value;
         let url = `https://www.googleapis.com/youtube/v3/search?q=${tvListVal}&key=${myApiKey}&maxResults=1`;
         console.log(url);
+
     });
 })
 
