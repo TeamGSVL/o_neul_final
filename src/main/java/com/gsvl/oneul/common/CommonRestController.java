@@ -17,8 +17,6 @@ import java.util.Map;
 @RequestMapping("/common/ajax")
 public class CommonRestController {
     @Autowired
-    private FoodService foodService;
-    @Autowired
     private CommonService commonService;
 
 

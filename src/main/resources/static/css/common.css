@@ -48,6 +48,10 @@ input[type=radio]{
     padding: 5px 40px;
 }
 
+.clr-main{
+    color: #ff4e7f;
+}
+
 .content-container{
     height: auto;
     min-height: 100%;
@@ -115,12 +119,46 @@ header a:hover{
     margin-right: 10px;
 }
 
-footer{
-    height: 50px;
+.copy-right{
+    color: #808080;
+    height: 200px;
     position : relative;
     background-color: rgba(255, 234, 234, 0.89);
     text-align: center;
     font-size: 13px;
+    display: grid;
+    grid-template-rows: repeat(3,1fr);
+}
+.copy-right .line{
+    color: #808080;
+    font-size: 15px;
+}
+.copy-right .line::before{
+    content: "";
+    flex-grow: 1;
+    margin: 0px 16px;
+    background: #808080;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+}
+.copy-right .line::after{
+    content: "";
+    flex-grow: 1;
+    margin: 0px 16px;
+    background: #808080;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+}
+.copy-right .copy-content-box{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.copy-right .copy-text{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 .flex-c-c{
     display: flex;
@@ -132,6 +170,11 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.flex-e-r{
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 
 .w100{
@@ -311,3 +354,8 @@ footer{
 .trans-sx{
     transform: scaleX(-1);
 }
+
+input[type=password]{
+    font-family: '굴림';
+}
+

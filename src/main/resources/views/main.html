@@ -4,6 +4,7 @@
       layout:decorate="temp/thymeleaf_layout">
 <head>
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script defer src="/res/js/mainmap.js"></script>
     <script defer th:src="@{/js/main.js}"></script>
     <meta charset="UTF-8">
     <title>Main</title>
@@ -14,7 +15,10 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide"><img class="w100" src="/img/con1.png"/></div>
                 <div class="swiper-slide"><img src="/img/b2.png"/></div>
+                <div class="swiper-slide"><img src="/img/br_bnr.png"/></div>
                 <div class="swiper-slide"><img src="/img/b3.png"/></div>
+                <div class="swiper-slide"><img src="/img/b7.png"/></div>
+                <div class="swiper-slide"><img src="/img/jmt_main_br.png"/></div>
                 <div class="swiper-slide bg-lightpink"><img src="/img/b1.png"/></div>
                 <div class="swiper-slide"><img src="/img/b4.png"/></div>
                 <div class="swiper-slide"><img src="/img/b5.png"/></div>
@@ -56,24 +60,24 @@
                 <ul id="jmtList" class="rcrest-list"></ul>
             </div>
             <div class="flex-c-r">
-                <div class="jmt-btn-box ">
-                    <i id="jmtGo" class="f-s-40 fas fa-angle-double-right pointer"></i>
+                <div class="jmt-btn-box" id="jmt_list_go">
+                    <i class="jmtGo f-s-40 fas fa-angle-double-right pointer"></i>
                     <span class="f-s-20">더보기</span>
                 </div>
             </div>
         </section>
         <section class="broad">
             <div class="flex-c-r"><i class="fas fa-tv f-s-40 cc"></i></div>
-            <div class="line">방송별 맛집</div>
+            <div class="line">TV 맛집</div>
             <div class="flex-c-r mt20 mb20">: 방송에 나온 맛집들 :</div>
             <div class="swiper-container mt60">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="/img/back3.jpg"/></div>
-                    <div class="swiper-slide"><img src="/img/tasty.png"/></div>
-                    <div class="swiper-slide"><img src="/img/sangsang.jpg"/></div>
-                    <div class="swiper-slide"><img src="/img/matguys.jpg"/></div>
-                    <div class="swiper-slide"><img src="/img/wed.png"/></div>
-                    <div class="swiper-slide"><img src="/img/defualtFoodImg.jpg"/></div>
+                    <div class="swiper-slide"><a href="/tv/1"><img src="/img/matguys.jpg"/></a></div>
+                    <div class="swiper-slide"><a href="/tv/2"><img src="/img/back3.jpg"/></a></div>
+                    <div class="swiper-slide"><a href="/tv/3"><img src="/img/sangsang.jpg"/></a></div>
+                    <div class="swiper-slide"><a href="/tv/4"><img src="/img/wed.png"/></a></div>
+                    <div class="swiper-slide"><a href="/tv/5"><img class="broad-yjroad" src="/img/yjroad.png"/></a></div>
+                    <div class="swiper-slide"><a href="/tv/6"><img class="broad-tasty" src="/img/tasty.png"/></a></div>
                 </div>
                 <!-- 네비게이션 -->
                 <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
@@ -90,7 +94,7 @@
                     <div class="flex-c-c">
                         <div id="s_today" class="s-today flex-c-r mb20"></div>
                         <li class="ss-list" id="ss_list"></li>
-                        <div class="jmt-btn-box ">
+                        <div class="jmt-btn-box" id="season_list_go">
                             <i id="seasonGo" class="f-s-40 fas fa-snowflake pointer"></i>
                             <span class="f-s-20">더보기</span>
                         </div>
@@ -105,7 +109,7 @@
                             </fieldset>
                         </div>
                         <li class="ac-list" id="ac_list"></li>
-                        <div class="jmt-btn-box ">
+                        <div class="jmt-btn-box " id="alk_list_go">
                             <i id="alkGo" class="f-s-40 fas fa-wine-glass-alt pointer"></i>
                             <span class="f-s-20">더보기</span>
                         </div>

@@ -1,6 +1,12 @@
 package com.gsvl.oneul.common;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.gsvl.oneul.common.model.img.SearchImgVO;
+import com.gsvl.oneul.common.utils.MySearchImgApiUtils;
 import com.gsvl.oneul.food.FoodMapper;
 import com.gsvl.oneul.food.model.FoodConditionEntity;
 import com.gsvl.oneul.food.model.FoodResultVO;
@@ -65,9 +71,25 @@ public class CommonService {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
 
         HttpEntity<String> entity = new HttpEntity(headers);
-
+        //통신해서 kakaoJson가져오기
         ResponseEntity<String> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,entity,String.class);
         String result = responseEntity.getBody();
+
+        //Json형태의 String에서 값 가져오기
+        ObjectMapper om = new JsonMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        JsonNode jsonNode = null;
+
+        String j_placenm= null;
+        try {
+            jsonNode = om.readTree(result);
+            //경로를 다 찾아서 String.class를 넣어주면 그 경로에 String 값을 뽑아서 보내줌줌
+           j_placenm =om.treeToValue(jsonNode.path("basicInfo").path("placenamefull"),String.class);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(j_placenm);
+
         return result;
     }
 }

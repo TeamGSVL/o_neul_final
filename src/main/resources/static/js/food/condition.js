@@ -5,6 +5,10 @@ let checkInputElems = document.querySelectorAll('input[type=checkbox]');
 let mapElem = document.querySelector('#map');
 let mapInfoElem = document.querySelector('#restaurant_box');
 
+
+
+
+
 //조건 버튼 이벤트
 {
     //리셋버튼 돌아가기
@@ -172,12 +176,22 @@ if(foodCheckFrmElem){
         e.preventDefault();
         conditionResult();
     });
+    //다른음식 가져오기
+    let iconElem = btnAgElem.querySelector('img');
     btnAgElem.addEventListener('click',(e)=>{
         conditionResult();
     })
+    btnAgElem.addEventListener('mouseover',evt => {
+        iconElem.style.transform = 'scale(1.1)  translateY(-5px)';
+    });
+    btnAgElem.addEventListener('mouseout',e=>{
+        iconElem.style.transform = 'scale(1.0) translateY(0px)';
+    });
 
 }
 //음식 이미지 만들어주기
+//음식 이미지 슬라이드 배너용 변수
+let foodBn;
 function makeFoodImg(item,data){
     // if(foodImgElem.querySelector('div')){
     //     foodImgElem.querySelector('div').remove();
@@ -195,7 +209,10 @@ function makeFoodImg(item,data){
     // });
     // divElem.classList.add('rdfood-list');
     // foodImgElem.append(divElem);
-
+    if(foodBn){
+        foodBn.destroy();
+        foodBn = undefined;
+    }
 
     let swiperFoodBn = document.querySelector('#swiper_fdbn');
     removeChild(swiperFoodBn);
@@ -210,15 +227,16 @@ function makeFoodImg(item,data){
         divSwElem.classList.add('swiper-slide');
         swiperFoodBn.append(divSwElem);
     });
-    new Swiper('.food-bn-container', {
+    foodBn = new Swiper('.food-bn-container', {
         slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
-        spaceBetween : 50, // 슬라이드간 간격
+        spaceBetween : 30, // 슬라이드간 간격
         autoplay: {
             delay:2500,
             disableOnInteraction : false
         },
         loop : true, // 무한 반복
     });
+
 }
 
 //이미지,맵 diplay변경

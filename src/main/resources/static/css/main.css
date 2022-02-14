@@ -173,15 +173,13 @@
     font-size: 14px;
     font-weight: bolder;
 }
-#jmtGo{
-
-}
-
-#jmtGo:hover {
+.jmtGo{
     transition: all ease 1s;
-    transform: translateX( 40px );
 }
+
+
 .jmt-btn-box{
+    cursor: pointer;
     padding: 10px 30px;
     width: 200px;
     color: white;
@@ -197,10 +195,8 @@
 방송별 css
 */
 .broad .swiper-container {
-    width: 1300px;
+    width: 1500px;
     height:300px;
-    border:5px solid #ff4e7f;
-    border-radius:50px;
     /*box-shadow:0 0 10px #fa6e6e inset;*/
 }
 .broad .swiper-slide {
@@ -210,12 +206,17 @@
     justify-content:center; /* 좌우 기준 중앙정렬 */
 }
 .broad .swiper-slide img {
-    border-radius:150px;
-    border: 1px solid white;
-    height: 225px;
-    width: 225px;
     max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 }
+.broad .broad-tasty{
+    width: 320px;
+    height: 200px;
+}
+.broad .broad-yjroad{
+    width: 255px;
+    height: 255px;
+}
+
 .broad .swiper-button-next {
     background: url("/img/con_go.png") no-repeat;
     background-size: 170%;
