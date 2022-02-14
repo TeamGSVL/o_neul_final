@@ -35,6 +35,8 @@ public class TvController {
         model.addAttribute(Const.SUBKEYENTITY,subKeyEntity);
         // tv 방송 식당 목록.
         model.addAttribute(Const.TVCASTLIST, service.selTvList(tvcode, dto));
+
+        // tv 방송별 페이징
         model.addAttribute(Const.MAXPAGE, service.selMaxPage(tvcode));
         return "/tv/tvdetail";
     }
