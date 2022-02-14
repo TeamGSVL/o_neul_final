@@ -13,4 +13,10 @@ public interface TvMapper {
 
     // Tv 프로 페이징
     int selMaxPage(TvDto dto);
+
+    // Tv 이미지 확인
+    String selImg (int itv);
+
+    // Tv 이미지 업데이트
+    int uptImg (TvEntity entity);
 }
