@@ -14,18 +14,30 @@
             <img src="/img/br_bnr.png">
         </div>
     </section>
+
     <section class="tv-content-container">
         <div class="flex-c-r g100">
             <th:block th:each="item : ${tvlist}">
                 <div th:text="${item.keyNm}"></div>
             </th:block>
         </div>
+
         <div>
             <div class="line"><i class="fas fa-tv"></i></div>
-            <div class="flex-c-r">
+            <div class="flex-c-c">
                 <div class="text-emph f-s-30 flex-c-r">
                     <div th:text="${subKey.keyNm}"></div>
                     <div>&nbsp맛집</div>
+                </div>
+                <div class="flex-c-c">
+                    <table>
+                        <th:block th:each="list : ${tvcastlist}">
+                            <div class="tv_rest_nm" th:text="${list.t_restnm}"></div>
+                        </th:block>
+                    </table>
+                </div>
+                <div>
+                    <div th:text="${maxpage}"></div>
                 </div>
             </div>
         </div>
