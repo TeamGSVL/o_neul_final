@@ -85,15 +85,17 @@ public class JmtService {
                 }
 
 
-
             } catch (JsonProcessingException e) {
 
                 e.printStackTrace();
+            }finally {
+                //    int result = jmtMapper.insJmt(entity);
+//                    resultEntity = selJmt(entity);
+                return resultEntity;
             }
 
 
-            int result = jmtMapper.insJmt(entity);
-            resultEntity = selJmt(entity);
+
         }
         return resultEntity;
     }
