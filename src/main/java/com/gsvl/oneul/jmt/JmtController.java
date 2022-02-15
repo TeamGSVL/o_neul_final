@@ -22,4 +22,5 @@ public class JmtController {
         System.out.println(ijmt);
         return "/jmt/jmtdetail";
     }
+
 }

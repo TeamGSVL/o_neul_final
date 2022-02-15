@@ -51,7 +51,7 @@ public class TvService {
         ObjectMapper om = new JsonMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = null;
 
-        String kakaoImg= null;
+        String kakaoImg= "noPhoto";
         try {
             jsonNode = om.readTree(result);
             //경로를 다 찾아서 String.class를 넣어주면 그 경로에 String 값을 뽑아서 보내줌줌
@@ -60,17 +60,16 @@ public class TvService {
         } catch (JsonProcessingException e) {
             kakaoImg = "noPhoto";
             e.printStackTrace();
-        }
-        if(kakaoImg==null){
-            kakaoImg = "noPhoto";
-        }
-        TvEntity entity = new TvEntity();
-        entity.setItv(itv);
-        entity.setT_img(kakaoImg);
+        } finally {
+            TvEntity entity = new TvEntity();
+            entity.setItv(itv);
+            entity.setT_img(kakaoImg);
 
-        mapper.uptImg(entity);
+            mapper.uptImg(entity);
 
-        return kakaoImg;
+            return kakaoImg;
+        }
+
     }
 
 }

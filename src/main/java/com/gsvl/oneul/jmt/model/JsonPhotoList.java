@@ -8,5 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class JsonPhotoList {
+    private int ijmt;
     private String orgurl;
 }

@@ -15,10 +15,6 @@ public class JmtRestController {
     @Autowired
     private JmtService jmtService;
 
-    @GetMapping("/list/{ijmt}")
-    public String getKaKaoJsonData(@PathVariable int ijmt){
-        return jmtService.getkakaoJsonPage(ijmt);
-    }
 
     @PostMapping()
     @ResponseBody
@@ -26,9 +22,6 @@ public class JmtRestController {
         for(JmtEntity entity:jmtArr){
             jmtService.insJmt(entity);
         }
-
-
-
 
         Map<String, Integer> result = new HashMap<>();
         result.put("result", 1);

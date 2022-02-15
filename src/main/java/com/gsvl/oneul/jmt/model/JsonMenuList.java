@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class JsonMenuList {
+    private int ijmt;
     private String price;
     private String menu;
 }
