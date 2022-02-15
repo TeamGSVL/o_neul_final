@@ -6,10 +6,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.gsvl.oneul.common.model.img.SearchImgVO;
+import com.gsvl.oneul.common.utils.MyKakaoJson;
 import com.gsvl.oneul.common.utils.MySearchImgApiUtils;
 import com.gsvl.oneul.food.FoodMapper;
 import com.gsvl.oneul.food.model.FoodConditionEntity;
 import com.gsvl.oneul.food.model.FoodResultVO;
+import com.gsvl.oneul.tv.TvMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -29,6 +31,8 @@ public class CommonService {
     private MySearchImgApiUtils mySearchImgApiUtils;
     @Autowired
     private FoodMapper foodMapper;
+    @Autowired
+    private MyKakaoJson myKakaoJson;
 
     //이미지 검색
     public List<SearchImgVO> getImg(String keyWord,int imgNum){
@@ -56,24 +60,11 @@ public class CommonService {
         return list;
     }
 
-    //카카오json페이지 통신
+    //카카오json페이지 통신 ( 메인, 음식 조건 검색 )
     public String getkakaoJsonPage(int ijmt){
         //ijmt를 카카오 맵에서 가져옴 (id)
-        String url = "https://place.map.kakao.com/main/v/"+ijmt;
 
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).build();
-
-        //레스트 탬플릿 생성
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(0,new StringHttpMessageConverter(Charset.forName("UTF-8")));
-
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-
-        HttpEntity<String> entity = new HttpEntity(headers);
-        //통신해서 kakaoJson가져오기
-        ResponseEntity<String> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,entity,String.class);
-        String result = responseEntity.getBody();
+        String result = myKakaoJson.connectKaKaoJson(ijmt);
 
         //Json형태의 String에서 값 가져오기
         ObjectMapper om = new JsonMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -92,4 +83,9 @@ public class CommonService {
 
         return result;
     }
+
+
+
+
+
 }

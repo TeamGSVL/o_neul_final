@@ -52,8 +52,10 @@
         <if test="f_nm!=null and f_nm!=''">
             and A.f_nm = #{f_nm}
         </if>
-        order by rand()
-        Limit 0,${fdnum}
+        <if test="fdnum>0">
+            order by rand()
+            Limit 0,${fdnum}
+        </if>
     </select>
 
     <update id="insFoodImg">

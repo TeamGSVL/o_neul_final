@@ -12,4 +12,15 @@
         FROM o_tv
         WHERE t_pro = #{t_pro}
     </select>
+
+    <select id="selImg" resultType="String">
+        select t_img from o_tv
+        where itv = ${itv}
+    </select>
+
+    <update id="uptImg">
+        update o_tv
+        set t_img = #{t_img}
+        where itv = #{itv}
+    </update>
 </mapper>
