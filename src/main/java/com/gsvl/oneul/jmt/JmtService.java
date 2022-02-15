@@ -10,15 +10,9 @@ import com.gsvl.oneul.jmt.model.JmtEntity;
 import com.gsvl.oneul.jmt.model.JsonMenuList;
 import com.gsvl.oneul.jmt.model.JsonPhotoList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.nio.charset.Charset;
-import java.util.Arrays;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class JmtService {
@@ -99,6 +93,4 @@ public class JmtService {
     public JmtEntity selJmt(JmtEntity entity){
         return jmtMapper.selJmt(entity);
     }
-    //카카오json페이지 통신
-
 }
