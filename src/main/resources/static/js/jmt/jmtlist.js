@@ -3,7 +3,7 @@
     let jmt_addr = document.querySelector('#jmt_addr');
 
     let pageCount = 1;
-    let kakaoId = [];
+    let jmtArr = [];
     let isConnected = 0;
 
 //현재위치를 받아서 좌표에 찍기, 좌표값을 이용해 현재위치 주소값 알기
@@ -63,11 +63,17 @@
                     //형님 알아서 하세요
                     displayPlaces(data);
                     if(isConnected == 0){
-                        console.log(kakaoId);
+
+                        let param = {
+
+                        }
+
+
+                        console.log(jmtArr);
                         fetch('/jmt/ajax', {
                             method: 'post',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(kakaoId)
+                            body: JSON.stringify(jmtArr)
                         }).then(function(res) {
                             return res.json();
                         }).then(function(data) {
@@ -141,7 +147,17 @@
 
             }else {
                 data.forEach(item=>{
-                    kakaoId.push(item.id);
+                    let JmtEntity = {
+                        ijmt : item.id,
+                        j_placenm : item.place_name,
+                        j_phone : item.phone,
+                        j_oldaddr : item.address_name,
+                        j_newaddr : item.road_address_name,
+                        j_x : item.x,
+                        j_y : item.y
+                    }
+
+                    jmtArr.push(JmtEntity);
 
                 });
 
