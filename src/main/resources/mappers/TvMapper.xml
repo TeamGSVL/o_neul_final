@@ -4,7 +4,7 @@
     <select id="selTvList" resultType="TvEntity">
         SELECT * FROM o_tv
         WHERE t_pro = #{t_pro}
-            LIMIT ${rowcnt}, ${recordcount}
+        LIMIT ${rowcnt}, ${recordcount}
     </select>
 
     <select id="selMaxPage" resultType="Integer">
