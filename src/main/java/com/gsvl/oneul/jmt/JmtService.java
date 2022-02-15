@@ -1,6 +1,14 @@
 package com.gsvl.oneul.jmt;
 
-import com.gsvl.oneul.jmt.model.KakaoJsonEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.gsvl.oneul.common.utils.MyKakaoJson;
+import com.gsvl.oneul.jmt.model.JmtEntity;
+import com.gsvl.oneul.jmt.model.JsonMenuList;
+import com.gsvl.oneul.jmt.model.JsonPhotoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -16,19 +24,80 @@ import java.util.Arrays;
 public class JmtService {
     @Autowired
     private JmtMapper jmtMapper;
+    @Autowired
+    private MyKakaoJson myKakaoJson;
 
-    public int insJmt(String iKao){
-        KakaoJsonEntity entity = new KakaoJsonEntity();
-        entity.setIjmt(Integer.parseInt(iKao));
+    public JmtEntity insJmt(JmtEntity entity){
+        JmtEntity resultEntity = selJmt(entity);
+        if (resultEntity == null){
+            String kakaoJson = myKakaoJson.connectKaKaoJson(entity.getIjmt());
+
+            ObjectMapper om = new JsonMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            JsonNode jsonNode = null;
+
+            String j_catenm = null;
+            JsonPhotoList[] photoList= null;
+            JsonMenuList[] menuList= null;
+            try {
+                jsonNode = om.readTree(kakaoJson);
+                //경로를 다 찾아서 String.class를 넣어주면 그 경로에 String 값을 뽑아서 보내줌줌
+
+                //카테고리
+                try {
+                    j_catenm = om.treeToValue(jsonNode.get("basicInfo").get("catename"), String.class);
+
+                    System.out.println("-------------------");
+                    System.out.println(j_catenm);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                } finally {
+                }
+
+                //포토리스트
+                try {
+                    photoList = om.treeToValue(jsonNode.get("photo").get("photoList").get(0).get("list"), JsonPhotoList[].class);
+
+                    System.out.println("-------------------");
+                    for (JsonPhotoList list:photoList ){
+                        System.out.println(list);
+                    }
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                } finally {
+                }
+
+                //메뉴리스트
+                try {
+                    menuList = om.treeToValue(jsonNode.get("menuInfo").get("menuList"), JsonMenuList[].class);
+                    System.out.println("-------------------");
+                    for (JsonMenuList list:menuList ){
+                        System.out.println(list);
+                    }
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                } finally {
+                }
 
 
-        if (selJmt(entity) == null){
+
+            } catch (JsonProcessingException e) {
+
+                e.printStackTrace();
+            }
+
+
             int result = jmtMapper.insJmt(entity);
+            resultEntity = selJmt(entity);
         }
-
-        return 0;
+        return resultEntity;
     }
-    public KakaoJsonEntity selJmt(KakaoJsonEntity entity){
+    public JmtEntity selJmt(JmtEntity entity){
         return jmtMapper.selJmt(entity);
     }
     //카카오json페이지 통신

@@ -1,5 +1,7 @@
 package com.gsvl.oneul.jmt;
 
+import com.gsvl.oneul.jmt.model.JmtDto;
+import com.gsvl.oneul.jmt.model.JmtEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +19,15 @@ public class JmtRestController {
     public String getKaKaoJsonData(@PathVariable int ijmt){
         return jmtService.getkakaoJsonPage(ijmt);
     }
+
     @PostMapping()
     @ResponseBody
-    public Map<String, Integer> insJmt (@RequestBody List<String> kakaoId) {
-        for(String iKao:kakaoId){
-            jmtService.insJmt(iKao);
+    public Map<String, Integer> insJmt (@RequestBody List<JmtEntity> jmtArr) {
+        for(JmtEntity entity:jmtArr){
+            jmtService.insJmt(entity);
         }
+
+
 
 
         Map<String, Integer> result = new HashMap<>();
