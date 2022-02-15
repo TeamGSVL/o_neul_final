@@ -98,7 +98,13 @@ const makeItemDiv = (item,connectKmap) =>{
 
     divElem.classList.add('tv-item');
     console.log(item.t_img);
-    imgElem.src = item.t_img==null?'/img/imgerr.jpg':item.t_img;
+
+    if(item.t_img=='noPhoto'||item.t_img==null){
+        imgElem.src = '/img/imgerr.jpg';
+    }else {
+        imgElem.src = item.t_img;
+    }
+
     let addr = item.t_addr;
     if(item.t_addr.includes(' ')){
         let addrArr = item.t_addr.split(' ');
@@ -147,6 +153,7 @@ const connectKmap = (item) =>{
         if (status === kakao.maps.services.Status.OK) {
             getTvImg(item.itv,data[0].id,item);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+            console.log('??');
             return;
 
         } else if (status === kakao.maps.services.Status.ERROR) {

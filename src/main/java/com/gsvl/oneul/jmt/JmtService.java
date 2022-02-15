@@ -37,7 +37,9 @@ public class JmtService {
 
             String j_catenm = null;
             JsonPhotoList[] photoList= null;
+
             JsonMenuList[] menuList= null;
+
             try {
                 jsonNode = om.readTree(kakaoJson);
                 //경로를 다 찾아서 String.class를 넣어주면 그 경로에 String 값을 뽑아서 보내줌줌
@@ -45,56 +47,51 @@ public class JmtService {
                 //카테고리
                 try {
                     j_catenm = om.treeToValue(jsonNode.get("basicInfo").get("catename"), String.class);
-
-                    System.out.println("-------------------");
-                    System.out.println(j_catenm);
+                    entity.setJ_catenm(j_catenm);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                } finally {
                 }
 
                 //포토리스트
                 try {
                     photoList = om.treeToValue(jsonNode.get("photo").get("photoList").get(0).get("list"), JsonPhotoList[].class);
-
-                    System.out.println("-------------------");
-                    for (JsonPhotoList list:photoList ){
-                        System.out.println(list);
+                    for(JsonPhotoList list : photoList){
+                        list.setIjmt(entity.getIjmt());
                     }
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                } finally {
                 }
 
                 //메뉴리스트
                 try {
                     menuList = om.treeToValue(jsonNode.get("menuInfo").get("menuList"), JsonMenuList[].class);
-                    System.out.println("-------------------");
-                    for (JsonMenuList list:menuList ){
-                        System.out.println(list);
+                    for(JsonMenuList list : menuList){
+                        list.setIjmt(entity.getIjmt());
                     }
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                } finally {
                 }
 
 
             } catch (JsonProcessingException e) {
-
                 e.printStackTrace();
             }finally {
-                //    int result = jmtMapper.insJmt(entity);
-//                    resultEntity = selJmt(entity);
+
+                jmtMapper.insJmt(entity);
+                if (photoList!=null){
+                    jmtMapper.insImg(photoList);
+                }
+                if(menuList!=null){
+                    jmtMapper.insMenus(menuList);
+                }
                 return resultEntity;
             }
-
-
 
         }
         return resultEntity;
@@ -103,24 +100,5 @@ public class JmtService {
         return jmtMapper.selJmt(entity);
     }
     //카카오json페이지 통신
-    public String getkakaoJsonPage(int ijmt){
-        //ijmt를 카카오 맵에서 가져옴 (id)
-        String url = "https://place.map.kakao.com/main/v/"+ijmt;
-        System.out.println("ijmt :" + ijmt);
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).build();
 
-        //레스트 탬플릿 생성
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(0,new StringHttpMessageConverter(Charset.forName("UTF-8")));
-
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-
-        HttpEntity<String> entity = new HttpEntity(headers);
-
-        ResponseEntity<String> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,entity,String.class);
-        String result = responseEntity.getBody();
-
-        return result;
-    }
 }

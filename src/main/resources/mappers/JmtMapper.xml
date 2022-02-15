@@ -11,4 +11,22 @@
         SELECT * FROM o_jmt
         WHERE ijmt = #{ijmt}
     </select>
+
+    <insert id="insImg">
+        insert into o_jmt_img
+        (ijmt,j_src)
+        VALUES
+        <foreach collection="jpList" item="item" separator=",">
+            (#{item.ijmt},#{item.orgurl})
+        </foreach>
+
+    </insert>
+    <insert id="insMenus">
+        insert into o_jmt_menu
+        (ijmt,j_nm,j_price)
+        values
+        <foreach collection="jmList" item="item" separator=",">
+            (#{item.ijmt},#{item.menu},#{item.price})
+        </foreach>
+    </insert>
 </mapper>
