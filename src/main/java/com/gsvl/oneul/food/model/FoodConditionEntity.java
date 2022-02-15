@@ -1,14 +1,13 @@
 package com.gsvl.oneul.food.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class FoodConditionEntity {
     private List<String> f_cookery;
     private List<String> f_worlddiv;

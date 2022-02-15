@@ -1,6 +1,5 @@
 package com.gsvl.oneul.food;
 
-import com.gsvl.oneul.common.model.SubKeyEntity;
 import com.gsvl.oneul.food.model.FoodConditionEntity;
 import com.gsvl.oneul.food.model.FoodResultVO;
 import org.apache.ibatis.annotations.Mapper;

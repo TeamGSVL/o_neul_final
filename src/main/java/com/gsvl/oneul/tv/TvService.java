@@ -15,6 +15,7 @@ public class TvService {
     // tv 식당 list return
     public List<TvEntity> selTvList(int tvcode, TvDto dto) {
         System.out.println("Service entity : " + tvcode);
+        System.out.println("TvDto : " + dto);
         dto.setT_pro(tvcode);
         // http://localhost:8090/tv/1 는 파라미터가 없음
         if(dto.getCurpage() == 0) {

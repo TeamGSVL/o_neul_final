@@ -1,16 +1,39 @@
 package com.gsvl.oneul.season;
 
+import com.gsvl.oneul.common.model.SubKeyEntity;
+import com.gsvl.oneul.common.utils.Const;
+import com.gsvl.oneul.food.FoodService;
+import com.gsvl.oneul.food.model.FoodConditionEntity;
+import com.gsvl.oneul.food.model.FoodResultVO;
+import com.gsvl.oneul.season.model.SeasonEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/season")
 public class SeasonController {
+    @Autowired private SeasonService service;
+    @Autowired private ApplicationContext appCon;
 
     @GetMapping()
-    public String goSeasonPage(){
+    public String goSeasonPage(Model model){
+        List<SubKeyEntity> list = (List<SubKeyEntity>) appCon.getBean(Const.F_SEASON);
+        model.addAttribute(Const.F_SEASON,list);
+
+        return "/season/sslist";
+    }
+
+    @PostMapping("/{seasonlist}")
+    public String goSeasonPage(@PathVariable int seasonlist, SeasonEntity entity, Model model){
+
+        model.addAttribute(Const.F_SEASONLIST, service.selSeasonList(seasonlist, entity));
+        System.out.println("SeasonEntity : " + entity);
+        System.out.println("seasonlist : " + seasonlist);
         return "/season/sslist";
     }
 }

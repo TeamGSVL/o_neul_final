@@ -15,5 +15,25 @@
         </div>
     </section>
     <section class="ss-content-container">
+        <div class="flex-c-r g100">
+            <span th:each="item : ${f_season}" class="season_title">
+                <div class="season_nm" th:text="${item.keyNm}"></div>
+                <input type="hidden" class="season_num" th:value="${item.keyValue}">
+            </span>
+        </div>
+
+        <div>
+            <div class="line"><i class="fas fa-tv"></i></div>
+            <div class="flex-c-c">
+                <div class="flex-c-c">
+                    <table>
+                        <th:block th:each="list : ${f_seasonlist}">
+                            <div class="seasonlist_nm" th:text="${list.f_nm}"></div>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 </th:block>
 </html>
