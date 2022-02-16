@@ -4,6 +4,7 @@
 
     let pageCount = 1;
     let jmtArr = [];
+    let curPageArr = [];
     let isConnected = 0;
 
 //현재위치를 받아서 좌표에 찍기, 좌표값을 이용해 현재위치 주소값 알기
@@ -29,7 +30,6 @@
             if (status === kakao.maps.services.Status.OK) {
                 let addrArr = result[0].address.address_name.split(' ');
                 let addr = addrArr[0]+' '+addrArr[1]+' '+addrArr[2];
-                console.log(addr);
                 jmt_addr.innerHTML = `${addr} 맛집`;
             }
         });
@@ -61,7 +61,6 @@
                 // 검색 목록과 마커를 표출합니다
                 if(pageCount>pagination.last){
                     //형님 알아서 하세요
-                    displayPlaces(data);
                     if(isConnected == 0){
 
                         //랜덤에서 가져온 id값
@@ -76,10 +75,13 @@
                             return res.json();
                         }).then(function(data) {
                             isConnected++;
-                            console.log(data);
+                            jmtArr=data;
+                            pagination.gotoFirst();
                         }).catch(function (err) {
                             console.log(err);
                         });
+                    }else {
+                        displayPlaces(data);
                     }
                 }
                 // 페이지 번호를 표출합니다
@@ -106,6 +108,16 @@
             // 지도에 표시되고 있는 마커를 제거합니다
             removeMarker();
 
+            curPageArr.splice(0);
+
+            for(let i = 0;i<places.length;i++){
+                for(let k=0;k<jmtArr.length;k++){
+                    if(places[i].id==jmtArr[k].ijmt){
+                        curPageArr.push(jmtArr[k]);
+                    }
+                }
+            }
+            makeImgJmtList(curPageArr);
             for (var i = 0; i < places.length; i++) {
 
                 // 마커를 생성하고 지도에 표시합니다
@@ -113,6 +125,7 @@
                     marker = addMarker(placePosition, i);
 
                 console.log(places[i].id);
+                //getKakaoJsonData(places[i].id);
 
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
@@ -136,11 +149,72 @@
             // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
             map.setBounds(bounds);
         }
+        //이미지 리스트 만들어주기
+        makeImgJmtList = (curPageArr)=>{
+            const jmtListBox = document.querySelector('#jmt_list_box');
+            removeChild(jmtListBox);
+            curPageArr.forEach(item=>{
+                let divElem = document.createElement('div');
+                let imgElem = document.createElement('img');
+                let spanElem = document.createElement('span');
 
-        // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+                divElem.classList.add('jmt-list-item');
+
+                imgElem.addEventListener('click',ev => {
+                    location.href=`/jmt/${item.ijmt}`;
+                });
+                imgElem.addEventListener('error',e=>{
+                    imgElem.src = '/img/imgerr.jpg';
+                });
+                imgElem.src = '/img/imgerr.jpg';
+                if(item.jpList.length>0){
+                    for(let i = 0;i<item.jpList.length;i++){
+                        if(!item.jpList[i].orgurl.includes('naver')){
+                            imgElem.src = item.jpList[i].orgurl;
+                            break;
+                        }
+                    }
+                }
+                spanElem.innerHTML = `
+                    [${item.j_catenm}] ${item.j_placenm}
+                `;
+                divElem.append(imgElem);
+                divElem.append(spanElem);
+
+                jmtListBox.append(divElem);
+
+            });
+        }
+        // 검색결과 목록 하단에 페이지번호를 표시는 함수
+        //여기서 jmtArr에 값을 추가해줌
         function displayPagination(pagination,data) {
             if(pageCount>pagination.last){
+                var paginationEl = document.getElementById('list_page_box'),
+                    fragment = document.createDocumentFragment(),
+                    i;
 
+                // 기존에 추가된 페이지번호를 삭제합니다
+                while (paginationEl.hasChildNodes()) {
+                    paginationEl.removeChild (paginationEl.lastChild);
+                }
+
+                for (i=1; i<=pagination.last; i++) {
+                    var el = document.createElement('div');
+                    el.innerHTML = i;
+
+                    if (i===pagination.current) {
+                        el.className = 'page-clicked';
+                    } else {
+                        el.onclick = (function(i) {
+                            return function() {
+                                pagination.gotoPage(i);
+                            }
+                        })(i);
+                    }
+
+                    fragment.appendChild(el);
+                }
+                paginationEl.appendChild(fragment);
 
             }else {
                 data.forEach(item=>{

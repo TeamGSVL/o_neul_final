@@ -29,4 +29,25 @@
             (#{item.ijmt},#{item.menu},#{item.price})
         </foreach>
     </insert>
+
+    
+    <resultMap id="jmtMap" type="JmtVO">
+        <result property="ijmt" column="ijmt"></result>
+        <collection property="jpList" column="ijmt" select="selJmtImgList"></collection>
+        <collection property="jmList" column="ijmt" select="selMenuList"></collection>
+    </resultMap>
+    <!--    resultMap의 id,기준점-->
+    <select id="selJmtDetail" resultMap="jmtMap">
+        select ijmt,j_placenm,j_phone,j_oldaddr,j_newaddr,j_catenm,j_x,j_y
+        from o_jmt
+        where ijmt = #{ijmt}
+    </select>
+    <!--    resultMap과 mapping-->
+    <select id="selJmtImgList" resultType="JsonPhotoList">
+        select j_src as orgurl from o_jmt_img where ijmt = #{ijmt}
+    </select>
+    <select id="selMenuList" resultType="JsonMenuList">
+        select j_nm as menu, j_price as price from o_jmt_menu where ijmt = #{ijmt}
+    </select>
+
 </mapper>

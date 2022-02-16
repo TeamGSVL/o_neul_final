@@ -1,9 +1,11 @@
 package com.gsvl.oneul.jmt;
 
 import com.gsvl.oneul.jmt.model.JmtEntity;
+import com.gsvl.oneul.jmt.model.JmtVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +19,12 @@ public class JmtRestController {
 
     @PostMapping()
     @ResponseBody
-    public Map<String, Integer> insJmt (@RequestBody List<JmtEntity> jmtArr) {
+    public List<JmtVO> insJmt (@RequestBody List<JmtEntity> jmtArr) {
+        List<JmtVO> list = new ArrayList<>();
         for(JmtEntity entity:jmtArr){
-            jmtService.insJmt(entity);
+            list.add(jmtService.insJmt(entity));
         }
 
-        Map<String, Integer> result = new HashMap<>();
-        result.put("result", 1);
-        return result;
+        return list;
     }
 }

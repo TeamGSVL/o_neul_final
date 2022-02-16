@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.gsvl.oneul.common.utils.MyKakaoJson;
 import com.gsvl.oneul.jmt.model.JmtEntity;
+import com.gsvl.oneul.jmt.model.JmtVO;
 import com.gsvl.oneul.jmt.model.JsonMenuList;
 import com.gsvl.oneul.jmt.model.JsonPhotoList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class JmtService {
     @Autowired
     private MyKakaoJson myKakaoJson;
 
-    public JmtEntity insJmt(JmtEntity entity){
-        JmtEntity resultEntity = selJmt(entity);
-        if (resultEntity == null){
+    public JmtVO insJmt(JmtEntity entity){
+        JmtVO dbVo = selJmt(entity);
+        if (dbVo == null){
             String kakaoJson = myKakaoJson.connectKaKaoJson(entity.getIjmt());
 
             ObjectMapper om = new JsonMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -51,6 +52,7 @@ public class JmtService {
                 //포토리스트
                 try {
                     photoList = om.treeToValue(jsonNode.get("photo").get("photoList").get(0).get("list"), JsonPhotoList[].class);
+                    //insert할때 ijmt이 필요
                     for(JsonPhotoList list : photoList){
                         list.setIjmt(entity.getIjmt());
                     }
@@ -63,6 +65,7 @@ public class JmtService {
                 //메뉴리스트
                 try {
                     menuList = om.treeToValue(jsonNode.get("menuInfo").get("menuList"), JsonMenuList[].class);
+                    //insert할때 ijmt이 필요
                     for(JsonMenuList list : menuList){
                         list.setIjmt(entity.getIjmt());
                     }
@@ -76,7 +79,6 @@ public class JmtService {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }finally {
-
                 jmtMapper.insJmt(entity);
                 if (photoList!=null){
                     jmtMapper.insImg(photoList);
@@ -84,13 +86,15 @@ public class JmtService {
                 if(menuList!=null){
                     jmtMapper.insMenus(menuList);
                 }
-                return resultEntity;
+                dbVo = jmtMapper.selJmtDetail(entity);
+                return dbVo;
             }
 
         }
-        return resultEntity;
+        //todo select한 vo를 보내주는식으로 바꿔줘야함
+        return dbVo;
     }
-    public JmtEntity selJmt(JmtEntity entity){
-        return jmtMapper.selJmt(entity);
+    public JmtVO selJmt(JmtEntity entity){
+        return jmtMapper.selJmtDetail(entity);
     }
 }
