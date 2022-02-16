@@ -1,6 +1,5 @@
 package com.gsvl.oneul.jmt;
 
-import com.gsvl.oneul.jmt.model.JmtDto;
 import com.gsvl.oneul.jmt.model.JmtEntity;
 import com.gsvl.oneul.jmt.model.JmtVO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -62,6 +62,11 @@
                 if(pageCount>pagination.last){
                     //형님 알아서 하세요
                     if(isConnected == 0){
+
+                        //랜덤에서 가져온 id값
+                        jmtArr[Math.floor(Math.random() * jmtArr.length)].ijmt;
+
+                        console.log(jmtArr);
                         fetch('/jmt/ajax', {
                             method: 'post',
                             headers: { 'Content-Type': 'application/json' },
@@ -120,6 +125,7 @@
                     marker = addMarker(placePosition, i);
 
                 console.log(places[i].id);
+                //getKakaoJsonData(places[i].id);
 
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
@@ -226,6 +232,7 @@
 
                 });
 
+                console.log(data);
                 if(pageCount==pagination.last){
                     pageCount++;
                     pagination.gotoFirst();
