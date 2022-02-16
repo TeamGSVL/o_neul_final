@@ -10,6 +10,8 @@
 //현재위치를 받아서 좌표에 찍기, 좌표값을 이용해 현재위치 주소값 알기
     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
     navigator.geolocation.getCurrentPosition((pos)=> {
+        console.log(pos.coords.latitude);
+        console.log(typeof pos.coords.latitude);
 
         var options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude), // geolocation으로 얻어온 지도의 중심좌표
@@ -71,13 +73,13 @@
                             method: 'post',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(jmtArr)
-                        }).then(function(res) {
-                            return res.json();
-                        }).then(function(data) {
+                        })
+                            .then(res => res.json())
+                            .then((data) => {
                             isConnected++;
                             jmtArr=data;
                             pagination.gotoFirst();
-                        }).catch(function (err) {
+                        }).catch((err) =>{
                             console.log(err);
                         });
                     }else {
