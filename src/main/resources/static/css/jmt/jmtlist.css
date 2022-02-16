@@ -9,26 +9,46 @@
 }
 
 .jmt-map-pick-container{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
+    /*display: grid;*/
+    /*grid-template-columns: repeat(3,auto);*/
+    display: flex;
+    flex-direction: row;
+
     align-items: center;
-    justify-items: center;
+    justify-content: center;
 }
 .jmt-map-box{
     align-items: center;
     justify-items: center;
-    width: 700px;
+    width: 600px;
     height: 700px;
     display: grid;
     grid-template-rows: 50px 1fr;
 }
+
+.jmt-btw-box{
+    width: 200px;
+}
+
 .jmt-pick-box{
     align-items: center;
     justify-items: center;
-    width: 700px;
+    width: 600px;
     height: 700px;
     display: grid;
     grid-template-rows: 50px 1fr;
+}
+
+.jmt-pick-item{
+    padding: 70px 50px;
+    border: 7px dashed #ff4e7f;
+    border-radius: 30px;
+}
+
+.jmt-pick-box img{
+    width: 400px;
+    height: 310px;
+    border-radius: 20px;
 }
 
 .jmt-list-box{
