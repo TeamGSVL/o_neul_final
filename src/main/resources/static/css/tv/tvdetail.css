@@ -4,7 +4,7 @@
     padding: 50px 100px;
 }
 
-.tvpro_box{
+.tvpro_box_clk{
     color: white;
     cursor: pointer;
     background-color: #ff4e7f;
@@ -12,7 +12,7 @@
     height: 40px;
     border-radius: 30px;
 }
-.tvpro_box_clk{
+.tvpro_box{
     cursor: pointer;
     width: 150px;
     height: 40px;
