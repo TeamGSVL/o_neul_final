@@ -64,7 +64,7 @@
                     if(isConnected == 0){
 
                         //랜덤에서 가져온 id값
-                        jmtArr[Math.floor(Math.random() * jmtArr.length)].ijmt;
+
 
                         console.log(jmtArr);
                         fetch('/jmt/ajax', {
@@ -76,6 +76,41 @@
                         }).then(function(data) {
                             isConnected++;
                             jmtArr=data;
+
+                            let pickItem = jmtArr[Math.floor(Math.random() * jmtArr.length)];
+                            //하나 pick된거 만들어주기
+                            const jmtPickElem = document.querySelector('#jmt_pick');
+                            let divElem = document.createElement('div');
+                            let imgElem = document.createElement('img');
+                            let ctntDivElem = document.createElement('div');
+
+                            imgElem.addEventListener('error',e=>{
+                                imgElem.src = '/img/imgerr.jpg';
+                            });
+                            imgElem.src = '/img/imgerr.jpg';
+                            if(pickItem.jpList.length>0){
+                                for(let i = 0;i<pickItem.jpList.length;i++){
+                                    if(!pickItem.jpList[i].orgurl.includes('naver')){
+                                        imgElem.src = pickItem.jpList[i].orgurl;
+                                        break;
+                                    }
+                                }
+                            }
+                            ctntDivElem.innerHTML=`
+                                <div class="text-emph f-s-20 mt20">[${pickItem.j_catenm}] ${pickItem.j_placenm}</div>
+                                <div><i class="g fa-solid fa-location-dot"></i>&nbsp;${pickItem.j_newaddr}</div>
+                                <div><i class="fa-solid fa-signs-post"></i>&nbsp;${pickItem.j_oldaddr}</div>
+                            `;
+                            ctntDivElem.classList.add('g10');
+                            ctntDivElem.classList.add('flex-c-c');
+
+                            divElem.classList.add('jmt-pick-item');
+                            divElem.classList.add('flex-c-c');
+
+                            divElem.append(imgElem);
+                            divElem.append(ctntDivElem);
+                            jmtPickElem.append(divElem);
+
                             pagination.gotoFirst();
                         }).catch(function (err) {
                             console.log(err);
