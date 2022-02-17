@@ -114,8 +114,8 @@
                             jmtPickElem.append(divElem);
 
                             pagination.gotoFirst();
-                        }).catch((err) =>{
-                            console.log(err);
+                        }).catch((e) =>{
+                            console.log(e);
                         });
                     }else {
                         displayPlaces(data);
