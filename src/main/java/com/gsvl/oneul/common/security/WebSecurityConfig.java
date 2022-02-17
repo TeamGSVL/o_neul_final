@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -17,16 +19,13 @@ import javax.sql.DataSource;
 @Configuration //똑같은 빈 등록인데 설정파일로 등록함 ( application.xml,dispat....xml같이)
 @EnableWebSecurity //SpringSecurityFilterChain이 자동으로 포함
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userService;
+    @Autowired private CustomOAuth2UserService customOauth2UserService;
     @Autowired
     private DataSource dataSource; //Hikari DB연결
 
-    /*
-    @Override
-    public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/css/**","/js/**");
-    }
-    쓰게되면 첫 로그인때 에러가 발생
-     */
 
 
 
@@ -45,29 +44,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .formLogin() //세큐리티 로그인 폼
                 .loginPage("/user/login")
-                .usernameParameter("uid") //defualt : username
-                .passwordParameter("upw") //default : password -> 같으면 안적어도 됨
+                .usernameParameter("u_id") //defualt : username
+                .passwordParameter("u_pw") //default : password -> 같으면 안적어도 됨
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
+                .oauth2Login()
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/user/login")
+                .userInfoEndpoint() //OAuth 2 로그인 성공 이후 사용자 정보를 가져올 때의 설정
+                .userService(customOauth2UserService);
 
-                .logout()
+
+
+        http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/user/login")
                 .permitAll();
 
     }
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT u_id as username, u_pw as password, 1 as enabled "
-                        + " FROM o_user "
-                        + " WHERE u_id = ?")
-                .authoritiesByUsernameQuery("SELECT u_id as username, auth as authority "
-                        + "FROM o_user "
-                        + "WHERE u_id = ?");
+    @Override
+    public void configure(WebSecurity web){
+        web.ignoring().antMatchers("/css/**","/js/**","/img/**","/font/**","/video/**");
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth)throws Exception{
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Bean

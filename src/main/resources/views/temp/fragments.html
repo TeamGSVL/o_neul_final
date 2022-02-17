@@ -22,8 +22,8 @@
                 <input type="text" placeholder="맛집이름을 검색해주세요!">
             </div>
             <th:block sec:authorize="isAuthenticated()">
-                    <a class="flex-c-r">마이페이지</a>
-                    <a class="flex-c-r">로그아웃</a>
+                    <a class="flex-c-r" href="/user/profile">마이페이지</a>
+                    <a class="flex-c-r" href="/user/logout">로그아웃</a>
             </th:block>
             <th:block sec:authorize="isAnonymous()">
                     <a class="flex-c-r" href="/user/login">로그인</a>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsvl.oneul.user.UserMapper">
+    <insert id="join" >
+        insert into o_user
+        (u_pfnum,u_id,u_pw,u_nm,u_email)
+        values
+        (#{u_pfnum},#{u_id},#{u_pw},#{u_nm},#{u_email})
+    </insert>
+
+    <select id="selUser" resultType="UserEntity">
+        SELECT * FROM o_user
+        WHERE u_id = #{u_id}
+          AND u_pfnum = #{u_pfnum}
+    </select>
+
+</mapper>
