@@ -7,7 +7,9 @@ import lombok.ToString;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class FoodConditionEntity {
     private List<String> f_cookery;
     private List<String> f_worlddiv;

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet" th:href="@{/css/season/sslist.css}">
+    <link rel="stylesheet"  href="/css/season/sslist.css">
     <script defer th:src="@{/js/season/sslist.js}"></script>
     <meta charset="UTF-8">
     <title>season</title>
@@ -11,26 +11,25 @@
 <th:block layout:fragment="content">
     <section class="ss-bn-container">
         <div class="flex-c-c">
-            <img src="/img/ss_bn.png">
+            <img src="/img/ss_bn.png"> <!--계절별맛집 배너 이미지-->
         </div>
     </section>
     <section class="ss-content-container">
-        <div class="flex-c-r g100">
+        <div class="flex-c-r g100"> <!--계절 이름 띄우기-->
             <span th:each="item : ${f_season}" class="season_title">
                 <div class="season_nm" th:text="${item.keyNm}"></div>
                 <input type="hidden" class="season_num" th:value="${item.keyValue}">
             </span>
         </div>
 
-        <div>
-            <div class="line"><i class="fas fa-tv"></i></div>
+        <div> <!--계절별에 맞는 메뉴 띄우기-->
+            <div class="line" id="season_icon"></div>
             <div class="flex-c-c">
                 <div class="flex-c-c">
-                    <table>
-                        <th:block th:each="list : ${f_seasonlist}">
-                            <div class="seasonlist_nm" th:text="${list.f_nm}"></div>
-                        </th:block>
-                    </table>
+                    <div id="s_today" class="s-today flex-c-r mb20"></div>
+                    <div id="season_list_img"></div>
+                    <li class="ss-list" id="ss_list"></li>
+                    <table id="season_list_table"></table>
                 </div>
             </div>
         </div>
