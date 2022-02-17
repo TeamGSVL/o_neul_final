@@ -19,7 +19,6 @@ public class TvRestController {
     @GetMapping("/{tvcode}")
     public List<TvEntity> getPageList(@PathVariable int tvcode, TvDto dto){
         List<TvEntity> list = service.selTvList(tvcode,dto);
-
         return list;
     }
     @GetMapping("/img/{itv}")

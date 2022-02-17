@@ -3,17 +3,35 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet" th:href="@{/css/alc/alclist.css}">
-    <script defer th:src="@{/js/alc/alclist.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/alc/alc.css}">
+    <script defer th:src="@{/js/alc/alc.js}"></script>
     <meta charset="UTF-8">
     <title>Alc</title>
 </head>
-<th:block layout:fragment="content">
-    <section class="alc-bn-container">
-        <div class="flex-c-c">
-            <img src="/img/alc_bn.png">
-        </div>
-    </section>
-    <section class="alc-content-container">
-</th:block>
+    <th:block layout:fragment="content">
+        <section class="alc-bn-container">
+            <div class="flex-c-c">
+                <img src="/img/alc_bn.png"> <!--술페어링 배너 이미지-->
+            </div>
+        </section>
+        <section class="alc-content-container">
+            <div class="flex-c-r g100"> <!--술 이름 띄우기-->
+            <span th:each="item : ${alknm}" class="alcohol_title">
+                <div class="alcohol_nm" th:text="${item.keyNm}"></div>
+                <input type="hidden" class="alcohol_num" th:value="${item.keyValue}">
+            </span>
+            </div>
+
+            <div> <!--술 종류에 맞는 메뉴 띄우기-->
+                <div class="line" id="alcohol_icon"><i class="fa-solid fa-wine-bottle"></i></div>
+                <div class="flex-c-c">
+                    <div class="flex-c-c">
+                        <div id="a_today" class="a-today flex-c-r mb20"></div>
+                        <li class="ac-list" id="ac-list"></li>
+                        <table id="alcohol_list_table"></table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </th:block>
 </html>

@@ -9,7 +9,6 @@ public class Const {
     public final static String TVLIST = "tvlist";
     public final static String TVCASTLIST = "tvcastlist";
     public final static String MAXPAGE = "maxpage";
-    public final static String F_SEASONLIST = "f_seasonlist";
 
     public final static String SUBKEYENTITY = "subKey";
 }
