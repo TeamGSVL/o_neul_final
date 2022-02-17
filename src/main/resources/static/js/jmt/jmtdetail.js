@@ -22,13 +22,15 @@
 
     })();
 
-    //리뷰 함수
+    //리뷰
     (function () {
         'use strict'
         const searchParams = new URL(window.location.href).searchParams;
         const ijmt = searchParams.get('ijmt');
+
         const reviewFormContainerElem = document.querySelector('#review_form_container');
         const jmtDetailReviewElem = document.querySelector('#jmt-detail-review');
+
         //댓글 리스트
         const getReviewList = () => {
             fetch('/review/ajax', {
@@ -38,12 +40,13 @@
                 .then(res => res.json())
                 .then((list) => {
                     makeReviewRecordList(list);
-                }).catch((err) => {
-                console.log(err);
+                }).catch(e => {
+                console.log(e);
             }, ijmt);
         }
         getReviewList();
-        //댓글 테이블
+
+        //댓글 리스트
         const makeReviewRecordList = list => {
             const tbodyElem = jmtDetailReviewElem.querySelector('table > tbody');
 
@@ -61,7 +64,7 @@
 //댓글 입력 폼
         if (reviewFormContainerElem) {
             const reviewSubmitBtnElem = reviewFormContainerElem.querySelector('button[name="review_submit"]');
-            const reviewCtntInputElem = reviewFormContainerElem.querySelector('input[name="ctnt"]');
+            const reviewCtntInputElem = reviewFormContainerElem.querySelector('textarea[name="ctnt"]');
 
             reviewSubmitBtnElem.addEventListener('click', e => {
                 console.log(reviewCtntInputElem.value);
@@ -71,18 +74,37 @@
                     'ctnt': reviewCtntInputElem.value
                 }
 
-                myFetch.post('/review/ajax', data => {
-                    console.log(data.result);
-                    switch (data.result) {
-                        case 0:
-                            alert('댓글 전송에 실패하였습니다.');
-                            break;
-                        case 1:
-                            reviewCtntInputElem.value = null;
-                            break;
-                    }
-                }, param);
+                fetch('review/ajax', {
+                    method : 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ijmt)
+                })
+                    .then(res => res.json())
+                    .then((data) => {
+                        console.log(data.result);
+                        switch (data.result) {
+                            case 0:
+                                alert('댓글 전송에 실패하였습니다.');
+                                break;
+                            case 1:
+                                reviewCtntInputElem.value = null;
+                                break;
+                        }
+                    },data).catch((e) =>{
+                    console.log(e);
+                });
+
             });
         }
+        let ratings = {RatingScore: 4.0}
+        let totalRating = 5;
+        const table = document.querySelector('.RatingStar');
+        function rateIt() {for (let rating in ratings) {
+            let ratingPercentage = ratings[rating] / totalRating * 100;
+            let ratingRounded = Math.round(ratingPercentage / 10) * 10 + '%';
+            let star = table.querySelector(`.${rating} .inner-star`);
+            let numberRating = table.querySelector(`.${rating} .numberRating`);
+            star.style.width = ratingRounded;numberRating.innerText = ratings[rating];}}rateIt()
+
     })();
 }
