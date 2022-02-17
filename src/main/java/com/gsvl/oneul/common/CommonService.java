@@ -79,7 +79,6 @@ public class CommonService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(j_placenm);
 
         return result;
     }

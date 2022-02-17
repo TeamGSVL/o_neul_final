@@ -9,24 +9,83 @@
 }
 
 .jmt-map-pick-container{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
+    /*display: grid;*/
+    /*grid-template-columns: repeat(3,auto);*/
+    display: flex;
+    flex-direction: row;
+
     align-items: center;
-    justify-items: center;
+    justify-content: center;
 }
 .jmt-map-box{
     align-items: center;
     justify-items: center;
-    width: 700px;
+    width: 600px;
     height: 700px;
     display: grid;
     grid-template-rows: 50px 1fr;
 }
+
+.jmt-btw-box{
+    width: 200px;
+}
+
 .jmt-pick-box{
     align-items: center;
     justify-items: center;
-    width: 700px;
+    width: 600px;
     height: 700px;
     display: grid;
     grid-template-rows: 50px 1fr;
+}
+
+.jmt-pick-item{
+    padding: 70px 50px;
+    border: 7px dashed #ff4e7f;
+    border-radius: 30px;
+}
+
+.jmt-pick-box img{
+    width: 400px;
+    height: 310px;
+    border-radius: 20px;
+}
+
+.jmt-list-box{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 50px;
+}
+.jmt-list-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.jmt-list-item img{
+    cursor: pointer;
+    width: 350px;
+    height: 205px;
+    border-radius: 15px;
+}
+.jmt-list-item span{
+    font-size: 18px;
+}
+.jmt-page-box{
+    width: 250px;
+    height: 50px;
+    border-radius: 30px;
+    border:3px solid #ff4e7f;
+}
+.jmt-page-box div{
+    cursor: pointer;
+    padding: 5px 15px;
+    color: black;
+}
+.page-clicked{
+    background-color: #ff4e7f;
+    color: white    !important;
+    border-radius: 50px;
 }

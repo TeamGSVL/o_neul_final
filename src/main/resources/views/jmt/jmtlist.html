@@ -15,7 +15,7 @@
         </div>
     </section>
     <section class="jmt-content-container">
-        <section class="jmt-bn-map-pick mt100">
+        <section class="jmt-bn-map-pick">
             <div class="mb50">
                 <div  class="line">
                     <div class="flex-c-r g50 clr-main">
@@ -28,27 +28,33 @@
                     <div id="jmt_addr" class="flex-c-r text-emph f-s-30"></div>
                 </div>
             </div>
-            <div class="jmt-map-pick-container">
+            <div class="jmt-map-pick-container g100">
                 <div class="jmt-map-box">
                     <div class="f-s-20 jmt-text-box text-emph">내 주변 맛집</div>
-                    <div class="">
+                    <div>
                         <div id="jmtmap" style="width:600px; height:600px;"></div>
                     </div>
                 </div>
                 <div class="jmt-pick-box">
                     <div class="f-s-20 jmt-text-box text-emph">오늘의 추천맛집</div>
                     <div>
-                        <div class="jmt-pick">
-                            Item
+                        <div class="jmt-pick" id="jmt_pick">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="jmt-bn-list">
+        <section class="jmt-list-container mt60 mb100">
             <div>
                 <div class="line">
                     <i class="fa-solid fa-rectangle-list"></i>
+                </div>
+            </div>
+            <div class="mt60">
+                <div class="flex-c-r">
+                    <div id="list_page_box" class="jmt-page-box flex-c-r g30"></div>
+                </div>
+                <div class="jmt-list-box mt100" id="jmt_list_box">
                 </div>
             </div>
         </section>

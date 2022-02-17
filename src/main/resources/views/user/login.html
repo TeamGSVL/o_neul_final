@@ -20,8 +20,8 @@
         <div class="flex-c-c mt60">
 <!--            <div class="login-text-emph f-s-40 mt40 mb50">LOGIN</div>-->
             <form class="login-form" id="loginBtn" action="/user/login" method="post">
-                <div><input type="text" name="u_id" placeholder="아이디" value="ju39001"></div>
-                <div><input type="password" name="u_pw" placeholder="비밀번호" value="ju@13657213"></div>
+                <div><input type="text" name="u_id" placeholder="아이디"></div>
+                <div><input type="password" name="u_pw" placeholder="비밀번호"></div>
                 <div><button class="login-btn">로그인</button></div>
             </form>
         </div>
@@ -31,9 +31,9 @@
         <div class="flex-c-c">
             <div class="f-s-20">간편 로그인</div>
             <div class="login-another">
-                <img src="/img/naverlogo.png">
-                <img src="/img/kakaologo.png">
-                <img src="/img/googlelogo.png">
+                <a th:href="@{/oauth2/authorization/naver}"><img src="/img/naverlogo.png"></a>
+                <a th:href="@{/oauth2/authorization/kakao}"><img src="/img/kakaologo.png"></a>
+                <a th:href="@{/oauth2/authorization/google}"><img src="/img/googlelogo.png"></a>
             </div>
             <div class="flex-c-r g50 mt40">
                 <div>아직 오늘 회원이 아니세요?</div>

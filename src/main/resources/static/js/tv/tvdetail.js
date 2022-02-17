@@ -18,7 +18,8 @@ const getYoutube = (keyword)=>{
             console.log(data);
             item = data.items[0];
             if(item.id.videoId){
-                youtubeboxElem.innerHTML += `
+
+                youtubeboxElem.innerHTML = `
                             <iframe class="iframeVid"
                                 src="https://www.youtube.com/embed/${item.id.videoId}"
                                 width="600" height="300"
@@ -37,17 +38,12 @@ const getYoutube = (keyword)=>{
     });
 }
 //유튜브모달 닫기 이벤트
-console.log('asdsada');
-console.log(youtubeCancelBtnElem);
-//onclick으로 안하면 안됨
-function closemodal (){
-    youbuteModalElem.style.display = 'none';
-    document.body.style.overflow='visible';
-}
-///////이건무슨에러????/////////
+//addeventlistener를 걸어줄때 잘 확인하고 걸어주자
+
 youtubeCancelBtnElem.addEventListener('click',e=>{
     console.log('asdda');
     youbuteModalElem.style.display = 'none';
+    document.body.style.overflow='visible';
 },false);
 
 
@@ -102,7 +98,13 @@ const makeItemDiv = (item,connectKmap) =>{
 
     divElem.classList.add('tv-item');
     console.log(item.t_img);
-    imgElem.src = item.t_img==null?'/img/imgerr.jpg':item.t_img;
+
+    if(item.t_img=='noPhoto'||item.t_img==null){
+        imgElem.src = '/img/imgerr.jpg';
+    }else {
+        imgElem.src = item.t_img;
+    }
+
     let addr = item.t_addr;
     if(item.t_addr.includes(' ')){
         let addrArr = item.t_addr.split(' ');
@@ -151,6 +153,7 @@ const connectKmap = (item) =>{
         if (status === kakao.maps.services.Status.OK) {
             getTvImg(item.itv,data[0].id,item);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+            console.log('??');
             return;
 
         } else if (status === kakao.maps.services.Status.ERROR) {

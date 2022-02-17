@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsvl.oneul.jmt.review.JmtReviewMapper">
+    <insert id="insReview">
+        INSERT INTO o_jmt_review (ijmt, iuser, j_ctnt, j_star)
+        VALUES ( #{ijmt}, #{iuser}, #{j_ctnt}, #{j_star})
+    </insert>
+
+    <select id="selReviewList" resultType="JmtReviewVo">
+        SELECT A.*, B.u_nm AS username
+        FROM o_jmt_review A
+        LEFT JOIN o_user B
+        ON A.iuser = B.iuser
+        WHERE A.ijmt = ${ijmt}
+        ORDER BY icmt
+    </select>
+</mapper>
