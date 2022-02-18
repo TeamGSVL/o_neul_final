@@ -278,3 +278,4 @@ getWeather((data)=>{
     });
 
 });
+
