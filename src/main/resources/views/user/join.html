@@ -18,12 +18,30 @@
             <div class="line"><a href="/"><img class="join-logo" src="/img/logo.png"></a></div>
         </div>
         <div class="flex-c-r">
-            <form th:action="@{/user/join}" method="post">
-                <div><input type="text" name="u_id" placeholder="아이디" ></div>
-                <div><input type="password" name="u_pw" placeholder="비밀번호" ></div>
-                <div><input type="text" name="u_nm" placeholder="이름"></div>
-                <div><input type="text" name="u_email" placeholder="이메일"></div>
-                <input type="submit" value="회원가입">
+            <form th:action="@{/user/join}" method="post" id="join-frm">
+                <div><label>id : <input type="text" name="u_id" required></label></div>
+                <div><span id="id-chk-msg"></span></div>
+                <div><label>pw : <input type="password" name="u_pw" required></label></div>
+                <div><span id="upw-chk-msg"></span></div>
+                <div><label>pw-check : <input type="password" name="upw_chk" required></label></div>
+                <div><span id="upwchk-chk-msg"></span></div>
+                <div><label>name : <input type="text" name="u_nm" required></label></div>
+                <div><span id="nm-chk-msg"></span></div>
+                <span><label>e-mail : <input type="text" name="u_email" required></label></span> @
+                <span><label><input type="text" name="addres" required></label></span>
+                <select id="selEmail" onchange="checkemailaddy();">
+                    <option value="1">직접 입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="daum.net">daum.net</option>
+                    <option value="kakao.com">kakao.com</option>
+                    <option value="bing.com">bing.com</option>
+                </select>
+                <span><input type="button" value="이메일 중복 체크" id="email-btn-chk"><span id="email-chk-msg"></span></span>
+                <div>
+                    <input type="submit" value="JOIN">
+                    <input type="reset" value="RESET">
+                </div>
             </form>
         </div>
     </div>
