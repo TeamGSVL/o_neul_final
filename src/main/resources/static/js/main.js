@@ -22,10 +22,8 @@ const makeImg = (item,data,codeNum) =>{
         imgElem.src = data.result[0].link;
     }
 
-
     divElem.append(imgElem);
     divElem.append(spanElem);
-
 
     //codeNum으로 어디에 나타낼지 보여줌줌
    if(codeNum==1){
