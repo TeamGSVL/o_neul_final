@@ -84,12 +84,16 @@
             <div class="flex-c-c">
                 <div class="food-result-nm mb20" id="foodNmInfo"></div>
             </div>
-            <div class="flex-c-c">
+            <div class="flex-c-r g50" id="foodutils_btn_box">
                 <div class="flex-c-r food-ag-box" id="food_ag_btn">
                     <div>다른음식</div>
                     <img class="food-ag-img" src="/img/con_ag_r.png">
-                    <div>가져오기</div>
                 </div>
+                <th:block sec:authorize="isAuthenticated()">
+                    <div class="food-zzim-btn flex-c-c" id="food_zzim_btn">
+
+                    </div>
+                </th:block>
             </div>
             <div class="flex-c-r">
                 <div class="food-bn-container">

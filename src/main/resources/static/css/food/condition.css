@@ -141,6 +141,27 @@ fieldset label{
     background-size: 80%;
     background-position: 54% center;
 }
+.food-zzim-btn{
+    cursor: pointer;
+    background-color: rgba(252, 148, 148, 0.98);
+    border-radius: 20px;
+    padding: 0 20px;
+    margin-bottom: 100px;
+    gap : 10px;
+}
+.food-zzim-btn img{
+    transition: all ease 1s;
+    width: 50px;
+    height: 60px;
+}
+.food-zzim-btn div{
+    font-size: 18px;
+    color: white;
+}
+.food-zzim-btn .addZzim img{
+    transform: translate(0, 4px);
+}
+
 /*맵 띄어주기*/
 .random-food-map{
     display: none;
