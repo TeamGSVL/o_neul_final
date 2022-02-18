@@ -14,4 +14,27 @@
           AND u_pfnum = #{u_pfnum}
     </select>
 
+    <select id="isZzimFood" resultType="Integer">
+        select count(*) from o_zzim_food
+        where iuser = ${iuser}
+        and ifood = ${ifood}
+    </select>
+
+    <insert id="insZzimFood">
+        insert into o_zzim_food
+        (iuser,ifood)
+        values
+        (${iuser},${ifood})
+    </insert>
+
+    <delete id="delZzimFood">
+        delete from o_zzim_food
+        where iuser = ${iuser} and ifood = ${ifood}
+    </delete>
+
+    <select id="isZzimJmt" resultType="Integer">
+        select count(*) from o_zzim_jmt
+        where iuser = ${iuser}
+          and ijmt = ${ifood}
+    </select>
 </mapper>
