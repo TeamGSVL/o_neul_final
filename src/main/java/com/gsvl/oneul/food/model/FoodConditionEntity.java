@@ -20,4 +20,7 @@ public class FoodConditionEntity {
     private int alknum;
     private int alone;
     private int fdnum;
+    //페이징
+    private int recordcount;
+    private int rowcnt;
 }

@@ -24,5 +24,7 @@ public class SeasonController {
         model.addAttribute(Const.F_SEASON,list);
         return "/season/sslist";
     }
+
+
 }
 

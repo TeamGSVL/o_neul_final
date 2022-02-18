@@ -3,6 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="header">
+    <span id="globalConst" sec:authorize="isAuthenticated()" th:with="auth=${#authentication.getPrincipal().getUser()}"
+          th:attr="data-iuser=${auth.iuser}, data-writer=${auth.u_nm}, data-writer-profile=${auth.u_profileimg}"></span>
+    <!--                    <div sec:authentication="principal.username"></div>-->
     <header class="bg-pink hg-100">
         <section class="header-logo ">
             <div class="mr50">
@@ -22,8 +25,8 @@
                 <input type="text" placeholder="맛집이름을 검색해주세요!">
             </div>
             <th:block sec:authorize="isAuthenticated()">
-                    <a class="flex-c-r" href="/user/profile">마이페이지</a>
                     <a class="flex-c-r" href="/user/logout">로그아웃</a>
+                    <a class="flex-c-r" href="/user/profile">마이페이지</a>
             </th:block>
             <th:block sec:authorize="isAnonymous()">
                     <a class="flex-c-r" href="/user/login">로그인</a>

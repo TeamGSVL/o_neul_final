@@ -15,7 +15,6 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo{
 
         kakaoAccount = (Map<String, Object>)attributes.get("kakao_account");
         kakaoProfile = (Map<String, Object>)kakaoAccount.get("profile");
-        Iterator<String> mapIter = kakaoAccount.keySet().iterator();
 
     }
 

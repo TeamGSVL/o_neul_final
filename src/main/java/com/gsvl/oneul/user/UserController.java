@@ -16,12 +16,13 @@ public class UserController {
 
     @GetMapping("/login")
     public void goLoginPage(){ }
+
     @GetMapping("/join")
     public void goJoinPage(){ }
 
     @PostMapping("/join")
     public String join(UserEntity entity){
         service.join(entity);
-        return "redirect:/user/join";
+        return "redirect:/user/login";
     }
 }

@@ -3,9 +3,9 @@
 <mapper namespace="com.gsvl.oneul.user.UserMapper">
     <insert id="join" >
         insert into o_user
-        (u_pfnum,u_id,u_pw,u_nm,u_email)
+        (u_pfnum,u_id,u_pw,u_nm,u_email,u_profileimg)
         values
-        (#{u_pfnum},#{u_id},#{u_pw},#{u_nm},#{u_email})
+        (#{u_pfnum},#{u_id},#{u_pw},#{u_nm},#{u_email},#{u_profileimg})
     </insert>
 
     <select id="selUser" resultType="UserEntity">
