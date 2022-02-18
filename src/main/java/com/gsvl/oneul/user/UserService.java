@@ -2,8 +2,12 @@ package com.gsvl.oneul.user;
 
 import com.gsvl.oneul.common.security.AuthenticationFacade;
 import com.gsvl.oneul.common.security.SecurityUserService;
+
 import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.common.utils.MyFileUtils;
+
+import com.gsvl.oneul.user.model.UserDTO;
+
 import com.gsvl.oneul.user.model.UserEntity;
 import com.gsvl.oneul.user.model.UserVo;
 import com.gsvl.oneul.user.model.zzimEntity;
@@ -20,8 +24,12 @@ public class UserService {
     @Autowired private UserMapper mapper;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private SecurityUserService securityUserService;
-    @Autowired private AuthenticationFacade authenticationFacade;
+
+    
     @Autowired private MyFileUtils myFileUtils;
+
+
+    @Autowired private AuthenticationFacade auth;
 
 
     public int join(UserEntity entity){
@@ -31,6 +39,7 @@ public class UserService {
         int result = securityUserService.join(entity);
         return result;
     }
+
 
     // 아이디 중복 체크(회원가입)
     public int idChk(String u_id) {
@@ -49,7 +58,7 @@ public class UserService {
 
     // 찜 목록(마이페이지)
     public List<zzimEntity> zzimList(zzimEntity entity){
-        entity.setIuser(authenticationFacade.getLoginUserPk());
+        entity.setIuser(auth.getLoginUserPk());
         return mapper.zzimList(entity);
     }
 
@@ -65,7 +74,7 @@ public class UserService {
             return null;
         }
 
-        UserEntity loginUser = authenticationFacade.getLoginUser();
+        UserEntity loginUser = auth.getLoginUser();
 
         final String PATH = Const.UPLOAD_IMG_PATH + "/user/" + loginUser.getIuser();
         String fileNm = myFileUtils.saveFile(PATH, mf);
@@ -92,7 +101,7 @@ public class UserService {
 
     // 닉네임 변경(마이페이지)
     public int changeNickname(UserEntity entity) {
-        entity.setIuser(authenticationFacade.getLoginUserPk());
+        entity.setIuser(auth.getLoginUserPk());
         return mapper.updNickname(entity);
     }
 
@@ -107,7 +116,7 @@ public class UserService {
 
     // 비밀번호 변경(마이페이지)
     public int changePassword(UserVo vo) {
-        vo.setIuser(authenticationFacade.getLoginUserPk());
+        vo.setIuser(auth.getLoginUserPk());
         UserEntity entity = mapper.changeUser(vo);
         if (!BCrypt.checkpw(vo.getCurrentupw(), entity.getU_pw())) {
             return 2; //현재 비밀번호 다름
@@ -119,13 +128,34 @@ public class UserService {
 
     // 비밀번호 변경시 현재 비밀번호 체크
     public int upwChk(UserVo vo) {
-        vo.setIuser(authenticationFacade.getLoginUserPk());
+        vo.setIuser(auth.getLoginUserPk());
         UserEntity entity = mapper.changeUser(vo);
         if (!BCrypt.checkpw(vo.getCurrentupw(), entity.getU_pw())) {
             return 0; //현재 비밀번호 다름
         }
         return 1;
     }
+
+    //찜목록
+    //음식찜
+    public int isZzimFood(UserDTO dto){
+        return mapper.isZzimFood(dto);
+    }
+    public int insZzimFood(UserDTO dto){
+        return mapper.insZzimFood(dto);
+    }
+    public int delZzimFood(UserDTO dto){
+        return mapper.delZzimFood(dto);
+    }
+
+
+
+
+    public int isZzimJmt(UserDTO dto){
+        return mapper.isZzimJmt(dto);
+    }
+
+
 
 
 }

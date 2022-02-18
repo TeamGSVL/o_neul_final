@@ -8,9 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDTO {
-    private String u_id;
-    private String u_pw;
-    private String u_nm;
-    private String u_email;
-    private String auth = "ROLE_USER";
+    private int iuser;
+    private int ifood;
+    private int ijmt;
 }

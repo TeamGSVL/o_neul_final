@@ -1,5 +1,6 @@
 package com.gsvl.oneul.user;
 
+import com.gsvl.oneul.user.model.UserDTO;
 import com.gsvl.oneul.user.model.UserEntity;
 import com.gsvl.oneul.user.model.zzimEntity;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,7 @@ public interface UserMapper {
     //조회
     UserEntity selUser(UserEntity entity);
 
+
     UserEntity idChk(UserEntity entity);        //아이디 중복 체크(회원가입)
     UserEntity emailChk(UserEntity entity);     //이메일 중복 체크(회원가입)
 
@@ -23,5 +25,18 @@ public interface UserMapper {
 
     int updUser(UserEntity entity);         // 비밀번호 변경 && 프로필 이미지 변경
     UserEntity changeUser(UserEntity entity);   // 유저 정보 셀렉트
+
+    //음식 찜 확인
+    int isZzimFood(UserDTO dto);
+
+    //음식 찜 insert
+    int insZzimFood(UserDTO dto);
+
+    //음식 찜 delete
+    int delZzimFood(UserDTO dto);
+
+    //맛집 찜 확인
+    int isZzimJmt(UserDTO dto);
+
 
 }

@@ -7,6 +7,7 @@ import com.gsvl.oneul.user.model.UserVo;
 import com.gsvl.oneul.user.model.zzimEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,12 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 @RequestMapping("/user")
@@ -34,6 +41,7 @@ public class UserController {
         service.join(entity);
         return "redirect:/user/login";
     }
+
 
     // 아이디 중복 확인(회원가입)
     @GetMapping("/idChk/{u_id}")
@@ -137,5 +145,37 @@ public class UserController {
         Map<String, Integer> res = new HashMap();
         res.put("upw", service.upwChk(vo));
         return res;
+
+
+    //AJAX
+    //zzimFood 확인
+    @GetMapping("/ajax/zzim/food")
+    @ResponseBody
+    public int isZzimFood(UserDTO dto){
+        return service.isZzimFood(dto);
+    }
+    //zzimfood insert
+    @GetMapping("/ajax/zzim/food/ins")
+    @ResponseBody
+    public int insZzimFood(UserDTO dto){
+        return service.insZzimFood(dto);
+    }
+    //zzimfood delete
+    @GetMapping("/ajax/zzim/food/del")
+    @ResponseBody
+    public int delZzimFood(UserDTO dto){
+        return service.delZzimFood(dto);
+    }
+
+
+
+
+
+    //zzimJmt 확인
+    @GetMapping("/ajax/zzim/jmt")
+    @ResponseBody
+    public int isZzimJmt(UserDTO dto){
+        return service.isZzimJmt(dto);
+
     }
 }

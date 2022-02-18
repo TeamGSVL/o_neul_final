@@ -16,4 +16,6 @@ public interface FoodMapper {
 
     //음식 maxPage
     int selMaxPage(FoodConditionEntity entity);
+
+
 }

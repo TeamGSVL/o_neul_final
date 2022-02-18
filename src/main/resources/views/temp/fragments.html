@@ -6,6 +6,7 @@
     <span id="globalConst" sec:authorize="isAuthenticated()" th:with="auth=${#authentication.getPrincipal().getUser()}"
           th:attr="data-iuser=${auth.iuser}, data-writer=${auth.u_nm}, data-writer-profile=${auth.u_profileimg},
     data-u_pfnum=${auth.u_pfnum}"></span>
+
     <!--                    <div sec:authentication="principal.username"></div>-->
     <header class="bg-pink hg-100">
         <section class="header-logo ">
