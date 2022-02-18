@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet"  href="/css/season/sslist.css">
+    <link rel="stylesheet"  th:href="@{/css/season/sslist.css}">
     <script defer th:src="@{/js/season/sslist.js}"></script>
     <meta charset="UTF-8">
     <title>season</title>
@@ -16,7 +16,7 @@
     </section>
 
     <section class="ss-content-container">
-        <div>
+        <div> <!--계절별 아이콘 띄우기.-->
             <div class="line" id="season_icon"></div>
             <div class="flex-c-r">
                 <div id="s_today" class="s-today flex-c-r mb20 text-emph"></div>
@@ -48,8 +48,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div class="mt100"> <!--계절별에 맞는 메뉴 띄우기-->
             <div class="flex-c-c">
