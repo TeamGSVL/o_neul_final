@@ -7,8 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserDTO {
-    private int iuser;
+public class zzimEntity extends UserEntity{
     private int ifood;
-    private int ijmt;
+    private String f_nm;
 }

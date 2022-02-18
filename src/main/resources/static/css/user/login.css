@@ -51,6 +51,7 @@
 }
 
 .login-btn{
+    cursor: pointer;
     font-weight: bolder;
     font-size: 15px;
     font-family: "bmh";

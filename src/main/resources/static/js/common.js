@@ -1,3 +1,15 @@
+//iuser값 받아오기. 매번 확인하고 쓰자
+let globalConst = document.querySelector('#globalConst');
+let iuser;
+let pfnum;
+if(globalConst){
+    iuser =globalConst.dataset.iuser;
+    pfnum = globalConst.dataset.u_pfnum;
+}
+
+
+
+
 //img패치
 const getImg = (item,myFun,imgNum,codeNum) =>{
     fetch(`/common/ajax/img/${item.f_nm}?imgNum=${imgNum}`)
@@ -116,4 +128,36 @@ const removeChild= (elem)=>{
     while (elem.hasChildNodes()){
         elem.firstChild.remove();
     }
+}
+
+//음식 찜 확인
+const isZzimFood = (zzim,myft) =>{
+    fetch(`/user/ajax/zzim/food?iuser=${zzim.iuser}&ifood=${zzim.ifood}`)
+        .then(res=>res.json()).then(data=>{
+            myft(data);
+    });
+}
+//음식 찜 추가
+const insZzimFood = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/food/ins?iuser=${zzim.iuser}&ifood=${zzim.ifood}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+//음식 찜 삭제
+const delZzimFood = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/food/del?iuser=${zzim.iuser}&ifood=${zzim.ifood}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+
+
+
+//JMT 찜 확인
+const isZzimJMT = (zzim,myft) =>{
+    fetch(`/user/ajax/zzim/JMT?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
 }

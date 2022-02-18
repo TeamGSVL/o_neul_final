@@ -1,0 +1,24 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="temp/thymeleaf_layout">
+<head>
+<!--    <link rel="stylesheet" th:href="@{/css/tv/tvdetail.css}">-->
+    <script defer th:src="@{/js/user/mypage.js}"></script>
+    <meta charset="UTF-8">
+    <title>Broad</title>
+</head>
+<th:block layout:fragment="content">
+
+<section class="login-container flex-c-c">
+    <div class="video-login-container ">
+        <h1>찜목록</h1>
+        <div id="zzim"></div>
+
+        <a href="/user/nickname">닉네임 설정</a>
+        <div id="passwordChange">
+        </div>
+        </div>
+</section>
+
+</th:block>
