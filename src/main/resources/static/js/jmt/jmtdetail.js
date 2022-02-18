@@ -28,7 +28,7 @@
         const searchParams = new URL(window.location.href).searchParams;
         const ijmt = searchParams.get('ijmt');
 
-        const reviewFormContainerElem = document.querySelector('#review_form_container');
+
         const jmtDetailReviewElem = document.querySelector('#jmt-detail-review');
 
         //댓글 리스트
@@ -46,7 +46,7 @@
         }
         getReviewList();
 
-        //댓글 리스트
+        //댓글 리스트 생성
         const makeReviewRecordList = list => {
             const tbodyElem = jmtDetailReviewElem.querySelector('table > tbody');
 
@@ -61,50 +61,8 @@
                 tbodyElem.appendChild(trElem);
             });
         }
-//댓글 입력 폼
-        if (reviewFormContainerElem) {
-            const reviewSubmitBtnElem = reviewFormContainerElem.querySelector('button[name="review_submit"]');
-            const reviewCtntInputElem = reviewFormContainerElem.querySelector('textarea[name="ctnt"]');
 
-            reviewSubmitBtnElem.addEventListener('click', e => {
-                console.log(reviewCtntInputElem.value);
 
-                const param = {
-                    ijmt,
-                    'ctnt': reviewCtntInputElem.value
-                }
-
-                fetch('review/ajax', {
-                    method : 'post',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(ijmt)
-                })
-                    .then(res => res.json())
-                    .then((data) => {
-                        console.log(data.result);
-                        switch (data.result) {
-                            case 0:
-                                alert('댓글 전송에 실패하였습니다.');
-                                break;
-                            case 1:
-                                reviewCtntInputElem.value = null;
-                                break;
-                        }
-                    },data).catch((e) =>{
-                    console.log(e);
-                });
-
-            });
-        }
-        let ratings = {RatingScore: 4.0}
-        let totalRating = 5;
-        const table = document.querySelector('.RatingStar');
-        function rateIt() {for (let rating in ratings) {
-            let ratingPercentage = ratings[rating] / totalRating * 100;
-            let ratingRounded = Math.round(ratingPercentage / 10) * 10 + '%';
-            let star = table.querySelector(`.${rating} .inner-star`);
-            let numberRating = table.querySelector(`.${rating} .numberRating`);
-            star.style.width = ratingRounded;numberRating.innerText = ratings[rating];}}rateIt()
 
     })();
 }

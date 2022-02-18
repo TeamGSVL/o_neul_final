@@ -40,6 +40,7 @@ public class UserController {
     public String join(UserEntity entity){
         service.join(entity);
         return "redirect:/user/login";
+
     }
 
 
@@ -176,6 +177,7 @@ public class UserController {
     @ResponseBody
     public int isZzimJmt(UserDTO dto){
         return service.isZzimJmt(dto);
+
 
     }
 }
