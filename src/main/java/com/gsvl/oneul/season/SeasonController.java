@@ -22,7 +22,6 @@ public class SeasonController {
     public String goSeasonPage(Model model){
         List<SubKeyEntity> list = (List<SubKeyEntity>) appCon.getBean(Const.F_SEASON);
         model.addAttribute(Const.F_SEASON,list);
-
         return "/season/sslist";
     }
 
