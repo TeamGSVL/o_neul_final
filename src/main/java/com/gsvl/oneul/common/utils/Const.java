@@ -13,6 +13,7 @@ public class Const {
     public final static String F_SEASONLIST = "f_seasonlist";
     public final static String JMTDETAIL = "jmtdeatil";
 
+    public static final String UPLOAD_IMG_PATH = "C:\\upload\\images";
 
     public final static String SUBKEYENTITY = "subKey";
 }
