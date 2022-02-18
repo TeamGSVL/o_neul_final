@@ -22,6 +22,6 @@ public class UserController {
     @PostMapping("/join")
     public String join(UserEntity entity){
         service.join(entity);
-        return "redirect:/user/join";
+        return "redirect:/user/login";
     }
 }

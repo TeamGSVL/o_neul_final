@@ -29,5 +29,8 @@ public class JmtController {
         System.out.println(ijmt);
         return "/jmt/jmtdetail";
     }
+    @GetMapping("{ijmt}/review")
+    public String goJmtReview(){ return "/jmt/jmtreview";}
+
 
 }
