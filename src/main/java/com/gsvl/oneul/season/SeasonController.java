@@ -25,5 +25,7 @@ public class SeasonController {
 
         return "/season/sslist";
     }
+
+
 }
 

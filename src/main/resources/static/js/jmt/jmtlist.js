@@ -79,6 +79,12 @@
                             isConnected++;
                             jmtArr=data;
 
+                            let listTextElem = document.querySelector('#list_text');
+                            listTextElem.innerHTML= `
+                                    현재 주변 맛집이 ${jmtArr.length}개 있습니다.
+                            
+                                `
+
                             let pickItem = jmtArr[Math.floor(Math.random() * jmtArr.length)];
                             //하나 pick된거 만들어주기
                             const jmtPickElem = document.querySelector('#jmt_pick');
@@ -193,11 +199,12 @@
             curPageArr.forEach(item=>{
                 let divElem = document.createElement('div');
                 let imgElem = document.createElement('img');
-                let spanElem = document.createElement('span');
+                let spanElem1 = document.createElement('span');
+                let spanElem2 = document.createElement('span');
 
                 divElem.classList.add('jmt-list-item');
 
-                imgElem.addEventListener('click',ev => {
+                divElem.addEventListener('click',ev => {
                     location.href=`/jmt/${item.ijmt}`;
                 });
                 imgElem.addEventListener('error',e=>{
@@ -212,11 +219,24 @@
                         }
                     }
                 }
-                spanElem.innerHTML = `
-                    [${item.j_catenm}] ${item.j_placenm}
+                spanElem1.innerHTML = `
+                    [${item.j_catenm}] 
                 `;
+                spanElem2.innerHTML=`
+                    ${item.j_placenm}
+                `;
+                spanElem1.classList.add('jmt-item-span1');
+
+                divElem.addEventListener('mouseover',ev => {
+                    divElem.classList.add('jmt-item-click');
+                });
+                divElem.addEventListener('mouseout',ev => {
+                    divElem.classList.remove('jmt-item-click');
+                });
+
                 divElem.append(imgElem);
-                divElem.append(spanElem);
+                divElem.append(spanElem1);
+                divElem.append(spanElem2);
 
                 jmtListBox.append(divElem);
 

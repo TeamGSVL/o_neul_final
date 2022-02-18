@@ -55,6 +55,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         UserEntity user = UserEntity.builder()
                 .u_id(userInfo.getId())
                 .u_pw("0")
+                .u_profileimg(userInfo.getImageUrl())
                 .u_email(userInfo.getEmail())
                 .u_nm(userInfo.getName())
                 .u_pfnum(userInfo.getPfnum())

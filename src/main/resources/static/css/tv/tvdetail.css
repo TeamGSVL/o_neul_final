@@ -16,10 +16,22 @@
     cursor: pointer;
     width: 150px;
     height: 40px;
-    border-radius: 30px;
-    border: #ff4e7f 5px solid;
+    border-radius: 20px;
+    border: #ff4e7f 2px solid;
     color: black;
 }
+.tvpro_item{
+    height: 80px;
+    display: flex;
+    align-items: end;
+}
+.tvpro_lp {
+    background-image: url("/img/rp2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: -55px -15px;
+}
+
 
 .tv-list{
     display: grid;
@@ -30,12 +42,19 @@
 }
 
 .tv-item{
+    cursor: pointer;
     width: 380px;
     height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.tv-item-ytlg{
+    background-image: url("/img/youtube.png");
+    background-repeat: no-repeat;
+    background-size: 12%;
+    background-position: 15px 211px;
 }
 
 .tv-item img{
