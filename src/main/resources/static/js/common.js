@@ -4,7 +4,7 @@ let iuser;
 let pfnum;
 if(globalConst){
     iuser =globalConst.dataset.iuser;
-    pfnum = globalConst.dataset.pfnum;
+    pfnum = globalConst.dataset.u_pfnum;
 }
 
 
