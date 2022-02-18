@@ -13,4 +13,7 @@ public interface FoodMapper {
 
     //음식 이름으로 이미지 업데이트
     int insFoodImg(FoodConditionEntity entity);
+
+    //음식 maxPage
+    int selMaxPage(FoodConditionEntity entity);
 }

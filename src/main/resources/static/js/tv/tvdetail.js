@@ -41,10 +41,10 @@ const getYoutube = (keyword)=>{
 //addeventlistener를 걸어줄때 잘 확인하고 걸어주자
 
 youtubeCancelBtnElem.addEventListener('click',e=>{
-    console.log('asdda');
+    youtubeboxElem.innerHTML=null;
     youbuteModalElem.style.display = 'none';
     document.body.style.overflow='visible';
-},false);
+});
 
 
 let tvproBoxElems = document.querySelectorAll('.tvpro_btn');
@@ -55,20 +55,22 @@ let trproCode = hrefArr[hrefArr.length-1];
 
 tvproBoxElems.forEach(item=>{
     let tvproCode = item.querySelector('.tvpro_name').value;
+    let itemDivElem = item.querySelector('div');
 
-
-    if(item.classList.contains('tvpro_box_clk')){
-        item.classList.remove('tvpro_box_clk');
-        item.classList.add('tvpro_box');
+    if(itemDivElem.classList.contains('tvpro_box_clk')){
+        item.classList.remove('tvpro_lp');
+        itemDivElem.classList.remove('tvpro_box_clk');
+        itemDivElem.classList.add('tvpro_box');
     }
 
     if(tvproCode==trproCode){
-        item.classList.remove('tvpro_box');
-        item.classList.add('tvpro_box_clk');
+        item.classList.add('tvpro_lp');
+        itemDivElem.classList.remove('tvpro_box');
+        itemDivElem.classList.add('tvpro_box_clk');
     }
 
 
-    item.addEventListener('click',e=>{
+    itemDivElem.addEventListener('click',e=>{
         location.href = `/tv/${tvproCode}`;
     });
 });
@@ -120,7 +122,14 @@ const makeItemDiv = (item,connectKmap) =>{
     divElem.append(spanElemAddr);
     divElem.append(spanElem);
 
-    imgElem.addEventListener('click',e=>{
+    divElem.addEventListener('mouseover',evt => {
+        divElem.classList.add('tv-item-ytlg');
+    });
+    divElem.addEventListener('mouseout',evt => {
+        divElem.classList.remove('tv-item-ytlg');
+    });
+
+    divElem.addEventListener('click',e=>{
         getYoutube(item.t_restnm);
     });
 

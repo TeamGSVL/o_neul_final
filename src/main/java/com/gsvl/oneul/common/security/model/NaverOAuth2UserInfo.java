@@ -2,11 +2,15 @@ package com.gsvl.oneul.common.security.model;
 
 import com.gsvl.oneul.common.security.SocialType;
 
+import java.util.Iterator;
 import java.util.Map;
 
 public class NaverOAuth2UserInfo extends OAuth2UserInfo{
     public NaverOAuth2UserInfo(Map<String, Object> attributes) {
+
         super(attributes);
+
+
     }
 
     @Override

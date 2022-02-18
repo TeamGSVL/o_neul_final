@@ -18,6 +18,7 @@ public class SecurityUserService implements UserDetailsService {
     //uid로만 분기
     @Override
     public UserDetails loadUserByUsername(String u_id) throws UsernameNotFoundException {
+        System.out.println(u_id);
         return new CustomUserPrincipal(loadUserByUsernameAndProvider(u_id,1));
     }
 

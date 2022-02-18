@@ -56,6 +56,9 @@
             order by rand()
             Limit 0,${fdnum}
         </if>
+        <if test="recordcount>0">
+            limit ${rowcnt},${recordcount}
+        </if>
     </select>
 
     <update id="insFoodImg">
@@ -63,5 +66,18 @@
         set f_img = #{f_img}
         where f_nm = #{f_nm}
     </update>
+
+    <select id="selMaxPage" resultType="Integer">
+        select ceil(count(A.ifood)/${recordcount})
+        from o_food A
+        <if test="alknum>0">
+            JOIN o_food_alk B
+            ON A.ifood = B.ifood
+            WHERE B.alknum = ${alknum}
+        </if>
+        <if test="f_season>0">
+            where A.f_season = ${f_season}
+        </if>
+    </select>
 
 </mapper>
