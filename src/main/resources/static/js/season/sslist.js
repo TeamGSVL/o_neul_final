@@ -7,25 +7,38 @@ const ssListImgElem = document.querySelector('#season_list_img');
 let curPageSeason;
 //계절별 특징 텍스트
 let seasonTextList =[
-    '사계절 움추렸던 몸이 기지개를 켜기 시작하는 계절로서 활동이 활발해지고 에너지가 많이 필요한 계절이죠.'+'\n'+
-'  우리 몸에서 에너지를 만들 신진대사를 하기 위해 꼭 필요한 것이 비타민과 무기질인데 '+'\n'+
-'봄철에 나는 봄나물들에는 우리 몸에서 필요로 하는 비타민B를 비롯한 무기질 등 영양소가 듬뿍 들어 있습니다.\n'
+    '제철 음식은 각 계절에 스스로 적응하고 자라는 것들을 이용해 만들기 때문에,인위적으로 길러낸 것들보다 영양소가 풍부하다.'+'\n' +
+    '각 계절에 부족할 수 있는 영양분과 성질을 더 잘 채워주기 때문이다.'+'\n' +
+    '제철 음식은 그 식물의 영양분이 가장 무르익었을 때에 먹는다는 이점이 있다.'+'\n' +
+    '또 제철 음식을 먹음으로써 우리의 몸이 사계절 변화의 순리를 따라가도록 도와주며, 그 계절을 가장 그 계절답게 보내도록 해준다고 할 수 있겠다.'+'\n' +
+    '제철 식품이란 알맞은 계절에 나오는 식품을 말하며 과일이나 채소류는 재배되는 시기, 생선은 산란 시기 등에 의해 정해진다.'+'\n' +
+    '이때의 식품은 영양분이 풍부하고 맛이 다른 때에 비해 훨씬 좋다.\n'
     ,
-    '겨우내 움추렸던 몸이 기지개를 켜기 시작하는 계절로서 활동이 활발해지고 에너지가 많이 필요한 계절이죠.'+'\n'+
-'  우리 몸에서 에너지를 만들 신진대사를 하기 위해 꼭 필요한 것이 비타민과 무기질인데 '+'\n'+
-'봄철에 나는 봄나물들에는 우리 몸에서 필요로 하는 비타민B를 비롯한 무기질 등 영양소가 듬뿍 들어 있습니다.\n'
+    '봄에는 따뜻한 기운을 받아 우리 몸의 신진대사가 왕성해진다.'+'\n' +
+    '그만큼 신체활동이 활발해지고 에너지가 많이 필요하다.'+'\n'+
+    '몸으로 발산되는 에너지가 많다 보니 두뇌활동에 필요한 에너지가 상대적으로 줄어들어 춘곤증이 생긴다.'+'\n'+
+    '춘곤증에 효과적인 음식은 바로 봄나물이다.'+'\n'+
+    '쑥· 냉이· 달래· 씀바귀 등 봄나물에는 비타민 B와 무기질이 풍부하다.'+'\n'+
+    '비타민 B와 무기질은 우리 몸에서 에너지를 만들 때 꼭 필요한 영양소다.'+'\n'+
+    '봄나물을 먹으면 에너지 생성을 활발하게 하는 데 도움이 된다.\n'
     ,
-    '여름 움추렸던 몸이 기지개를 켜기 시작하는 계절로서 활동이 활발해지고 에너지가 많이 필요한 계절이죠.'+'\n'+
-    '  우리 몸에서 에너지를 만들 신진대사를 하기 위해 꼭 필요한 것이 비타민과 무기질인데 '+'\n'+
-    '봄철에 나는 봄나물들에는 우리 몸에서 필요로 하는 비타민B를 비롯한 무기질 등 영양소가 듬뿍 들어 있습니다.\n'
+    '여름에는 높은 기온으로 조금만 움직여도 땀이 난다.'+'\n' +
+    '더운 날씨 때문에 흘리는 땀을 통해 무기질이 빠져나간다.'+'\n' +
+    '때문에 여름에는 무기질이 풍부한 음식을 많이 먹어야 한다.'+'\n' +
+    '여름 제철인 오이·가지·수박·참외 등은 무기질과 수분이 풍부한 먹거리다.\n'
     ,
-    '가을 움추렸던 몸이 기지개를 켜기 시작하는 계절로서 활동이 활발해지고 에너지가 많이 필요한 계절이죠.'+'\n'+
-    '  우리 몸에서 에너지를 만들 신진대사를 하기 위해 꼭 필요한 것이 비타민과 무기질인데 '+'\n'+
-    '봄철에 나는 봄나물들에는 우리 몸에서 필요로 하는 비타민B를 비롯한 무기질 등 영양소가 듬뿍 들어 있습니다.\n'
+    '가을에는 날씨가 건조하고 추워지면서 몸이 쉽게 피로하게 된다.'+'\n' +
+    '피로감을 줄이기 위해서는 몸속에 쌓인 노폐물을 빨리 없애야 한다.'+'\n' +
+    '노폐물 제거에 효과적인 영양소는 바로 식이섬유다.'+'\n' +
+    '식이섬유는 몸에 불필요한 노폐물이나 중금속과 함께 배설된다.'+'\n' +
+    '다이어트에 중요한 영양소로 손꼽히는 이유다.'+'\n' +
+    '가을이 제철인 버섯·토란·고구마 등에는 식이섬유가 많이 들어 있다.'+'\n' +
+    '햇곡식과 햇과일에도 식이섬유가 풍부하다.\n'
     ,
-    '겨울 움추렸던 몸이 기지개를 켜기 시작하는 계절로서 활동이 활발해지고 에너지가 많이 필요한 계절이죠.'+'\n'+
-    '  우리 몸에서 에너지를 만들 신진대사를 하기 위해 꼭 필요한 것이 비타민과 무기질인데 '+'\n'+
-    '봄철에 나는 봄나물들에는 우리 몸에서 필요로 하는 비타민B를 비롯한 무기질 등 영양소가 듬뿍 들어 있습니다.\n'
+    '겨울에는 기온이 급격히 떨어져 몸이 움츠러든다.'+'\n' +
+    '혈액순환이 잘되지 않아 협심증·심근경색증 등 심혈관계 질환이 많이 발생한다.'+'\n' +
+    '심혈관계 질환의 가장 큰 원인은 저밀도 콜레스테롤이다.'+'\n' +
+    '때문에 겨울철에는 동물성 식품의 섭취를 줄이고 콜레스테롤 수치를 낮추는 불포화지방이 풍부한 식품을 먹어야 한다.\n'
     ]
 
 let clickedSeason;
@@ -36,7 +49,6 @@ const seasonText = (sscode)=>{
 }
 
 //계절 이미지 셔플 랜덤
-
 let imgArr=[];
 let sfcount = 0;
 let btnSwitch =0;
@@ -70,19 +82,19 @@ stopBtn.addEventListener('click',evt => {
             btnSwitch=0;
         }
     }else {
-        alert('지금도 stop임');
+        alert('이미 중지되었습니다.');
     }
-
 });
 const startBtn = document.querySelector('#imgStart');
 startBtn.addEventListener('click',evt => {
     console.log('start');
     console.log(btnSwitch);
     if(btnSwitch==0){
-        timeCode = setInterval(makeImgShuffle,100);
+        timeCode = setInterval(makeImgShuffle,10);
         btnSwitch=1;
     }else {
-        alert('시작두번ㄴㄴ');
+        alert('이미 시작되었습니다.');
+
     }
 });
 
@@ -94,7 +106,6 @@ let maxPage;
 seasonTitleElems.forEach(item=>{
     let seasonList = item.querySelector('.season_num').value;
 
-
     item.addEventListener('mouseover',e=>{
         item.classList.add('season_title_click');
     })
@@ -102,7 +113,6 @@ seasonTitleElems.forEach(item=>{
         if(clickedSeason!=seasonList)
         item.classList.remove('season_title_click');
     })
-
 
     item.addEventListener('click',e=> {
         if(curPageSeason==seasonList){
@@ -170,7 +180,6 @@ seasonTitleElems.forEach(item=>{
             }, {f_season: seasonList,recordcount:15,rowcnt:(curPage-1)*this.recordcount})
         });
         // 계절별 리스트 띄우기
-
     });
 });
 
@@ -179,7 +188,6 @@ const makeSSList =(item,data)=>{
     let imgElem = document.createElement('img');
     let spanElem1 = document.createElement('span');
     let spanElem2 = document.createElement('span');
-
 
     divElem.classList.add('ss-img-item');
     divElem.classList.add('flex-c-c');
@@ -204,8 +212,6 @@ const makeSSList =(item,data)=>{
 
     ssListImgElem.append(divElem);
 }
-
-
 
 // 날씨 정보 및 계절별 아이콘 띄우기
 let seasonTodayElem = document.querySelector('#s_today');
@@ -256,7 +262,7 @@ getWeather((data)=>{
         if(sscode==seasonCode){
             item.classList.add('season_title_click');
         }
-    })
+    });
 
     // 첫 접속시 현재 날짜에 맞는 계절 페이지 띄우기
     fetch('/food/maxpage',{
