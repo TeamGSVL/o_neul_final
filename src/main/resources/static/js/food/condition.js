@@ -129,6 +129,50 @@ const conditionResult = ()=>{
         'body': JSON.stringify({f_cookery,f_worlddiv,igd,alone,fdnum:1})
     }).then(res=>res.json())
         .then((data) => {
+            //찜 나타내기
+            if(iuser){
+                const foodZzibBtn = document.querySelector('#food_zzim_btn');
+                let addZzim = document.createElement('div');
+                addZzim.classList.add('flex-c-r');
+                addZzim.classList.add('g10');
+                addZzim.classList.add('addZzim');
+                addZzim.innerHTML=`
+                    <div>찜 추가</div>
+                    <img src="/img/rp3.png">
+                `;
+                addZzim.addEventListener('click',e=>{
+                    removeChild(foodZzibBtn);
+                    foodZzibBtn.append(delZzim);
+                    insZzimFood({iuser,ifood:data[0].ifood},data=>{
+
+                    })
+                });
+                let delZzim = document.createElement('div');
+                delZzim.classList.add('flex-c-r');
+                delZzim.classList.add('g10');
+                delZzim.innerHTML=`
+                    <div>찜 제거</div>
+                    <img src="/img/rp4.png">
+                `;
+                delZzim.addEventListener('click',e=>{
+                    removeChild(foodZzibBtn);
+                    foodZzibBtn.append(addZzim);
+                    delZzimFood({iuser,ifood:data[0].ifood},data=>{
+
+                    })
+                });
+                const foodZzimBtnElem = document.querySelector('#food_zzim_btn');
+                removeChild(foodZzimBtnElem);
+                console.log(data[0].ifood);
+                isZzimFood({iuser,ifood:data[0].ifood},data=>{
+                    if(data==0){
+                        foodZzibBtn.append(addZzim);
+                    }else {
+                        foodZzibBtn.append(delZzim);
+                    }
+                })
+            }
+
             //디스플레이 block
             setDisplayItems(1);
             //전구 켜기

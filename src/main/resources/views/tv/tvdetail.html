@@ -15,16 +15,18 @@
         </div>
     </section>
 
-    <section class="tv-content-container">
+    <section class="tv-content-container ">
         <div class="flex-c-r g100">
-            <span th:each="item : ${tvlist}" class="tvpro_box flex-c-r tvpro_btn">
-                <div th:text="${item.keyNm}"></div>
+            <span th:each="item : ${tvlist}" class="tvpro_item tvpro_btn">
+                <div class="tvpro_box flex-c-r">
+                    <div th:text="${item.keyNm}"></div>
+                </div>
                 <input type="hidden" class="tvpro_name" th:value="${item.keyValue}">
             </span>
         </div>
 
         <div class="mt60">
-            <div class="line"><i class="fas fa-tv"></i></div>
+            <div class="line"><i class="fas fa-tv clr-main"></i></div>
             <div class="flex-c-c mt40">
                 <div class="text-emph f-s-30 flex-c-r">
                     <div th:text="${subKey.keyNm}"></div>

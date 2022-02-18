@@ -7,10 +7,14 @@ const makeImg = (item,data,codeNum) =>{
     console.log(data);
     console.log(item);
     let divElem = document.createElement('div');
+    let divBoxElem = document.createElement('div');
+    let divConElem = document.createElement('div');
+    let divZzimElem = document.createElement('div');
     let spanElem = document.createElement('span');
     let spanElemCon = document.createElement('span');
     let imgElem = document.createElement('img');
     divElem.classList.add('flex-c-c');
+
 
 
     imgElem.addEventListener('error',e=>{
@@ -23,12 +27,67 @@ const makeImg = (item,data,codeNum) =>{
     }
 
 
-    divElem.append(imgElem);
-    divElem.append(spanElem);
-
-
     //codeNum으로 어디에 나타낼지 보여줌줌
    if(codeNum==1){
+       divBoxElem.append(divConElem);
+       divBoxElem.append(divZzimElem);
+       divBoxElem.classList.add('divBoxElem');
+
+       divConElem.classList.add('divConElem');
+
+       //div엘렘에 2개를 넣고
+       //divBox에 콘텐텐츠div, zzimdiv를 넣는다
+       divElem.append(imgElem);
+       divConElem.append(spanElem);
+
+       divElem.append(divBoxElem);
+       //ZZIM
+       if(iuser){
+           let addZzimIElem = document.createElement('i');
+           addZzimIElem.classList.add("far");
+           addZzimIElem.classList.add("fa-heart");
+           addZzimIElem.classList.add("zzim");
+           addZzimIElem.addEventListener('click',e=>{
+               removeChild(divZzimElem);
+               divZzimElem.append(delZzimIElem);
+               insZzimFood({iuser,ifood:item.ifood},data=>{
+
+               })
+               console.log('하트');
+               console.log(iuser);
+               console.log(item.ifood);
+           });
+
+           let delZzimIElem = document.createElement('i');
+           delZzimIElem.classList.add("fas");
+           delZzimIElem.classList.add("fa-heart");
+           delZzimIElem.classList.add("zzim");
+           delZzimIElem.addEventListener('click',e=>{
+               removeChild(divZzimElem);
+               divZzimElem.append(addZzimIElem);
+               delZzimFood({iuser,ifood:item.ifood},data=>{
+
+               })
+               console.log('하트취소');
+               console.log(iuser);
+               console.log(item.ifood);
+           });
+
+
+           isZzimFood({iuser , ifood:item.ifood},
+               (data)=>{
+                    if(data==0){
+                        divZzimElem.append(addZzimIElem);
+                    }else {
+                        divZzimElem.append(delZzimIElem);
+                    }
+
+                   console.log(data);
+               })
+       }else {
+           divZzimElem.innerHTML='';
+       }
+
         spanElem.innerHTML=`
         ${item.f_nm}
         `;
@@ -38,18 +97,22 @@ const makeImg = (item,data,codeNum) =>{
        spanElem.classList.add("f-s-23");
        spanElem.classList.add("f-c-g");
        spanElemCon.classList.add('rdfood-spanCon')
-        divElem.append(spanElemCon);
-        foodListElem.append(divElem);
+       divConElem.append(spanElemCon);
+       foodListElem.append(divElem);
         console.log('worlddiv')
 
 
     }else if(codeNum==2){
+       divElem.append(imgElem);
+       divElem.append(spanElem);
         spanElem.innerHTML=`
         [${item.alk}] [${item.f_cookery}] ${item.f_nm}
     `;
        spanElem.classList.add("f-s-18");
        acListElem.append(divElem);
     }else if(codeNum==3){
+       divElem.append(imgElem);
+       divElem.append(spanElem);
         spanElem.innerHTML=`
         [${item.f_season}] [${item.f_cookery}] ${item.f_nm}
     `;

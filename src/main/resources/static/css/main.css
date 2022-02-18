@@ -128,6 +128,24 @@
 .rdfood-info{
     font-weight: bolder;
 }
+.divBoxElem{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.divConElem{
+    display: flex;
+    flex-direction: column;
+}
+.zzim{
+    cursor: pointer;
+    margin-top: 15px;
+    margin-right: 15px;
+    font-size: 30px;
+    color: #ff4e7f;
+}
+
 
 /*
 맛집추천

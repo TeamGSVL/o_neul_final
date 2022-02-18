@@ -36,4 +36,11 @@ public class FoodController {
         return list;
     }
 
+    //ajax maxPage
+    @ResponseBody
+    @PostMapping("/maxpage")
+    public int getMaxPage(@RequestBody FoodConditionEntity entity){
+        return foodService.selMaxPage(entity);
+    }
+
 }

@@ -24,4 +24,9 @@ public class FoodService {
         return list;
     }
 
+    //MaxPage리턴
+    public int selMaxPage(FoodConditionEntity entity){
+        return foodMapper.selMaxPage(entity);
+    }
+
 }
