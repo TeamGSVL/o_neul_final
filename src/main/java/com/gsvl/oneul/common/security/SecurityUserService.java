@@ -4,6 +4,7 @@ import com.gsvl.oneul.common.security.model.CustomUserPrincipal;
 import com.gsvl.oneul.user.UserMapper;
 import com.gsvl.oneul.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +28,11 @@ public class SecurityUserService implements UserDetailsService {
         UserEntity param = new UserEntity();
         param.setU_pfnum(u_pfunum);
         param.setU_id(id);
-        return mapper.selUser(param);
+        UserEntity resultEntity  = mapper.selUser(param);
+        if(resultEntity==null){
+            throw new AuthenticationServiceException(String.format("아이디를 찾을수 없음"));
+        }
+        return resultEntity;
     }
 
     //회원가입
