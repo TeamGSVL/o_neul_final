@@ -23,10 +23,10 @@
     </insert>
     <insert id="insMenus">
         insert into o_jmt_menu
-        (ijmt,j_nm,j_price)
+        (ijmt,j_nm,j_price,j_menuimg)
         values
         <foreach collection="jmList" item="item" separator=",">
-            (#{item.ijmt},#{item.menu},#{item.price})
+            (#{item.ijmt},#{item.menu},#{item.price},#{item.img})
         </foreach>
     </insert>
 
@@ -47,7 +47,7 @@
         select j_src as orgurl from o_jmt_img where ijmt = #{ijmt}
     </select>
     <select id="selMenuList" resultType="JsonMenuList">
-        select j_nm as menu, j_price as price from o_jmt_menu where ijmt = #{ijmt}
+        select j_nm as menu, j_price as price,j_menuimg as img from o_jmt_menu where ijmt = #{ijmt}
     </select>
 
 </mapper>
