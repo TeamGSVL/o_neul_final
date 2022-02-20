@@ -224,7 +224,7 @@ const makeAlcoholList =(item, data)=>{
     if(data.result.length > 0 && data.result[0].link!=null){
         imgElem.src = data.result[0].link
     }
-    spanElem1.innerHTML=`[${item.f_cookery}]&nbsp&nbsp[${item.f_worlddiv}]&nbsp&nbsp[${item.alk}]`
+    spanElem1.innerHTML=`[${item.f_cookery}]&nbsp&nbsp[${item.f_worlddiv}]&nbsp&nbsp[${item.f_season}]`
     spanElem2.innerHTML=`${item.f_nm}`;
     divElem.append(imgElem);
     divElem.append(spanElem1);
