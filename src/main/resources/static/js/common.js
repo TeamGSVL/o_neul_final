@@ -156,7 +156,21 @@ const delZzimFood = (zzim,myft)=>{
 
 //JMT 찜 확인
 const isZzimJMT = (zzim,myft) =>{
-    fetch(`/user/ajax/zzim/JMT?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+    fetch(`/user/ajax/zzim/jmt?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+//jmt 찜 추가
+const insZzimJMT  = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/jmt/ins?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+//jmt 찜 삭제
+const delZzimJMT  = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/jmt/del?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
         .then(res=>res.json()).then(data=>{
         myft(data);
     });

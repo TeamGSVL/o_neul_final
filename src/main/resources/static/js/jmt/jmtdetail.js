@@ -1,4 +1,21 @@
+
+
+
 {
+    //이미지 swifer
+    new Swiper('.swiper-container', {
+        slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
+        spaceBetween : 0, // 슬라이드간 간격
+        autoplay: {
+            delay:3500,
+            disableOnInteraction : false
+        },
+        loop : true, // 무한 반복
+
+        observer: true,
+        observeParents: true,
+    });
+
     //map 가게위치
     (function(){
         'use strict'
@@ -65,4 +82,45 @@
 
 
     })();
+    if(iuser){
+        const ijmtElem = document.querySelector('#ijmt');
+        let ijmt = ijmtElem.dataset.ijmt;
+        const jmtZzimBtn = document.querySelector('#jmt-zzim-btn');
+        let addZzim = document.createElement('div');
+        addZzim.classList.add('flex-c-r');
+        addZzim.classList.add('g10');
+        addZzim.classList.add('addZzim');
+        addZzim.innerHTML=`
+                    <div>찜 추가</div>
+                    <img src="/img/rp3.png">
+                `;
+        addZzim.addEventListener('click',e=>{
+            removeChild(jmtZzimBtn);
+            jmtZzimBtn.append(delZzim);
+            insZzimJMT({iuser,ijmt},data=>{
+
+            })
+        });
+        let delZzim = document.createElement('div');
+        delZzim.classList.add('flex-c-r');
+        delZzim.classList.add('g10');
+        delZzim.innerHTML=`
+                    <div>찜 제거</div>
+                    <img src="/img/rp4.png">
+                `;
+        delZzim.addEventListener('click',e=>{
+            removeChild(jmtZzimBtn);
+            jmtZzimBtn.append(addZzim);
+            delZzimJMT({iuser,ijmt},data=>{
+
+            })
+        });
+        isZzimJMT({iuser,ijmt},(data)=>{
+            if(data==0){
+                jmtZzimBtn.append(addZzim);
+            }else {
+                jmtZzimBtn.append(delZzim);
+            }
+        });
+    }
 }

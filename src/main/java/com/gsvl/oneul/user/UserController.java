@@ -185,7 +185,17 @@ public class UserController {
     @ResponseBody
     public int isZzimJmt(UserDTO dto){
         return service.isZzimJmt(dto);
-
-
+    }
+    //zzimJmt insert
+    @GetMapping("/ajax/zzim/jmt/ins")
+    @ResponseBody
+    public int insZzimJmt(UserDTO dto){
+        return service.insZzimJmt(dto);
+    }
+    //zzimJmt delete
+    @GetMapping("/ajax/zzim/jmt/del")
+    @ResponseBody
+    public int delZzimJmt(UserDTO dto){
+        return service.delZzimJmt(dto);
     }
 }

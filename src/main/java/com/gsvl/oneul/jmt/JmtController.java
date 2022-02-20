@@ -26,10 +26,9 @@ public class JmtController {
         JmtEntity entity = new JmtEntity();
         entity.setIjmt(ijmt);
         model.addAttribute(Const.JMTDETAIL, service.selJmt(entity));
-        System.out.println(ijmt);
         return "/jmt/jmtdetail";
     }
-    @GetMapping("{ijmt}/review")
+    @GetMapping("/{ijmt}/review")
     public String goJmtReview(){ return "/jmt/jmtreview";}
 
 

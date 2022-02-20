@@ -154,7 +154,12 @@ public class UserService {
     public int isZzimJmt(UserDTO dto){
         return mapper.isZzimJmt(dto);
     }
-
+    public int insZzimJmt(UserDTO dto){
+        return mapper.insZzimJmt(dto);
+    }
+    public int delZzimJmt(UserDTO dto){
+        return mapper.delZzimJmt(dto);
+    }
 
 
 
