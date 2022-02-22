@@ -1,0 +1,14 @@
+.notice_detail_list {
+    margin: auto;
+    text-align: center;
+}
+
+.list_btn {
+    color: #fff;
+    background-color: #4d4d4d;
+    border: 0;
+    outline: 0;
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+}

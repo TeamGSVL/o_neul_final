@@ -3,10 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="temp/thymeleaf_layout">
 <head>
-    <link rel="stylesheet"  th:href="@{/css/notice/notice.css}">
-    <script defer th:src="@{/js/notice/notice.js}"></script>
+    <link rel="stylesheet"  th:href="@{/css/notice/noticedetail.css}">
+    <script defer th:src="@{/js/notice/noticedetail.js}"></script>
     <meta charset="UTF-8">
-    <title>notice</title>
+    <title>notice Detail</title>
 </head>
 <th:block layout:fragment="content">
     <section class="ss-bn-container">
@@ -18,18 +18,24 @@
     <section class="ss-content-container">
         <div> <!--공지사항 아이콘.-->
             <div class="line" id="notice_icon"><i class="fa-solid fa-circle-info"></i></div>
-            <div id="notice_list" class="notice_list">
-                <table class="table table-hover caption-top">
+            <div id="notice_detail_list" class="notice_detail_list">
+                <table class="table caption-top">
                     <thead>
                         <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>조회</th>
-                            <th>작성일</th>
+                            <th>
+                                <!--디테일 제목-->
+                                <div th:text="${noticedetail.n_title}"></div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <!--디테일 내용-->
+                            <td th:text="${noticedetail.n_ctnt}"></td>
+                        </tr>
+                    </tbody>
                 </table>
+                <button id="list_btn" class="list_btn">목록</button>
             </div>
         </div>
     </section>

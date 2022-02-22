@@ -7,9 +7,6 @@ if(globalConst){
     pfnum = globalConst.dataset.u_pfnum;
 }
 
-
-
-
 //img패치
 const getImg = (item,myFun,imgNum,codeNum) =>{
     fetch(`/common/ajax/img/${item.f_nm}?imgNum=${imgNum}`)
@@ -152,8 +149,6 @@ const delZzimFood = (zzim,myft)=>{
     });
 }
 
-
-
 //JMT 찜 확인
 const isZzimJMT = (zzim,myft) =>{
     fetch(`/user/ajax/zzim/JMT?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
@@ -161,3 +156,9 @@ const isZzimJMT = (zzim,myft) =>{
         myft(data);
     });
 }
+
+// 공지사항으로 이동
+    const noticeListMainElem = document.querySelector('.notice_list_main');
+    noticeListMainElem.addEventListener('click', e => {
+        location.href='/notice';
+    });
