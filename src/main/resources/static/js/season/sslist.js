@@ -103,22 +103,28 @@ startBtn.addEventListener('click',evt => {
 });
 
 //page처리까지하는 getList
-let curPage=0;
+let curPage=1;
 let maxPage=0;
-
+let recordcount=15;
 //스크롤에 이벤트
 window.addEventListener('scroll', () => {
     let val = window.innerHeight + window.scrollY;
     if(val >= document.body.offsetHeight){
-        console.log(curPage)
-        console.log(maxPage)
-        if(curPage<maxPage){
-            curPage++;
+        console.log(curPage);
+        let param = {
+            f_season: curPageSeason,
+            recordcount,
+            rowcnt:(curPage-1)*recordcount
+        }
+        console.log(param.rowcnt);
+        if(curPage<=maxPage){
             getFoodList((data) => {
+                console.log(data);
+                curPage++;
                 data.forEach(item=>{
                     getImg(item,makeSSList,1);
                 });
-            }, {f_season: curPageSeason,recordcount:15,rowcnt:(curPage-1)*this.recordcount})
+            }, {f_season: curPageSeason,recordcount,rowcnt:(curPage-1)*recordcount})
         }else {
             console.log('페이지 끝');
         }
@@ -183,12 +189,12 @@ seasonTitleElems.forEach(item=>{
         }
 
         //현재페이지를 0으로해서 페이지 초기화
-        curPage = 0;
+        curPage = 1;
 
         fetch('/food/maxpage',{
             'method': 'post',
             'headers': { 'Content-Type': 'application/json' },
-            'body': JSON.stringify({f_season:seasonList,recordcount:10})
+            'body': JSON.stringify({f_season:seasonList,recordcount:15})
         }).then(res=>res.json()).then(tsmp=>{
             maxPage = tsmp; //통신으로 가져온 maxpage
             //maxpage가지고오면 getList통신
@@ -290,20 +296,22 @@ getWeather((data)=>{
     fetch('/food/maxpage',{
         'method': 'post',
         'headers': { 'Content-Type': 'application/json' },
-        'body': JSON.stringify({f_season:seasonCode,recordcount:10})
+        'body': JSON.stringify({f_season:seasonCode,recordcount:15})
     }).then(res=>res.json()).then(tsmp=>{
         maxPage = tsmp;
         console.log('통신 후');
         console.log(maxPage);
         getFoodList((data) => {
             curPage++;
+            console.log('페이지 로드');
+            console.log(curPage);
             getFoodList((imgData)=>{
                 shuffleImg(imgData);//이미지 배열 세팅
             },{f_season: seasonCode});
             data.forEach(item=>{
                 getImg(item,makeSSList,1);
             })
-        }, {f_season: seasonCode,recordcount:15,rowcnt:(curPage-1)*this.recordcount})
+        }, {f_season: seasonCode,recordcount:15,rowcnt:(curPage-1)*15})
     });
 
 });

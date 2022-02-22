@@ -14,4 +14,21 @@
         WHERE A.ijmt = ${ijmt}
         ORDER BY icmt
     </select>
+
+    <select id="selReview" resultType="JmtReviewVo">
+        select * from o_jmt_review
+        where iuser=#{iuser} and ijmt = #{ijmt}
+    </select>
+
+<!--    사진 추가되면 사진도 같이 삭제되도록-->
+    <delete id="delReview">
+        delete from o_jmt_review
+        where icmt = ${icmt} and iuser = ${iuser}
+    </delete>
+
+    <update id="updReview">
+        update o_jmt_review
+        set j_ctnt = #{j_ctnt},j_star = #{j_star}
+        where icmt = ${icmt} and iuser = ${iuser}
+    </update>
 </mapper>

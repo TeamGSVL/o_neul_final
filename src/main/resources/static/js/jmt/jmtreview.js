@@ -1,4 +1,10 @@
 {
+    let starLate = 0;
+    const ijmtElem = document.querySelector('#ijmt');
+    let ijmt = ijmtElem.dataset.ijmt;
+    let updStarElem = document.querySelector('#jmt_upd_star');
+    let icmtElem = document.querySelector('#jmt_icmt');
+
     (function (){
         'use strict'
 
@@ -6,38 +12,55 @@
 
         //댓글 입력 폼
         if (reviewFormContainerElem) {
-            const reviewSubmitBtnElem = reviewFormContainerElem.querySelector('button[name="review_submit"]');
+            const reviewWriteBtnElem = reviewFormContainerElem.querySelector('button[name="review_write"]');
+            const reviewChangeBtnElem = reviewFormContainerElem.querySelector('button[name="review_change"]');
             const reviewCtntInputElem = reviewFormContainerElem.querySelector('textarea[name="ctnt"]');
 
-            reviewSubmitBtnElem.addEventListener('click', e => {
-                console.log(reviewCtntInputElem.value);
-
-                const param = {
-                    ijmt,
-                    'ctnt': reviewCtntInputElem.value
-                }
-
-                fetch('review/ajax', {
-                    method : 'post',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(ijmt)
-                })
-                    .then(res => res.json())
-                    .then((data) => {
-                        console.log(data.result);
-                        switch (data.result) {
-                            case 0:
-                                alert('댓글 전송에 실패하였습니다.');
-                                break;
-                            case 1:
-                                reviewCtntInputElem.value = null;
-                                break;
-                        }
-                    },data).catch((e) =>{
-                    console.log(e);
+            if(reviewWriteBtnElem){
+                reviewWriteBtnElem.addEventListener('click', e => {
+                    const param = {
+                        iuser,
+                        ijmt,
+                        j_ctnt: reviewCtntInputElem.value,
+                        j_star:starLate
+                    }
+                    fetch('/review/ajax', {
+                        method : 'post',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(param)
+                    })
+                        .then(res => res.json())
+                        .then((data) => {
+                            location.href=`/jmt/${ijmt}`;
+                        }).catch((e) =>{
+                        console.log(e);
+                    });
                 });
+            }
+            if(reviewChangeBtnElem){
+                reviewChangeBtnElem.addEventListener('click',e=>{
+                    const param = {
+                        iuser,
+                        ijmt,
+                        j_ctnt: reviewCtntInputElem.value,
+                        j_star:starLate,
+                        icmt : icmtElem.value
+                    }
+                    console.log(param);
+                    fetch('/review/ajax', {
+                        method : 'put',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(param)
+                    })
+                        .then(res => res.json())
+                        .then((data) => {
+                            location.href=`/jmt/${ijmt}`;
+                        }).catch((e) =>{
+                        console.log(e);
+                    });
+                });
+            }
 
-            });
         }
 
         //별점 마킹 모듈 프로토타입으로 생성
@@ -57,12 +80,17 @@
         }
         let rating = new Rating();//별점 인스턴스 생성
 
+        if(updStarElem){
+            rating.setRate(updStarElem.value);
+        }
+
         document.addEventListener('DOMContentLoaded', function(){
             //별점선택 이벤트 리스너
             document.querySelector('.rating').addEventListener('click',function(e){
                 let elem = e.target;
                 if(elem.classList.contains('rate_radio')){
                     rating.setRate(parseInt(elem.value));
+                    starLate = rating.rate;
                 }
             })
         });

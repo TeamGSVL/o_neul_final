@@ -3,10 +3,7 @@ package com.gsvl.oneul.jmt.review;
 import com.gsvl.oneul.jmt.review.model.JmtReviewEntity;
 import com.gsvl.oneul.jmt.review.model.JmtReviewVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +12,34 @@ import java.util.List;
 public class JmtReviewRestController {
     @Autowired private JmtReviewService service;
 
+    //리뷰 작성
     @PostMapping()
-    public int JmtReview(JmtReviewEntity entity){
+    public int JmtReview(@RequestBody JmtReviewEntity entity){
         return service.insReview(entity);
     }
+
+    //리뷰 리스트 가져오기
     @GetMapping()
     public List<JmtReviewVo> selReviewList(JmtReviewEntity entity){
         return service.selReviewList(entity);
+    }
+
+    //리뷰 썻는지 안썻는지 확인
+    @GetMapping("/is")
+    public int selReview(JmtReviewEntity entity){
+        if(service.selReview(entity)==null){
+            return 0;
+        }else {
+            return 1;
+        }}
+
+    //리뷰삭제
+    @DeleteMapping()
+    public int delReview(JmtReviewEntity entity){return service.delReview(entity); }
+
+    //리뷰 수정
+    @PutMapping()
+    public int updReview(@RequestBody JmtReviewEntity entity){
+        return service.updReview(entity);
     }
 }

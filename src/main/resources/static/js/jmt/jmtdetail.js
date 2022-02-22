@@ -1,7 +1,7 @@
 
-
-
 {
+    const ijmtElem = document.querySelector('#ijmt');
+    let ijmt = ijmtElem.dataset.ijmt;
     //이미지 swifer
     new Swiper('.swiper-container', {
         slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
@@ -42,20 +42,43 @@
     //리뷰
     (function () {
         'use strict'
-        const searchParams = new URL(window.location.href).searchParams;
-        const ijmt = searchParams.get('ijmt');
-
 
         const jmtDetailReviewElem = document.querySelector('#jmt-detail-review');
 
         //댓글 리스트
         const getReviewList = () => {
-            fetch('/review/ajax', {
+            fetch(`/review/ajax?ijmt=${ijmt}`, {
                 method: 'get',
                 headers: {'Content-Type': 'application/json'}
             })
                 .then(res => res.json())
                 .then((list) => {
+                    console.log(list);
+                    //별 찍어주기
+
+                    const starCount = document.querySelector('#jmt_star_count');
+                    let totalStar=0;
+                    list.forEach(item =>{
+                        totalStar+=item.j_star;
+                    })
+                    let countingStar = totalStar/list.length;
+                    if(totalStar){
+                        if(Math.round(countingStar)>0){
+                            for(let i=0;i<Math.round(countingStar);i++){
+                                starCount.innerHTML += `<i class="fa-solid fa-star"></i>`;
+                            }
+                        }else {
+                            starCount.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                        }
+
+                        starCount.innerHTML += `(${countingStar})`;
+                    }else {
+                        starCount.innerHTML = `<i class="fa-regular fa-star"></i>(0)`;
+                    }
+
+                    //리뷰 갯수 알려주기
+                    const reviewCount = document.querySelector('#review_count');
+                    reviewCount.innerHTML = `<i class="fa-regular fa-comments"></i> 총 ${list.length}개의 리뷰`;
                     makeReviewRecordList(list);
                 }).catch(e => {
                 console.log(e);
@@ -65,26 +88,97 @@
 
         //댓글 리스트 생성
         const makeReviewRecordList = list => {
-            const tbodyElem = jmtDetailReviewElem.querySelector('table > tbody');
-
+            const reviewList = document.querySelector('#jmt_review_list');
             list.forEach(item => {
-                const trElem = document.createElement('tr');
-                trElem.innerHTML = `
-                <td>${item.iuser}</td>
-                <td>${item.ctnt}</td>
-                <td>${item.j_star}</td>
-                <td>${item.j_rdt}</td>
-            `;
-                tbodyElem.appendChild(trElem);
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('review-item');
+                const subDiv = document.createElement('div');
+                subDiv.classList.add('review-item-sub');
+                const subBoxDiv = document.createElement('div');
+                subBoxDiv.classList.add('flex-c-r');
+                subBoxDiv.classList.add('g30');
+
+
+                const profileDiv = document.createElement('div');
+                const starDiv = document.createElement('div');
+                const ctntDiv = document.createElement('div');
+
+                profileDiv.innerHTML = `${item.username}`;
+                if(item.j_star>0){
+                    for(let i = 0; i<item.j_star;i++){
+                        starDiv.innerHTML+=`<i class="fa-solid fa-star"></i>`;
+                    }
+                }else {
+                    starDiv.innerHTM = `<i class="fa-regular fa-star"></i>`;
+                }
+
+
+                ctntDiv.innerHTML =`${item.j_ctnt}`;
+
+                itemDiv.append(subDiv);
+                subBoxDiv.append(profileDiv);
+                subBoxDiv.append(starDiv);
+                subDiv.append(subBoxDiv);
+
+                if(item.iuser==iuser){
+                    const utilDiv = document.createElement('div');
+                    utilDiv.classList.add('flex-c-r');
+                    utilDiv.classList.add('g30');
+                    const updDiv = document.createElement('div');
+                    updDiv.classList.add('jmt-review-util');
+                    updDiv.innerHTML = '<i class="fa-solid fa-wrench"></i>수정';
+                    const delDiv = document.createElement('div');
+                    delDiv.classList.add('jmt-review-util');
+                    delDiv.innerHTML = '<i class="fa-regular fa-trash-can"></i>삭제';
+                    updDiv.addEventListener('click',e=>{
+                        location.href=`/jmt/review/${ijmt}?iuser=${iuser}`;
+                    });
+                    delDiv.addEventListener('click',e=>{
+                        if(confirm('정말 삭제하시겠습니까?')){
+                            fetch(`/review/ajax?icmt=${item.icmt}&iuser=${iuser}`,{ method:"DELETE"})
+                                .then(res=>res.json())
+                                .then(data=>{
+                                    console.log(data);
+                                    alert('삭제완료!');
+                                    itemDiv.remove();
+                                });
+                        }
+
+                    })
+
+                    utilDiv.append(updDiv);
+                    utilDiv.append(delDiv);
+
+                    subDiv.append(utilDiv);
+                }
+
+                itemDiv.append(ctntDiv);
+                reviewList.appendChild(itemDiv);
             });
         }
 
 
 
     })();
+
+    //리뷰 작성 이동
+    const reviewWriteElem = document.querySelector('#review_write');
+    if(reviewWriteElem){
+        reviewWriteElem.addEventListener('click',e=>{
+            fetch(`/review/ajax/is?iuser=${iuser}&ijmt=${ijmt}`)
+                .then(res=>res.json())
+                .then(data=>{
+                    if(data==0){
+                        location.href=`/jmt/review/${ijmt}`;
+                    }
+                    else {
+                        alert('이미 리뷰를 작성하셨습니다');
+                    }
+                })
+        });
+    }
     if(iuser){
-        const ijmtElem = document.querySelector('#ijmt');
-        let ijmt = ijmtElem.dataset.ijmt;
+
         const jmtZzimBtn = document.querySelector('#jmt-zzim-btn');
         let addZzim = document.createElement('div');
         addZzim.classList.add('flex-c-r');
