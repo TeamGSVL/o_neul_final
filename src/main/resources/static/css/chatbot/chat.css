@@ -1,0 +1,33 @@
+.chat_btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: #fff;
+    font-size: 70px;
+}
+
+.chat_main {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 350px;
+    height: 480px;
+    border: solid 1px #333;
+    overflow: auto;
+    scroll-behavior: smooth;
+    background-color: #ecf0f1;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.chat_main_close {
+    cursor: pointer;
+}
+
+.chatbot_icon {
+    font-size: 30px;
+}

@@ -29,11 +29,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    @Autowired private UserService service;
+    @Autowired
+    private UserService service;
 
 
     @GetMapping("/login")
-    public void goLoginPage(){ }
+    public void goLoginPage() {
+    }
 
     @PostMapping("/login")
     public String loginPost(HttpServletRequest rq,RedirectAttributes ra){
@@ -42,10 +44,11 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public void goJoinPage(){ }
+    public void goJoinPage() {
+    }
 
     @PostMapping("/join")
-    public String join(UserEntity entity){
+    public String join(UserEntity entity) {
         service.join(entity);
         return "redirect:/user/login";
 
@@ -60,6 +63,7 @@ public class UserController {
         res.put("result", service.idChk(u_id));
         return res;
     }
+
     // 이메일 중복 확인(회원가입)
     @PostMapping("/emailChk")
     @ResponseBody
@@ -160,31 +164,30 @@ public class UserController {
     //zzimFood 확인
     @GetMapping("/ajax/zzim/food")
     @ResponseBody
-    public int isZzimFood(UserDTO dto){
+    public int isZzimFood (UserDTO dto){
         return service.isZzimFood(dto);
     }
+
     //zzimfood insert
     @GetMapping("/ajax/zzim/food/ins")
     @ResponseBody
-    public int insZzimFood(UserDTO dto){
+    public int insZzimFood (UserDTO dto){
         return service.insZzimFood(dto);
     }
+
     //zzimfood delete
     @GetMapping("/ajax/zzim/food/del")
     @ResponseBody
-    public int delZzimFood(UserDTO dto){
+    public int delZzimFood (UserDTO dto){
         return service.delZzimFood(dto);
     }
-
-
-
-
 
     //zzimJmt 확인
     @GetMapping("/ajax/zzim/jmt")
     @ResponseBody
-    public int isZzimJmt(UserDTO dto){
+    public int isZzimJmt (UserDTO dto){
         return service.isZzimJmt(dto);
+
     }
     //zzimJmt insert
     @GetMapping("/ajax/zzim/jmt/ins")
@@ -197,5 +200,6 @@ public class UserController {
     @ResponseBody
     public int delZzimJmt(UserDTO dto){
         return service.delZzimJmt(dto);
+
     }
 }

@@ -16,6 +16,7 @@ public class Const {
 
 
     public final static String NOTICE = "notice";
+    public final static String NOTICE_DETAIL = "noticedetail";
 
     public static final String UPLOAD_IMG_PATH = "C:\\upload\\images";
 
