@@ -90,7 +90,19 @@
     <select id="isZzimJmt" resultType="Integer">
         select count(*) from o_zzim_jmt
         where iuser = ${iuser}
-          and ijmt = ${ifood}
+          and ijmt = ${ijmt}
     </select>
+
+    <insert id="insZzimJmt">
+        insert into o_zzim_jmt
+            (iuser,ijmt)
+        values
+            (${iuser},${ijmt})
+    </insert>
+
+    <delete id="delZzimJmt">
+        delete from o_zzim_jmt
+        where iuser = ${iuser} and ijmt = ${ijmt}
+    </delete>
 
 </mapper>

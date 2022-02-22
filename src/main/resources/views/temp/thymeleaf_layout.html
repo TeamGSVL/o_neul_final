@@ -18,12 +18,12 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=25634032cad38fd0169f02c62df4da24&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
-    <div>
-        <th:block th:replace="temp/fragments :: header"></th:block>
-        <section class="content-container">
-            <th:block layout:fragment="content"></th:block>
-        </section>
-        <th:block th:replace="temp/fragments :: footer"></th:block>
-    </div>
+
+    <th:block th:replace="temp/fragments :: header"></th:block>
+    <section class="content-container">
+        <th:block layout:fragment="content"></th:block>
+    </section>
+    <th:block th:replace="temp/fragments :: footer"></th:block>
+
 </body>
 </html>

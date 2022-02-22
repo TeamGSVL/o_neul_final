@@ -38,5 +38,9 @@ public interface UserMapper {
     //맛집 찜 확인
     int isZzimJmt(UserDTO dto);
 
+    //맛집 찜 insert
+    int insZzimJmt(UserDTO dto);
 
+    //맛집 찜 delete
+    int delZzimJmt(UserDTO dto);
 }

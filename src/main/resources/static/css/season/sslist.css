@@ -33,16 +33,27 @@
     padding: 15px 20px;
     border-radius: 40px;
 }
+
+.season_title:hover{
+    cursor: pointer;
+}
+
 .season_title_click{
     background-color: white;
+}
+.season_nm{
 }
 
 .ss-text{
     border-radius: 30px;
     background-color: white;
     width: 600px;
-    height: 340px;
+    height: 300px;
+    padding: 30px;
 }
+
+
+
 
 .ss-item{
     background-color: rgba(234, 195, 169, 0.42);
@@ -59,8 +70,15 @@
     width: 500px;
     height: 350px;
 }
-.ss-btn-box{
-
+.ss-btn-box div{
+    border-radius: 20px;
+    margin-top: 10px;
+    background-color: white;
+    cursor: pointer;
+    padding: 15px;
+}
+.ss-btn-box div:hover{
+    background-color: rgba(241, 200, 200, 0.89);
 }
 
 .season_list_img{

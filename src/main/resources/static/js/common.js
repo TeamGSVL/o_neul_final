@@ -151,14 +151,74 @@ const delZzimFood = (zzim,myft)=>{
 
 //JMT 찜 확인
 const isZzimJMT = (zzim,myft) =>{
-    fetch(`/user/ajax/zzim/JMT?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+    fetch(`/user/ajax/zzim/jmt?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
         .then(res=>res.json()).then(data=>{
         myft(data);
     });
 }
+
 
 // 공지사항으로 이동
     const noticeListMainElem = document.querySelector('.notice_list_main');
     noticeListMainElem.addEventListener('click', e => {
         location.href='/notice';
     });
+
+//jmt 찜 추가
+const insZzimJMT  = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/jmt/ins?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+//jmt 찜 삭제
+const delZzimJMT  = (zzim,myft)=>{
+    fetch(`/user/ajax/zzim/jmt/del?iuser=${zzim.iuser}&ijmt=${zzim.ijmt}`)
+        .then(res=>res.json()).then(data=>{
+        myft(data);
+    });
+}
+//header 검색 작업
+const searchBtn = document.querySelector('#search_btn');
+searchBtn.addEventListener('submit',evt => {
+    evt.preventDefault();
+    let keyword = searchBtn.jmt.value;
+    var ps = new kakao.maps.services.Places();
+    ps.keywordSearch(keyword, placesSearchCB, {
+        category_group_code: 'FD6',
+    });
+    function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+            let jmtArr = []
+            let jmtEntity = {
+                ijmt : data[0].id,
+                j_placenm : data[0].place_name,
+                j_phone : data[0].phone,
+                j_oldaddr : data[0].address_name,
+                j_newaddr : data[0].road_address_name,
+                j_x : data[0].x,
+                j_y : data[0].y
+            }
+            console.log(jmtEntity);
+            jmtArr.push(jmtEntity);
+            fetch('/jmt/ajax', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jmtArr)
+            }).then(res=>res.json())
+                .then(data=>{
+                    location.href = `/jmt/${jmtEntity.ijmt}`;
+                });
+
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+            alert('검색하신 맛집이 데이터에 없습니다.')
+            return;
+
+        } else if (status === kakao.maps.services.Status.ERROR) {
+            alert('검색 결과 중 오류가 발생했습니다.');
+            return;
+
+        }
+    }
+});
+

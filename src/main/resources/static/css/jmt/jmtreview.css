@@ -1,3 +1,10 @@
+.jmt-review-container{
+    width: 100%;
+    height: 100%;
+    padding: 50px 100px;
+}
+
+
 .rating .rate_radio {
     position: relative;
     display: inline-block;
@@ -25,4 +32,14 @@
 }
 .rating .rate_radio:checked + label {
     background-color: #ff8;
+}
+.jmt-detail-box{
+    padding: 30px 30px;
+    height: 100%;
+    width: 80%;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.jmt-review-text{
+    width: 500px;
 }

@@ -21,10 +21,10 @@
             </div>
         </section>
         <section class="header-user g50">
-            <div class="search-box">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-                <input type="text" placeholder="맛집이름을 검색해주세요!">
-            </div>
+            <form class="search-box" id="search_btn">
+                <button class="search-btn" ><i class="fas fa-search"></i></button>
+                <input type="text" name="jmt" placeholder="주소와 맛집이름을 검색해주세요! ex)서울 00">
+            </form>
             <th:block sec:authorize="isAuthenticated()">
                     <a class="flex-c-r" href="/user/logout">로그아웃</a>
                     <a class="flex-c-r" href="/user/mypage">마이페이지</a>
@@ -37,16 +37,20 @@
     </header>
 </th:block>
 <th:block th:fragment="footer">
-    <div class="copy-right">
-        <div><div class="line"><i class="fa-regular fa-copyright"></i></div></div>
-        <div class="copy-content-box">
-            <div class="flex-c-r">
-                <span class="flex-c-r">오늘 뭐먹을지 고민하는 세상 모든사람을 위해</span>
+    <footer>
+        <div class="copy-right">
+            <div><div class="line"><i class="fa-regular fa-copyright"></i></div></div>
+            <div class="copy-content-box">
+                <div class="flex-c-r">
+                    <span class="flex-c-r">오늘 뭐먹을지 고민하는 세상 모든사람을 위해</span>
+                </div>
+                <div class="flex-c-r">
+                    <span>presented by Team_GSVL</span>
+                </div>
             </div>
-            <div class="flex-c-r">
-                <span>presented by Team_GSVL</span>
-            </div>
+            <div class="copy-text">Copyright 2018. HandMade all rights reserved.</div>
         </div>
+
         <div class="notice_list_main">공지사항</div>
         <div class="copy-text">Copyright 2018. HandMade all rights reserved.</div>
     </div>
@@ -103,5 +107,8 @@
             </div>
         </div>
     </div>
+
+    </footer>
+
 </th:block>
 </html>

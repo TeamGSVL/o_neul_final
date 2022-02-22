@@ -8,12 +8,12 @@
 
 html{
     scroll-behavior: smooth;
-
 }
 body{
     font-weight: bolder;
     font-family: "bmh";
     overflow-x: hidden;
+    height: 100%;
 }
 
 img{
@@ -55,6 +55,7 @@ input[type=radio]{
 .content-container{
     height: auto;
     min-height: 100%;
+    padding-bottom: 200px;
 }
 
 .bt-rad{
@@ -108,6 +109,9 @@ header a:hover{
     background-color: white;
     border-radius: 10px;
 }
+.search-box input::placeholder{
+    font-size: 13px;
+}
 .search-box input{
     width: 230px;
     border: none;
@@ -117,6 +121,13 @@ header a:hover{
     background-color: white;
     font-size: 20px;
     margin-right: 10px;
+}
+
+footer{
+    padding-top: 200px;
+    height: 200px;
+    position : relative;
+    transform : translateY(-100%);
 }
 
 .copy-right{
