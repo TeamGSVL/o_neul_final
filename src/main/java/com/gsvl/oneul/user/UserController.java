@@ -37,11 +37,13 @@ public class UserController {
     public void goLoginPage() {
     }
 
+
     @PostMapping("/login")
     public String loginPost(HttpServletRequest rq,RedirectAttributes ra){
         ra.addFlashAttribute("error",rq.getAttribute("error"));
         return "redirect:/user/login";
     }
+
 
     @GetMapping("/join")
     public void goJoinPage() {
@@ -181,6 +183,7 @@ public class UserController {
     public int delZzimFood (UserDTO dto){
         return service.delZzimFood(dto);
     }
+
 
     //zzimJmt 확인
     @GetMapping("/ajax/zzim/jmt")
