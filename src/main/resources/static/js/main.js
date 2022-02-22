@@ -469,3 +469,4 @@ setInterval(rdSeasonImg,1000);
     });
 }
 
+

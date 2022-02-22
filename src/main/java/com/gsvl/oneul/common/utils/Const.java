@@ -12,9 +12,11 @@ public class Const {
 
     public final static String F_SEASONLIST = "f_seasonlist";
     public final static String JMTDETAIL = "jmtdeatil";
+    public final static String JMTREVIEW = "jmtreview";
 
 
     public final static String NOTICE = "notice";
+    public final static String NOTICE_DETAIL = "noticedetail";
 
     public static final String UPLOAD_IMG_PATH = "C:\\upload\\images";
 

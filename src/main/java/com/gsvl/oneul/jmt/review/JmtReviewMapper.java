@@ -10,4 +10,7 @@ import java.util.List;
 public interface JmtReviewMapper {
     int insReview(JmtReviewEntity entity);
     List<JmtReviewVo> selReviewList(JmtReviewEntity entity);
+    JmtReviewVo selReview(JmtReviewEntity entity);
+    int delReview(JmtReviewEntity entity);
+    int updReview(JmtReviewEntity entity);
 }

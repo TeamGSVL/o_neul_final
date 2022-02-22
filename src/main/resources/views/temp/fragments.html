@@ -1,7 +1,6 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <th:block th:fragment="header">
     <span id="globalConst" sec:authorize="isAuthenticated()" th:with="auth=${#authentication.getPrincipal().getUser()}"
           th:attr="data-iuser=${auth.iuser}, data-u_nm=${auth.u_nm}, data-u_profileimg=${auth.u_profileimg},
@@ -22,10 +21,10 @@
             </div>
         </section>
         <section class="header-user g50">
-            <div class="search-box">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-                <input type="text" placeholder="맛집이름을 검색해주세요!">
-            </div>
+            <form class="search-box" id="search_btn">
+                <button class="search-btn" ><i class="fas fa-search"></i></button>
+                <input type="text" name="jmt" placeholder="주소와 맛집이름을 검색해주세요! ex)서울 00">
+            </form>
             <th:block sec:authorize="isAuthenticated()">
                     <a class="flex-c-r" href="/user/logout">로그아웃</a>
                     <a class="flex-c-r" href="/user/mypage">마이페이지</a>
@@ -38,17 +37,78 @@
     </header>
 </th:block>
 <th:block th:fragment="footer">
-    <div class="copy-right">
-        <div><div class="line"><i class="fa-regular fa-copyright"></i></div></div>
-        <div class="copy-content-box">
-            <div class="flex-c-r">
-                <span class="flex-c-r">오늘 뭐먹을지 고민하는 세상 모든사람을 위해</span>
+    <footer>
+        <div class="copy-right">
+            <div><div class="line"><i class="fa-regular fa-copyright"></i></div></div>
+            <div class="copy-content-box">
+                <div class="flex-c-r">
+                    <span class="flex-c-r">오늘 뭐먹을지 고민하는 세상 모든사람을 위해</span>
+                </div>
+                <div class="flex-c-r">
+                    <span>presented by Team_GSVL</span>
+                </div>
             </div>
-            <div class="flex-c-r">
-                <span>presented by Team_GSVL</span>
-            </div>
+            <div class="copy-text">Copyright 2018. HandMade all rights reserved.</div>
         </div>
+
+        <div class="notice_list_main">공지사항</div>
         <div class="copy-text">Copyright 2018. HandMade all rights reserved.</div>
     </div>
+
+    <head>
+        <link rel="stylesheet"  th:href="@{/css/chatbot/chat.css}">
+        <script defer th:src="@{/js/chatbot/chat.js}"></script>
+    </head>
+
+    <!-- chatbot -->
+    <div>
+        <div>
+            <button id="chat_btn" class="chat_btn"><i class="fa-regular fa-comments"></i></button>
+        </div>
+        <div id="chat_main" class="chat_main">
+            <th>O_neul</th>
+            <span id="chat_main_close" class="chat_main_close">X</span>
+            <div>
+                <!-- 메인 질문 -->
+                <div id="sentence" class="sentence">
+                    <div id="chatbot_icon" class="chatbot_icon"><i class="fa-brands fa-github-alt"></i></div>
+                    <div>안녕하세요. 오늘 뭐먹지? 입니다. 아래중 원하시는 기능을 선택해주세요.</div>
+                    <div>
+                        <div id="food_jmt">맛집</div>
+                        <div id="chat_menu">메뉴</div>
+                        <div id="chat_customer">고객문의</div>
+                    </div>
+
+                    <!-- 맛집 질문 -->
+                    <div id="food_jmt_main"></div>
+
+                    <!-- 방송 질문 -->
+                    <div id="tv_main"></div>
+
+                    <!-- 고객질문 -->
+                    <div id="customer_main"></div>
+
+                    <!-- 메뉴 질문 -->
+                    <div id="chat_menu_main"></div>
+
+                    <!-- 계절 메뉴 -->
+                    <div id="chat_season"></div>
+
+                    <!-- 술 페어링 -->
+                    <div id="chat_alcohol"></div>
+
+                    <!-- 고객센터 전화번호 -->
+                    <div id="chat_tel"></div>
+
+                    <!-- 공지사항 -->
+                    <div id="chat_notice"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </footer>
+
 </th:block>
 </html>

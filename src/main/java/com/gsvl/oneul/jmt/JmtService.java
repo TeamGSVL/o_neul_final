@@ -67,6 +67,7 @@ public class JmtService {
                     menuList = om.treeToValue(jsonNode.get("menuInfo").get("menuList"), JsonMenuList[].class);
                     //insert할때 ijmt이 필요
                     for(JsonMenuList list : menuList){
+                        System.out.println(list.getImg());
                         list.setIjmt(entity.getIjmt());
                     }
                 } catch (IllegalArgumentException e) {

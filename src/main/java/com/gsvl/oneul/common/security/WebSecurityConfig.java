@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private CustomOAuth2UserService customOauth2UserService;
     @Autowired
     private DataSource dataSource; //Hikari DB연결
+    @Autowired private CustomLoginFailHandler customLoginFailHandler;
 
 
 
@@ -46,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")
                 .usernameParameter("u_id") //defualt : username
                 .passwordParameter("u_pw") //default : password -> 같으면 안적어도 됨
+                .failureHandler(customLoginFailHandler)
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
@@ -67,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(WebSecurity web){
-        web.ignoring().antMatchers("/css/**","/js/**","/img/**","/font/**","/video/**");
+        web.ignoring().antMatchers("/css/**","/js/**","/img/**","/font/**","/video/**","/error","favicon.ico");
     }
 
     @Override

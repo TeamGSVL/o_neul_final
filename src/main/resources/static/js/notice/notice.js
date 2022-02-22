@@ -2,7 +2,7 @@ const noticeListElem = document.querySelector('#notice_list');
 
 // 공지사항 리스트 정보 가져오기
 const getList = (myFt) => {
-    fetch(`/notice`)
+    fetch(`/notice/list`)
         .then(res=>res.json()).then(data=>{
         myFt(data);
     });
@@ -23,6 +23,9 @@ const makeList = list => {
             <td>${item.n_hits}</td>
             <td>${item.n_rdt}</td>
         `;
+        trElem.addEventListener('click', e => {
+            location.href = `/notice/noticedetail?inotice=${item.inotice}`;
+        });
     });
-};
+}
 getList(makeList);
