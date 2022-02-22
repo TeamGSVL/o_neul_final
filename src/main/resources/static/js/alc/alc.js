@@ -107,7 +107,7 @@ startBtn.addEventListener('click',evt => {
 });
 
 //page처리까지하는 getList
-let curPage=0;
+let curPage=1;
 let maxPage=0;
 
 // 술 종류 클릭시 종류에 맞는 아이콘 띄우기
@@ -166,12 +166,12 @@ alcoholTitleElems.forEach(item=>{
         }
 
         //현재페이지를 0으로해서 페이지 초기화
-        curPage = 0;
+        curPage = 1;
 
         fetch('/food/maxpage',{
             'method': 'post',
             'headers': { 'Content-Type': 'application/json' },
-            'body': JSON.stringify({alknum: alcoholList, recordcount: 10})
+            'body': JSON.stringify({alknum: alcoholList, recordcount: 15})
         }).then(res=>res.json()).then(tsmp=>{
             maxPage = tsmp; //통신으로 가져온 maxpage
             curPage++;
@@ -183,7 +183,7 @@ alcoholTitleElems.forEach(item=>{
                 getFoodList((imgData)=>{
                     shuffleImg(imgData);//이미지 배열 세팅
                 },{alknum: alcoholList});
-            }, {alknum: alcoholList, recordcount: 15, rowcnt: (curPage-1)*this.recordcount})
+            }, {alknum: alcoholList, recordcount: 15, rowcnt: (curPage-1)*15})
         });
     });
 });
@@ -192,12 +192,12 @@ window.addEventListener('scroll', () => {
     let val = window.innerHeight + window.scrollY;
     if(val >= document.body.offsetHeight){
         if(curPage<maxPage){
-            curPage++;
             getFoodList((data) => {
+                curPage++;
                 data.forEach(item=>{
                     getImg(item, makeAlcoholList, 1);
                 });
-            }, {alknum: clickedAlcohol, recordcount: 15, rowcnt: (curPage-1)*this.recordcount})
+            }, {alknum: clickedAlcohol, recordcount: 15, rowcnt: (curPage-1)*15})
         }else {
             console.log('페이지 끝');
         }
@@ -246,7 +246,7 @@ titleNmElems.forEach(item=>{
 fetch('/food/maxpage',{
     'method': 'post',
     'headers': { 'Content-Type': 'application/json' },
-    'body': JSON.stringify({alknum:alcoholList,recordcount:10})
+    'body': JSON.stringify({alknum:alcoholList,recordcount:15})
     }).then(res=>res.json()).then(tsmp=> {
     maxPage = tsmp; //통신으로 가져온 maxpage
     getFoodList((data) => {
@@ -258,5 +258,5 @@ fetch('/food/maxpage',{
         getFoodList((imgData) => {
             shuffleImg(imgData);//이미지 배열 세팅
         }, {alknum: alcoholList});
-    }, {alknum: alcoholList, recordcount: 15, rowcnt: (curPage - 1) * this.recordcount});
+    }, {alknum: alcoholList, recordcount: 15, rowcnt: (curPage - 1) * 15});
 });

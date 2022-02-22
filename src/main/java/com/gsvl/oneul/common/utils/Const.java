@@ -12,6 +12,7 @@ public class Const {
 
     public final static String F_SEASONLIST = "f_seasonlist";
     public final static String JMTDETAIL = "jmtdeatil";
+    public final static String JMTREVIEW = "jmtreview";
 
 
     public final static String NOTICE = "notice";

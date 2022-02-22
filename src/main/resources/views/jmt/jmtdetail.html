@@ -25,7 +25,8 @@
         <section class="jmt-detail-item-map mt60">
             <div class="flex-c-r"><i class="clr-main f-s-40 fa-solid fa-magnifying-glass-plus"></i></div>
             <div class="line" th:text="${jmtdeatil.j_placenm}"></div>
-            <div class="flex-c-r"><div class="text-emph" th:text="${jmtdeatil.j_catenm}"></div>
+            <div class="flex-c-r jmt-star-count" id="jmt_star_count"></div>
+            <div class="flex-c-r mt20"><div class="text-emph" th:text="${jmtdeatil.j_catenm}"></div>
             </div>
             <div class="flex-c-r mt40">
                 <div id="jmtmap" style="width:85%; height:300px;"></div>
@@ -78,27 +79,22 @@
                             </div>
                         </div>
                     </th:block>
+                    <section class="jmt-detail-review mt60">
+                        <div class="line jmt-detail-menus">리뷰</div>
+                        <div class="jmt-review-infoBox">
+                            <div class="review-count" id="review_count"></div>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <div class="review-write" id="review_write"><i class="fa-solid fa-pen-to-square"></i>리뷰쓰기</div>
+                            </th:block>
+                        </div>
+                        <div class="jmt-review-list mt20" id="jmt_review_list">
+
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
-        <section class="jmt-detail-review">
-            <table class="table table-hover caption-top">
-                <caption>댓글 리스트</caption>
-                <thead>
-                <tr>
-                    <th>작성자</th>
-                    <th>내용</th>
-                    <th>평점</th>
-                    <th>작성시간</th>
-                </tr>
-                </thead>
-                <tbody>
-                <div class="starpoint_wrap">
 
-                </div>
-                </tbody>
-            </table>
-        </section>
         <section class="jmt-list">
 
         </section>
