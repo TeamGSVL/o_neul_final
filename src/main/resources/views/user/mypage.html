@@ -1,3 +1,4 @@
+
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -12,13 +13,32 @@
 
 <section class="login-container flex-c-c">
     <div class="video-login-container ">
-        <h1>찜목록</h1>
-        <div id="zzim"></div>
 
+        <div id="profile-view">
+
+        </div>
+
+        <input type="file" id="profile-file" class="hidden" accept="image/*">
+
+
+        <div id="myProfile">
+
+        </div>
+        <div id="myNickname">
+
+        </div>
         <a href="/user/nickname">닉네임 설정</a>
         <div id="passwordChange">
         </div>
+
+        <h1>찜목록</h1>
+        <div id="zzim"></div>
+
         </div>
+        <div id="view">
+
+        </div>
+
 </section>
 
 </th:block>
