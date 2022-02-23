@@ -2,9 +2,11 @@
 let globalConst = document.querySelector('#globalConst');
 let iuser;
 let pfnum;
+let profileImg;
 if(globalConst){
     iuser =globalConst.dataset.iuser;
     pfnum = globalConst.dataset.u_pfnum;
+    profileImg = globalConst.dataset.u_profileimg;
 }
 
 //img패치
