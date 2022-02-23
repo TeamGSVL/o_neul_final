@@ -109,18 +109,10 @@ public class UserController {
     }
 
     @PostMapping("/nickname")
-    public String nicknameProc(UserEntity entity, HttpSession hs, RedirectAttributes rAttr) {
+    @ResponseBody
+    public int nicknameProc(@RequestBody UserEntity entity) {
         int result = service.changeNickname(entity);
-        if (result != 1) {
-            switch (result) {
-                case 0:
-                    rAttr.addFlashAttribute("err", "닉네임 변경에 실패하였습니다.");
-                    break;
-            }
-            return "redirect:/user/nickname";
-        }
-        hs.invalidate();
-        return "redirect:/user/mypage";
+        return result;
     }
 
     // 닉네임 중복 체크(닉네임 변경)

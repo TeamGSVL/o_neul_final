@@ -7,6 +7,7 @@
     font-size: 70px;
     width: 100px;
     height: 100px;
+    z-index: 10;
 }
 
 .chat_main {
@@ -20,6 +21,7 @@
     overflow: auto;
     scroll-behavior: smooth;
     background-color: #ecf0f1;
+    z-index: 10;
 }
 
 .chat_main::-webkit-scrollbar {
