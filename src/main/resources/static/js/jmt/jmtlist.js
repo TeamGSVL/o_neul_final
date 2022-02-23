@@ -95,6 +95,11 @@
                             imgElem.addEventListener('error',e=>{
                                 imgElem.src = '/img/imgerr.jpg';
                             });
+                            imgElem.addEventListener('click',e=>{
+                                location.href=`/jmt/${pickItem.ijmt}`;
+                            })
+
+
                             imgElem.src = '/img/imgerr.jpg';
                             if(pickItem.jpList.length>0){
                                 for(let i = 0;i<pickItem.jpList.length;i++){
@@ -104,11 +109,27 @@
                                     }
                                 }
                             }
-                            ctntDivElem.innerHTML=`
+                            let starCount = Math.round(pickItem.jstars);
+                            const starDiv = document.createElement('div');
+                            starDiv.classList.add('jmt-item-star');
+                                if(starCount>0){
+                                    for(let i = 0; i<starCount;i++){
+                                        starDiv.innerHTML+=`<i class="fa-solid fa-star"></i>`;
+                                    }
+                                }else {
+                                    starDiv.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                                }
+                                starDiv.innerHTML += `(${pickItem.jstars})`;
+
+                                ctntDivElem.innerHTML=`
                                 <div class="text-emph f-s-20 mt20">[${pickItem.j_catenm}] ${pickItem.j_placenm}</div>
                                 <div><i class="g fa-solid fa-location-dot"></i>&nbsp;${pickItem.j_newaddr}</div>
                                 <div><i class="fa-solid fa-signs-post"></i>&nbsp;${pickItem.j_oldaddr}</div>
                             `;
+                                ctntDivElem.append(starDiv);
+
+
+
                             ctntDivElem.classList.add('g10');
                             ctntDivElem.classList.add('flex-c-c');
 
@@ -219,9 +240,24 @@
                         }
                     }
                 }
+                let starCount = Math.round(item.jstars);
+                const starDiv = document.createElement('div');
+                starDiv.classList.add('jmt-item-star');
+                if(starCount>0){
+                    for(let i = 0; i<starCount;i++){
+                        starDiv.innerHTML+=`<i class="fa-solid fa-star"></i>`;
+                    }
+                }else {
+                    starDiv.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                }
+                starDiv.innerHTML += `(${item.jstars})`;
+
+
                 spanElem1.innerHTML = `
                     [${item.j_catenm}] 
                 `;
+                spanElem1.append(starDiv);
+
                 spanElem2.innerHTML=`
                     ${item.j_placenm}
                 `;

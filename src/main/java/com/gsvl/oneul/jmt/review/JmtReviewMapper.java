@@ -23,4 +23,6 @@ public interface JmtReviewMapper {
     int updReview(JmtReviewEntity entity);
     //사진 등록
     int insReviewImg(JmtReviewEntity entity);
+
+    float selJmtStars(JmtReviewEntity entity);
 }

@@ -12,6 +12,12 @@
     border: 10px solid rgba(128,115,115,0.46);
 }
 
+.container-border{
+    border-radius: 40px;
+    padding: 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .mypage-info-container{
     gap: 150px;
     display: grid;
@@ -67,12 +73,12 @@
 .zzim-food-container{
     padding: 20px;
     overflow: hidden;
-    width: 70%;
+    width: 80%;
 }
 .zzim-jmt-container{
     padding: 20px;
     overflow: hidden;
-    width: 70%;
+    width: 80%;
 }
 
 .zzim-title{
@@ -90,8 +96,8 @@
 
 .zzim-container img{
     max-width:100%;
-    width: 200px;
-    height: 150px;
+    width: 260px;
+    height: 180px;
 }
 .zzim-jmt-container img{
     cursor: pointer;

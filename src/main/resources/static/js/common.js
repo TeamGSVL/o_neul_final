@@ -162,9 +162,12 @@ const isZzimJMT = (zzim,myft) =>{
 
 // 공지사항으로 이동
     const noticeListMainElem = document.querySelector('.notice_list_main');
-    noticeListMainElem.addEventListener('click', e => {
-        location.href='/notice';
-    });
+    if(noticeListMainElem){
+        noticeListMainElem.addEventListener('click', e => {
+            location.href='/notice';
+        });
+    }
+
 
 //jmt 찜 추가
 const insZzimJMT  = (zzim,myft)=>{
@@ -182,45 +185,81 @@ const delZzimJMT  = (zzim,myft)=>{
 }
 //header 검색 작업
 const searchBtn = document.querySelector('#search_btn');
-searchBtn.addEventListener('submit',evt => {
-    evt.preventDefault();
-    let keyword = searchBtn.jmt.value;
-    var ps = new kakao.maps.services.Places();
-    ps.keywordSearch(keyword, placesSearchCB, {
-        category_group_code: 'FD6',
-    });
-    function placesSearchCB(data, status, pagination) {
-        if (status === kakao.maps.services.Status.OK) {
-            let jmtArr = []
-            let jmtEntity = {
-                ijmt : data[0].id,
-                j_placenm : data[0].place_name,
-                j_phone : data[0].phone,
-                j_oldaddr : data[0].address_name,
-                j_newaddr : data[0].road_address_name,
-                j_x : data[0].x,
-                j_y : data[0].y
+if(searchBtn){
+    searchBtn.addEventListener('submit',evt => {
+        evt.preventDefault();
+        let keyword = searchBtn.jmt.value;
+        var ps = new kakao.maps.services.Places();
+        ps.keywordSearch(keyword, placesSearchCB, {
+            category_group_code: 'FD6',
+        });
+        function placesSearchCB(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                let jmtArr = []
+                let jmtEntity = {
+                    ijmt : data[0].id,
+                    j_placenm : data[0].place_name,
+                    j_phone : data[0].phone,
+                    j_oldaddr : data[0].address_name,
+                    j_newaddr : data[0].road_address_name,
+                    j_x : data[0].x,
+                    j_y : data[0].y
+                }
+                console.log(jmtEntity);
+                jmtArr.push(jmtEntity);
+                fetch('/jmt/ajax', {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jmtArr)
+                }).then(res=>res.json())
+                    .then(data=>{
+                        location.href = `/jmt/${jmtEntity.ijmt}`;
+                    });
+
+            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+                alert('검색하신 맛집이 데이터에 없습니다.')
+                return;
+
+            } else if (status === kakao.maps.services.Status.ERROR) {
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
+
             }
-            console.log(jmtEntity);
-            jmtArr.push(jmtEntity);
-            fetch('/jmt/ajax', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(jmtArr)
-            }).then(res=>res.json())
-                .then(data=>{
-                    location.href = `/jmt/${jmtEntity.ijmt}`;
-                });
-
-        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-            alert('검색하신 맛집이 데이터에 없습니다.')
-            return;
-
-        } else if (status === kakao.maps.services.Status.ERROR) {
-            alert('검색 결과 중 오류가 발생했습니다.');
-            return;
-
         }
-    }
-});
+    });
 
+}
+
+//현재 시간 구하기
+let today = new Date();
+let year = today.getFullYear();
+let month = today.getMonth();
+let data = today.getDate();
+let hours = today.getHours();
+let minutes = today.getMinutes();
+function timepassed(rdt){
+    let timearr = rdt.split(' ');
+    let timeymd = timearr[0].split('-');
+    let timehms = timearr[1].split(':');
+    var rdtDate = new Date(timeymd[0],parseInt(timeymd[1])-1,timeymd[2],timehms[0],timehms[1]);
+    var curDate = new Date(year,month,data,hours,minutes);
+    var elapsedSec = (curDate.getTime()-rdtDate.getTime())/60000;
+    if(elapsedSec<60){
+        return elapsedSec+'분 전';
+    }else if(elapsedSec>=60 && elapsedSec<=1440){
+        return Math.round(elapsedSec/60) + '시간 전';
+    }else if(elapsedSec>1440 && elapsedSec<= 7200){
+        return Math.round(elapsedSec/1440) + '일 전';
+    }else {
+        return timeymd.join('-');
+    }
+}
+
+//jmt 별점 가져오기
+const getJmtStars = (ijmt,myft)=>{
+    fetch(`/review/ajax/star?ijmt=${ijmt}`)
+        .then(res=>res.json())
+        .then(data=>{
+            myft(data.result);
+        })
+}
