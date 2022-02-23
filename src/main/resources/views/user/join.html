@@ -24,13 +24,15 @@
                     <input type="text" name="u_id" id="u_id" required>
                     <div><span id="id-chk-msg"></span></div>
 
-                    <div><label for="u_pw">pw</label></div>
-                    <input type="password" name="u_pw" id="u_pw" required>
-                    <div><span id="upw-chk-msg"></span></div>
+                    <div id="allpw">
+                        <div><label for="u_pw">pw</label></div>
+                        <input type="password" name="u_pw" id="u_pw" required>
+                        <div><span id="upw-chk-msg"></span></div>
 
-                    <div><label for="u_pw_re">pw-check</label></div>
-                    <input type="password" name="upw_chk" id="u_pw_re" required>
-                    <div><span id="upwchk-chk-msg"></span></div>
+                        <div><label for="u_pw_re">pw-check</label></div>
+                        <input type="password" name="upw_chk" id="u_pw_re" required>
+                        <div><span id="upwchk-chk-msg"></span></div>
+                    </div>
 
                     <div><label for="u_nm">name</label></div>
                     <input type="text" name="u_nm" id="u_nm" required>
@@ -40,7 +42,8 @@
                 <div class="">
                     <span><label>e-mail</label></span>
                     <div>
-                        <input type="text" name="u_email" required>&nbsp;@&nbsp;<input class="email-domain" type="text" name="addres" required>
+                        <input type="text" name="u_email" required>&nbsp;@&nbsp;<input class="email-domain" type="text"
+                                                                                       name="addres" required>
                         <select id="selEmail" onchange="checkemailaddy();">
                             <option value="1">직접 입력</option>
                             <option value="naver.com">naver.com</option>
@@ -51,7 +54,8 @@
                         </select>
                     </div>
                     <span></span>
-                    <span><button type="button" class="email-chk-btn" id="email-btn-chk">이메일 중복 체크</button><span id="email-chk-msg"></span></span>
+                    <span><button type="button" class="email-chk-btn" id="email-btn-chk">이메일 중복 체크</button><span
+                            id="email-chk-msg"></span></span>
                 </div>
                 <hr class="mt40 mb20">
                 <div class="flex-c-r g30">

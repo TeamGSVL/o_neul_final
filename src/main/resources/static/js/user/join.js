@@ -102,7 +102,7 @@
         });
 
 
-        joinFrmElem.u_id.addEventListener('change', function () {
+        joinFrmElem.u_id.addEventListener('keyup', function () {
             const idVal = joinFrmElem.u_id.value;
             const idChkMsgElem = joinFrmElem.querySelector('#id-chk-msg');
 
@@ -123,34 +123,33 @@
         })
 
 
-        joinFrmElem.u_pw.addEventListener('change', function () {
-            const pwVal = joinFrmElem.u_pw.value;
-            const pwChkMsgElem = joinFrmElem.querySelector('#upw-chk-msg');
+        const allpwElem = document.querySelector('#allpw');
+        if(allpwElem) {
+            allpwElem.addEventListener('keyup', function () {
+                const pwVal = joinFrmElem.u_pw.value;
+                const pwChkMsgElem = joinFrmElem.querySelector('#upw-chk-msg');
+                const upwchkVal = joinFrmElem.upw_chk.value;
+                const upwchkChkMsgElem = joinFrmElem.querySelector('#upwchk-chk-msg');
 
-            if (!pwRegex.test(pwVal)) {
-                pwChkMsgElem.innerHTML = '비밀번호는 대소문자, 숫자, 특수문자 포함 8글자 이상 되어야 합니다.';
-                return;
-            } else {
-                pwChkMsgElem.innerHTML = '사용 가능한 비밀번호 입니다.';
-                return;
-            }
-        })
+                if (!pwRegex.test(pwVal)) {
+                    pwChkMsgElem.innerHTML = '비밀번호는 대소문자, 숫자, 특수문자 포함 8글자 이상 되어야 합니다.';
+                } else if(pwRegex.test(pwVal)){
+                    pwChkMsgElem.innerHTML = '사용 가능한 비밀번호 입니다.';
 
-        joinFrmElem.upw_chk.addEventListener('change', function () {
-            const upwchkVal = joinFrmElem.upw_chk.value;
-            const upwchkChkMsgElem = joinFrmElem.querySelector('#upwchk-chk-msg');
+                }
+                if (upwchkVal !== pwVal) {
+                    upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
 
-            if (upwchkVal !== joinFrmElem.u_pw.value) {
-                upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
-                return;
-            }else {
-                upwchkChkMsgElem.innerHTML = '';
-                return;
-            }
-        })
+                } else if(upwchkVal === pwVal){
+                    upwchkChkMsgElem.innerHTML = '';
+
+                }
+            })
+
+        }
 
 
-        joinFrmElem.u_nm.addEventListener('change', function () {
+        joinFrmElem.u_nm.addEventListener('keyup', function () {
             const nmVal = joinFrmElem.u_nm.value;
             const nmChkMsgElem = joinFrmElem.querySelector('#nm-chk-msg');
 

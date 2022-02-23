@@ -53,13 +53,8 @@
 
         });
 
-        // joinFrmElem.u_nickname.addEventListener('keyup', () => {
-        //     const nicknameChkMsgElem = joinFrmElem.querySelector('#nickname-chk-msg');
-        //     nicknameChkMsgElem.innerText = '';
-        //     nicknameChkState = 2;
-        // });
 
-        joinFrmElem.u_nickname.addEventListener('change', () => {
+        joinFrmElem.u_nickname.addEventListener('keyup', () => {
             const nicknameVal = joinFrmElem.u_nickname.value;
             const nicknameChkMsgElem = joinFrmElem.querySelector('#nickname-chk-msg');
 
