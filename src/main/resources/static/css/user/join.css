@@ -3,13 +3,14 @@
     height: 100%;
     padding: 50px 100px;
 }
-.join-form input{
+.join-info-container input{
     padding: 5px 16px;
     border-radius: 30px;
     border: #555555 solid 4px;
     width: 270px;
     height: 40px;
 }
+
 
 .video-join-container{
     width: 700px;
@@ -27,9 +28,7 @@ hr{
     width: 70%;
 
 }
-.email-domain{
-    width: 170px !important;
-}
+
 .ipbtn{
     width: 100px !important;
     height: 40px !important;
@@ -48,4 +47,15 @@ hr{
     border-radius: 30px;
     width: 100px;
     height: 30px;
+}
+
+.join-email-container input{
+    padding: 5px 16px;
+    border-radius: 30px;
+    border: #555555 solid 4px;
+    width: 170px;
+    height: 40px;
+}
+.email-domain{
+    width: 130px !important;
 }

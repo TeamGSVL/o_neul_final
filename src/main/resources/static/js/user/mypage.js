@@ -5,6 +5,7 @@
     const nickname = dataElem.dataset.u_nickname;
     const email = dataElem.dataset.u_email;
     const nm = dataElem.dataset.u_nm;
+    const rdt = dataElem.dataset.u_rdt;
     const profileImg = dataElem.dataset.u_profileimg
 
 
@@ -27,7 +28,11 @@
         profileViewElem.appendChild(divElem);
 
         if(profileImg){
-            divElem.innerHTML = `<img src="/pic/user/${iuser}/${profileImg}" >`;
+            if(profileImg.includes('http')){
+                divElem.innerHTML = `<img src="${profileImg}" >`;
+            }else {
+                divElem.innerHTML = `<img src="/pic/user/${iuser}/${profileImg}" >`;
+            }
         }else {
             divElem.innerHTML = `<img src="/img/defaultProfile.png" >`;
         }
@@ -84,12 +89,13 @@
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-id-badge"></i>&nbsp;ID</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${uid}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-solid fa-person"></i>&nbsp;이름</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${nm}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-envelope"></i>&nbsp;이메일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${email}</div>
+                        <div class="f-s-15 flex-c-r"><i class="fa-regular fa-calendar-plus"></i>&nbsp;가입일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${rdt.split(' ')[0]}</div>
                         `;
 
         if(myNicknameElem){
 
             if(nickname == null){
-                myNicknameElem.innerHTML += `<div class="flex-c-c w100">닉네임을 설정해보세요!</div>`;
+                myNicknameElem.innerHTML += `<div class="flex-c-c w100 mt20">닉네임을 설정해보세요!</div>`;
             }else {
                 divElem.innerHTML += `<div class="f-s-15 flex-c-r"><i class="fa-regular fa-face-smile"></i>&nbsp;닉네임</div><div>${nickname}</div>`;
             }

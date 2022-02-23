@@ -19,7 +19,7 @@
         </div>
         <div class="flex-c-r">
             <form th:action="@{/user/join}" method="post" id="join-frm" class="join-form flex-c-c mt40">
-                <div class="">
+                <div class="join-info-container">
                     <div><label for="u_id">id</label></div>
                     <input type="text" name="u_id" id="u_id" required>
                     <div><span id="id-chk-msg"></span></div>
@@ -37,7 +37,7 @@
                     <div><span id="nm-chk-msg"></span></div>
                 </div>
                 <hr class="mt40 mb50">
-                <div class="">
+                <div class="join-email-container">
                     <span><label>e-mail</label></span>
                     <div>
                         <input type="text" name="u_email" required>&nbsp;@&nbsp;<input class="email-domain" type="text" name="addres" required>

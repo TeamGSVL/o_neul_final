@@ -231,24 +231,35 @@ const makeJmtDivMain = (item)=>{
 
     divElem.classList.add('flex-c-c');
 
+
     imgElem.classList.add('rcrest-img');
     imgElem.addEventListener('error',e=>{
-        imgElem.src='/img/imgerr.jpg';
+        imgElem.src='/img/logo.png';
     });
+    imgElem.addEventListener('click',e=>{
+        location.href = `/jmt/${item.ijmt}`;
+    })
 
-    imgElem.src= item.basicInfo.mainphotourl;
+
+    if(item.jpList.length>0){
+        for(let i = 0;i<item.jpList.length;i++){
+            if(!item.jpList[i].orgurl.includes('naver')){
+                imgElem.src = item.jpList[i].orgurl;
+                break;
+            }
+        }
+    }
 
     spanElemNm.classList.add('rcrest-span-nm');
-    let addr = item.basicInfo.address.region.newaddrfullname;
     spanElemNm.innerHTML = `
-        [${addr}] ${item.basicInfo.placenamefull}
+        [${item.j_newaddr}] ${item.j_placenm}
     `;
     let menu = '';
     //메뉴는 2개만
-    if(item.menuInfo){
-        if(item.menuInfo.menuList.length>=2){
+    if(item.jmList){
+        if(item.jmList.length>=2){
             for(let i = 0;i<2;i++){
-                menu += '#'+item.menuInfo.menuList[i].menu+' '
+                menu += '#'+item.jmList[i].menu+' '
             }
         }
     }else {
@@ -261,7 +272,7 @@ const makeJmtDivMain = (item)=>{
     divElem.append(imgElem);
     divElem.append(spanElemNm);
     divElem.append(spanElemFd);
-    return divElem;
+    jmtListElem.append(divElem);
 }
 //맛집 더보기 버튼
 {
@@ -307,9 +318,29 @@ const makeJmtDivMain = (item)=>{
     function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
             //하나하나 넣으면서 kakao 디테일 불러오기
+            let jmtArrMain = [];
             data.forEach((item)=>{
-                getKakaoJsonMain(item.id);
+                let jmtEntityMain = {
+                    ijmt : item.id,
+                    j_placenm : item.place_name,
+                    j_phone : item.phone,
+                    j_oldaddr : item.address_name,
+                    j_newaddr : item.road_address_name,
+                    j_x : item.x,
+                    j_y : item.y
+                }
+                jmtArrMain.push(jmtEntityMain);
             });
+            fetch('/jmt/ajax', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jmtArrMain)
+            }).then(res=>res.json())
+                .then(data=>{
+                    data.forEach(resultItem =>{
+                        makeJmtDivMain(resultItem);
+                    });
+                });
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
             return;
 
