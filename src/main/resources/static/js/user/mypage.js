@@ -7,6 +7,8 @@
     const nm = dataElem.dataset.u_nm;
     const rdt = dataElem.dataset.u_rdt;
     const profileImg = dataElem.dataset.u_profileimg
+    const u_rdt = dataElem.dataset.u_rdt.split(' ', 1);
+
 
 
     const profileFileElem = document.querySelector('#profile-file');
