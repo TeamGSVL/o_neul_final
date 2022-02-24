@@ -63,4 +63,8 @@ public class JmtReviewService {
 
         return mapper.insReviewImg(entity);
     }
+
+    public float selJmtStars(JmtReviewEntity entity){
+        return mapper.selJmtStars(entity);
+    }
 }

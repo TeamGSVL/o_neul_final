@@ -35,6 +35,7 @@
         <result property="ijmt" column="ijmt"></result>
         <collection property="jpList" column="ijmt" select="selJmtImgList"></collection>
         <collection property="jmList" column="ijmt" select="selMenuList"></collection>
+        <collection property="jstars" column="ijmt" select="selJmtStars"></collection>
     </resultMap>
     <!--    resultMap의 id,기준점-->
     <select id="selJmtDetail" resultMap="jmtMap">
@@ -48,6 +49,9 @@
     </select>
     <select id="selMenuList" resultType="JsonMenuList">
         select j_nm as menu, j_price as price,j_menuimg as img from o_jmt_menu where ijmt = #{ijmt}
+    </select>
+    <select id="selJmtStars" resultType="Float">
+        SELECT sum(j_star)/COUNT(j_star) FROM o_jmt_review WHERE ijmt = ${ijmt};
     </select>
 
 </mapper>

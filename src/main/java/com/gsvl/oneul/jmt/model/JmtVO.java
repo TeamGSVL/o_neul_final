@@ -10,4 +10,5 @@ import lombok.ToString;
 public class JmtVO extends JmtEntity{
     private JsonPhotoList[] jpList;
     private JsonMenuList[] jmList;
+    private float jstars;
 }
