@@ -35,6 +35,7 @@
             questionElem.lastChild.scrollIntoView({behavior : 'smooth'});
         });
 
+        // 처음으로 클릭시 스크롤 상위로 올리기.
         chatMainElem.scrollTo({top:0, left:0, behavior:'auto'});
 
         // 맛집 선택시 맛집 추가 선택지.
@@ -155,11 +156,19 @@
             alcoholMenuDiv.innerHTML = "술 페어링";
             alcoholMenuDiv.className = "alcohol_menu";
 
+            reSetBtnDiv.innerHTML = "처음으로";
+            reSetBtnDiv.className = "reset_btn";
+
             questionElem.append(menuTypeDiv);
             questionElem.append(toDayFoodDiv);
             questionElem.append(seasonMenuDiv);
             questionElem.append(alcoholMenuDiv);
             questionElem.append(reSetBtnDiv);
+
+            reSetBtnDiv.addEventListener('click', e => {
+                chatSentence.innerHTML = firstSentence;
+                makeEvent();
+            });
         });
 
         // 오늘의 음식 클릭시
@@ -291,10 +300,18 @@
             noticeDiv.innerHTML = "공지사항";
             noticeDiv.className = "notice";
 
+            reSetBtnDiv.innerHTML = "처음으로";
+            reSetBtnDiv.className = "reset_btn";
+
             questionElem.append(customerTypeDiv);
             questionElem.append(telDiv);
             questionElem.append(noticeDiv);
             questionElem.append(reSetBtnDiv);
+
+            reSetBtnDiv.addEventListener('click', e => {
+                chatSentence.innerHTML = firstSentence;
+                makeEvent();
+            });
         });
 
         // 고객 센터 전화번호 클릭시
