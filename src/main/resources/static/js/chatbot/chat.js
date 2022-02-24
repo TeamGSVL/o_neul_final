@@ -7,6 +7,8 @@
 
     const firstSentence = chatSentence.innerHTML;
 
+    const reSetBtnDiv = document.createElement('div');
+
     chatBtnElem.addEventListener('click', e => {
         chatBtnElem.style.display = "none";
         chatMainElem.style.display = "block";
@@ -20,180 +22,311 @@
     });
 
 
-
     function makeEvent() {
-        // 맛집 질문지.
-        const foodJmtElem = document.querySelector('#food_jmt');
-        foodJmtElem.addEventListener('click', e => {
-            let foodJmtMainElem = document.querySelector('#food_jmt_main');
-            foodJmtMainElem.style.border = "solid 1px #000";
-            foodJmtMainElem.innerHTML = "맛집중에는 오늘의 맛집과 방송 맛집이 있습니다. 둘중 하나를 선택해주세요.";
-            let foodJmt = document.createElement('div');
-            let tvJmt = document.createElement('div');
-            foodJmt.innerHTML = "오늘의 맛집";
-            tvJmt.innerHTML = "방송 맛집";
-            foodJmtMainElem.append(foodJmt);
-            foodJmtMainElem.append(tvJmt);
 
-            // 오늘의 맛집 클릭시 오늘의 맛집 페이지 이동.
-            foodJmt.addEventListener('click', e => {
+        // 맛집, 메뉴, 고객문의 선택지.
+        const foodJmtElem = document.querySelector('#food_jmt');
+        const chatMenuElem = document.querySelector('#chat_menu');
+        const chatCustomerElem = document.querySelector('#chat_customer');
+        const questionElem = document.querySelector('#question');
+
+        // 스크롤 맨 하단으로 계속 이동.
+        questionElem.addEventListener('DOMNodeInserted',e=>{
+            questionElem.lastChild.scrollIntoView({behavior : 'smooth'});
+        });
+
+        chatMainElem.scrollTo({top:0, left:0, behavior:'auto'});
+
+        // 맛집 선택시 맛집 추가 선택지.
+        const jmtTypeDiv = document.createElement('div');
+        const todayJmtDiv = document.createElement('div');
+        const tvJmtDiv = document.createElement('div');
+
+        foodJmtElem.addEventListener('click', e => {
+            jmtTypeDiv.innerHTML = "맛집중에는 오늘의 맛집과 방송 맛집이 있습니다. 둘중 하나를 선택해주세요.";
+            jmtTypeDiv.className = "jmt_type";
+
+            todayJmtDiv.innerHTML = "오늘의 맛집";
+            todayJmtDiv.className = "today_jmt";
+
+            tvJmtDiv.innerHTML = "TV 맛집";
+            tvJmtDiv.className = "tv_jmt";
+
+            reSetBtnDiv.innerHTML = "처음으로";
+            reSetBtnDiv.className = "reset_btn";
+
+            questionElem.append(jmtTypeDiv);
+            questionElem.append(todayJmtDiv);
+            questionElem.append(tvJmtDiv);
+            questionElem.append(reSetBtnDiv);
+
+            // 오늘의 맛집 클릭시 오늘의 맛집으로 주소 이동.
+            todayJmtDiv.addEventListener('click', e => {
                 location.href = "/jmt";
             });
 
-            // 방송 맛집 클릭시 질문지 생성.
-            tvJmt.addEventListener('click', e => {
-                let tvMainElem = document.querySelector('#tv_main');
-                tvMainElem.innerHTML = "요즘 영자로드 모르는 사람 있어?? 하지만 다양한 프로그램이 있으니 원하는 프로그램을 선택해주세요.";
-                let deliciousMens = document.createElement('div');
-                let threeKings = document.createElement('div');
-                let liveInformation = document.createElement('div');
-                let wednesdayParty = document.createElement('div');
-                let youngJaLoad = document.createElement('div');
-                let tastyRoad = document.createElement('div');
-
-                deliciousMens.innerHTML = "맛있는 녀석들";
-                threeKings.innerHTML = "백종원의 3대천왕";
-                liveInformation.innerHTML = "생생정보통";
-                wednesdayParty.innerHTML = "수요미식회";
-                youngJaLoad.innerHTML = "영자로드";
-                tastyRoad.innerHTML = "테이스티로드";
-
-                tvMainElem.append(deliciousMens);
-                tvMainElem.append(threeKings);
-                tvMainElem.append(liveInformation);
-                tvMainElem.append(wednesdayParty);
-                tvMainElem.append(youngJaLoad);
-                tvMainElem.append(tastyRoad);
-
-                // 맛있는 녀석들 이동
-                deliciousMens.addEventListener('click', e => {
-                    location.href = "/tv/1";
-                });
-
-                // 백종원의 3대천왕 이동
-                threeKings.addEventListener('click', e => {
-                    location.href = "/tv/2";
-                });
-
-                // 생생정보통 이동
-                liveInformation.addEventListener('click', e => {
-                    location.href = "/tv/3";
-                });
-
-                // 수요미식회 이동
-                wednesdayParty.addEventListener('click', e => {
-                    location.href = "/tv/4";
-                });
-
-                // 영자로드 이동
-                youngJaLoad.addEventListener('click', e => {
-                    location.href = "/tv/5";
-                });
-
-                // 테이스티로드 이동
-                tastyRoad.addEventListener('click', e => {
-                    location.href = "/tv/6";
-                });
+            reSetBtnDiv.addEventListener('click', e => {
+                chatSentence.innerHTML = firstSentence;
+                makeEvent();
             });
         });
 
+        // TV 맛집 클릭시 TV 맛집 추가 선택지.
+        const tvTypeDiv = document.createElement('div');
+        const deliciousMensDiv = document.createElement('div');
+        const threeKingsDiv = document.createElement('div');
+        const liveInformationDiv = document.createElement('div');
+        const wednesdayPartyDiv = document.createElement('div');
+        const youngJaLoadDiv = document.createElement('div');
+        const tastyRoadDIv = document.createElement('div');
 
-        // 메뉴 질문지.
-        let chatMenuElem = document.querySelector('#chat_menu');
+        tvJmtDiv.addEventListener('click', e => {
+            tvTypeDiv.innerHTML = "요즘 영자로드 모르는 사람 있어?? 하지만 다양한 프로그램이 있으니 원하는 프로그램을 선택해주세요.";
+            tvTypeDiv.className = "tv_type";
+
+            deliciousMensDiv.innerHTML = "맛있는 녀석들";
+            deliciousMensDiv.className = "delicious_mens";
+
+            threeKingsDiv.innerHTML = "백종원의 3대천왕";
+            threeKingsDiv.className = "three_kings";
+
+            liveInformationDiv.innerHTML = "생생정보통";
+            liveInformationDiv.className = "live_information";
+
+            wednesdayPartyDiv.innerHTML = "수요미식회";
+            wednesdayPartyDiv.className = "wednesday_party";
+
+            youngJaLoadDiv.innerHTML = "영자로드";
+            youngJaLoadDiv.className = "youngJa_load";
+
+            tastyRoadDIv.innerHTML = "테이스티로드";
+            tastyRoadDIv.className = "tasty_road";
+
+            questionElem.append(tvTypeDiv);
+            questionElem.append(deliciousMensDiv);
+            questionElem.append(threeKingsDiv);
+            questionElem.append(liveInformationDiv);
+            questionElem.append(wednesdayPartyDiv);
+            questionElem.append(youngJaLoadDiv);
+            questionElem.append(tastyRoadDIv);
+            questionElem.append(reSetBtnDiv);
+
+            deliciousMensDiv.addEventListener('click', e => {
+                location.href = "/tv/1";
+            });
+
+            threeKingsDiv.addEventListener('click', e => {
+                location.href = "/tv/2";
+            });
+
+            liveInformationDiv.addEventListener('click', e => {
+                location.href = "/tv/3";
+            });
+
+            wednesdayPartyDiv.addEventListener('click', e => {
+                location.href = "/tv/4";
+            });
+
+            youngJaLoadDiv.addEventListener('click', e => {
+                location.href = "/tv/5";
+            });
+
+            tastyRoadDIv.addEventListener('click', e => {
+                location.href = "/tv/6";
+            });
+        });
+
+        // 메뉴 선텍시 메뉴 추가 선택지
+        const menuTypeDiv = document.createElement('div');
+        const toDayFoodDiv = document.createElement('div');
+        const seasonMenuDiv = document.createElement('div');
+        const alcoholMenuDiv = document.createElement('div');
+
         chatMenuElem.addEventListener('click', e => {
-            let chatMenuMainElem = document.querySelector('#chat_menu_main');
-            chatMenuMainElem.innerHTML = "메뉴 고르는게 이 세상에서 제일 힘든것같아요 ... 저도 항상 고민중입니다." +
-                "당신의 선택을 쉽게 도아드릴게요. 아래중 하나를 선택해주세요.";
+            menuTypeDiv.innerHTML = "메뉴 고르는게 이 세상에서 제일 힘든것같아요 ... 저도 항상 고민중입니다. 당신의 선택을 쉽게 도아드릴게요. 아래중 하나를 선택해주세요.";
+            menuTypeDiv.className = "menu_type";
 
-            let todayFood = document.createElement('div');
-            let seasonMenu = document.createElement('div');
-            let alcoholMenu = document.createElement('div');
-            todayFood.innerHTML = "오늘의 음식";
-            seasonMenu.innerHTML = "계절 메뉴";
-            alcoholMenu.innerHTML = "술 페어링";
+            toDayFoodDiv.innerHTML = "오늘의 음식";
+            toDayFoodDiv.className = "today_food";
 
-            chatMenuMainElem.append(todayFood);
-            chatMenuMainElem.append(seasonMenu);
-            chatMenuMainElem.append(alcoholMenu);
+            seasonMenuDiv.innerHTML = "계절 메뉴";
+            seasonMenuDiv.className = "season_menu";
 
-            todayFood.addEventListener('click', e => {
+            alcoholMenuDiv.innerHTML = "술 페어링";
+            alcoholMenuDiv.className = "alcohol_menu";
+
+            questionElem.append(menuTypeDiv);
+            questionElem.append(toDayFoodDiv);
+            questionElem.append(seasonMenuDiv);
+            questionElem.append(alcoholMenuDiv);
+            questionElem.append(reSetBtnDiv);
+        });
+
+        // 오늘의 음식 클릭시
+        const toDayQuestionDiv = document.createElement('div');
+        const moveToDayFoodDiv = document.createElement('div');
+        toDayFoodDiv.addEventListener('click', e => {
+            toDayQuestionDiv.innerHTML = "혹시 싫어하는 음식이나 재료가 있으신가요? 있으시다면 체크해주세요 제가 빼고 찾아드릴게요. 그럼 오늘의 음식으로 이동할까요??";
+            toDayQuestionDiv.className = "today_question";
+
+            moveToDayFoodDiv.innerHTML = "이동하기";
+            moveToDayFoodDiv.className = "move_today_food";
+
+            questionElem.append(toDayQuestionDiv);
+            questionElem.append(moveToDayFoodDiv);
+            questionElem.append(reSetBtnDiv);
+
+            // 오늘의 음식 페이지 이동.
+            moveToDayFoodDiv.addEventListener('click', e => {
                 location.href = "/food";
             });
+        });
 
-            seasonMenu.addEventListener('click', e => {
-                let chatSeasonElem = document.querySelector('#chat_season');
-                let spring = document.createElement('div');
-                let summer = document.createElement('div');
-                let fail = document.createElement('div');
-                let winter = document.createElement('div');
+        // 계절 메뉴 클릭시 선택지.
+        const seasonTypeDiv = document.createElement('div');
+        const springDiv = document.createElement('div');
+        const summerDiv = document.createElement('div');
+        const failDiv = document.createElement('div');
+        const winterDiv = document.createElement('div');
 
-                chatSeasonElem.innerHTML = "저는 사계절중에 봄 / 가을을 좋아해요. 선선한 바람을 느끼며 자유롭게 날아가고싶어요~" +
-                    "당신은 어떤 계절을 좋아하나요?";
-                spring.innerHTML = "봄";
-                summer.innerHTML = "여름";
-                fail.innerHTML = "가을";
-                winter.innerHTML = "겨울";
+        seasonMenuDiv.addEventListener('click', e => {
+            seasonTypeDiv.innerHTML = "저는 사계절중에 봄 / 가을을 좋아해요. 선선한 바람을 느끼며 자유롭게 날아가고싶어요~ 당신은 어떤 계절을 좋아하나요?";
+            seasonTypeDiv.className = "season_type";
 
-                chatSeasonElem.append(spring);
-                chatSeasonElem.append(summer);
-                chatSeasonElem.append(fail);
-                chatSeasonElem.append(winter);
+            springDiv.innerHTML = "봄";
+            springDiv.className = "spring";
 
-                chatSeasonElem.addEventListener('click', e => {
-                    location.href = "/season";
-                });
+            summerDiv.innerHTML = "여름";
+            summerDiv.className = "summer";
 
-                alcoholMenu.addEventListener('click', e => {
-                    let chatAlcoholElem = document.querySelector('#chat_alcohol');
-                    let soju = document.createElement('div');
-                    let beer = document.createElement('div');
-                    let makgeolli = document.createElement('div');
-                    let westernAlcohol = document.createElement('div');
+            failDiv.innerHTML = "가을";
+            failDiv.className = "fail";
 
-                    chatAlcoholElem.innerHTML = "술은 역시 소맥이죠!!! 그렇지만 당신의 취향을 존중합니다.";
-                    soju.innerHTML = "소주";
-                    beer.innerHTML = "맥주";
-                    makgeolli.innerHTML = "막걸리";
-                    westernAlcohol.innerHTML = "양주";
+            winterDiv.innerHTML = "겨울";
+            winterDiv.className = "winter";
 
-                    chatAlcoholElem.append(soju);
-                    chatAlcoholElem.append(beer);
-                    chatAlcoholElem.append(makgeolli);
-                    chatAlcoholElem.append(westernAlcohol);
+            questionElem.append(seasonTypeDiv);
+            questionElem.append(springDiv);
+            questionElem.append(summerDiv);
+            questionElem.append(failDiv);
+            questionElem.append(winterDiv);
+            questionElem.append(reSetBtnDiv);
 
-                    chatAlcoholElem.addEventListener('click', e => {
-                        location.href = "/alc";
-                    });
-                });
+            springDiv.addEventListener('click', e => {
+                location.href = "/season";
+            });
+
+            summerDiv.addEventListener('click', e => {
+                location.href = "/season";
+            });
+
+            failDiv.addEventListener('click', e => {
+                location.href = "/season";
+            });
+
+            winterDiv.addEventListener('click', e => {
+                location.href = "/season";
             });
         });
 
+        // 술 페어링 클릭시 선택지.
+        const alcoholTypeDiv = document.createElement('div');
+        const sojuDiv = document.createElement('div');
+        const beerDiv = document.createElement('div');
+        const makgeolliDiv = document.createElement('div');
+        const westernAlcoholDiv = document.createElement('div');
 
-        // 고객 질문.
-        let chatCustomerElem = document.querySelector('#chat_customer');
-        chatCustomerElem.addEventListener('click', e => {
-            let customerMainElem = document.querySelector('#customer_main');
-            let tel = document.createElement('div');
-            let notice = document.createElement('div');
+        alcoholMenuDiv.addEventListener('click', e => {
+            alcoholTypeDiv.innerHTML = "술은 역시 소맥이죠!!! 그렇지만 당신의 취향을 존중합니다.";
+            alcoholTypeDiv.className = "alcohol_type";
 
-            customerMainElem.innerHTML = "저를 찾으셨나요? 무엇이 궁금하신가요?";
+            sojuDiv.innerHTML = "소주";
+            sojuDiv.className = "soju";
 
-            tel.innerHTML = "고객센터전화번호";
-            notice.innerHTML = "공지사항";
+            beerDiv.innerHTML = "맥주";
+            beerDiv.className = "beer";
 
-            customerMainElem.append(tel);
-            customerMainElem.append(notice);
+            makgeolliDiv.innerHTML = "막걸리";
+            makgeolliDiv.className = "makgeolli";
 
-            tel.addEventListener('click', e => {
-                let chatTelELem = document.querySelector('#chat_tel');
-                let telNumber = document.createElement('div');
-                chatTelELem.innerHTML = "문의 사항이 있으시면 아래번호로 전화주세요.";
-                telNumber.innerHTML = "010-5185-8980 손동윤";
+            westernAlcoholDiv.innerHTML = "양주";
+            westernAlcoholDiv.className = "westernAlcohol";
 
-                chatTelELem.append(telNumber);
+            questionElem.append(alcoholTypeDiv);
+            questionElem.append(sojuDiv);
+            questionElem.append(beerDiv);
+            questionElem.append(makgeolliDiv);
+            questionElem.append(westernAlcoholDiv);
+            questionElem.append(reSetBtnDiv);
+
+            sojuDiv.addEventListener('click', e => {
+                location.href = "alc";
             });
 
-            notice.addEventListener('click', e => {
+            beerDiv.addEventListener('click', e => {
+                location.href = "alc";
+            });
+
+            makgeolliDiv.addEventListener('click', e => {
+                location.href = "alc";
+            });
+
+            westernAlcoholDiv.addEventListener('click', e => {
+                location.href = "alc";
+            });
+        });
+
+        // 고객문의 클릭시 선택지
+        const customerTypeDiv = document.createElement('div');
+        const telDiv = document.createElement('div');
+        const noticeDiv = document.createElement('div');
+
+        chatCustomerElem.addEventListener('click', e => {
+            customerTypeDiv.innerHTML = "저를 찾으셨나요? 무엇이 궁금하신가요?";
+            customerTypeDiv.className = "customer_type";
+
+            telDiv.innerHTML = "고객센터전화번호";
+            telDiv.className = "tel";
+
+            noticeDiv.innerHTML = "공지사항";
+            noticeDiv.className = "notice";
+
+            questionElem.append(customerTypeDiv);
+            questionElem.append(telDiv);
+            questionElem.append(noticeDiv);
+            questionElem.append(reSetBtnDiv);
+        });
+
+        // 고객 센터 전화번호 클릭시
+        const chatTelDiv = document.createElement('div');
+        const telNumberDiv = document.createElement('div');
+        telDiv.addEventListener('click', e => {
+            chatTelDiv.innerHTML = "문의 사항이 있으시면 아래번호로 전화주세요.";
+            chatTelDiv.className = "chat_tel";
+
+            telNumberDiv.innerHTML = "010-5185-8980 손동윤";
+            telNumberDiv.className = "tel_number";
+
+            questionElem.append(chatTelDiv);
+            questionElem.append(telNumberDiv);
+            questionElem.append(reSetBtnDiv);
+        });
+
+        // 공지사항 클릭시
+        const noticeTypeDiv = document.createElement('div');
+        const moveNoticeDiv = document.createElement('div');
+        noticeDiv.addEventListener('click', e => {
+            noticeTypeDiv.innerHTML = "공지사항에는 각종 이벤트와 당신을 위한 유익한 정보들이 많이 있습니다.";
+            noticeTypeDiv.className = "notice_type";
+
+            moveNoticeDiv.innerHTML = "이동하기";
+            moveNoticeDiv.className = "move_notice";
+
+            questionElem.append(noticeTypeDiv);
+            questionElem.append(moveNoticeDiv);
+            questionElem.append(reSetBtnDiv);
+
+            moveNoticeDiv.addEventListener('click', e => {
                 location.href = "/notice";
             });
         });
