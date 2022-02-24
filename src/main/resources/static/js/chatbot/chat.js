@@ -155,11 +155,19 @@
             alcoholMenuDiv.innerHTML = "술 페어링";
             alcoholMenuDiv.className = "alcohol_menu";
 
+            reSetBtnDiv.innerHTML = "처음으로";
+            reSetBtnDiv.className = "reset_btn";
+
             questionElem.append(menuTypeDiv);
             questionElem.append(toDayFoodDiv);
             questionElem.append(seasonMenuDiv);
             questionElem.append(alcoholMenuDiv);
             questionElem.append(reSetBtnDiv);
+
+            reSetBtnDiv.addEventListener('click', e => {
+                chatSentence.innerHTML = firstSentence;
+                makeEvent();
+            });
         });
 
         // 오늘의 음식 클릭시
@@ -291,10 +299,18 @@
             noticeDiv.innerHTML = "공지사항";
             noticeDiv.className = "notice";
 
+            reSetBtnDiv.innerHTML = "처음으로";
+            reSetBtnDiv.className = "reset_btn";
+
             questionElem.append(customerTypeDiv);
             questionElem.append(telDiv);
             questionElem.append(noticeDiv);
             questionElem.append(reSetBtnDiv);
+
+            reSetBtnDiv.addEventListener('click', e => {
+                chatSentence.innerHTML = firstSentence;
+                makeEvent();
+            });
         });
 
         // 고객 센터 전화번호 클릭시
