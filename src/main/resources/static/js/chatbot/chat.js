@@ -35,6 +35,7 @@
             questionElem.lastChild.scrollIntoView({behavior : 'smooth'});
         });
 
+        // 처음으로 클릭시 스크롤 상위로 올리기.
         chatMainElem.scrollTo({top:0, left:0, behavior:'auto'});
 
         // 맛집 선택시 맛집 추가 선택지.
