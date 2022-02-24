@@ -1,12 +1,15 @@
 package com.gsvl.oneul.jmt.review;
 
+import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.jmt.review.model.JmtReviewEntity;
 import com.gsvl.oneul.jmt.review.model.JmtReviewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/review/ajax")
@@ -49,5 +52,11 @@ public class JmtReviewRestController {
     public int insImg(MultipartFile[] jmtRvImgArr,JmtReviewEntity entity){
         service.uploadReviewImg(jmtRvImgArr,entity);
         return 1;
+    }
+    @GetMapping("/star")
+    public Map<String,Float> selJmtStars(JmtReviewEntity entity){
+        Map<String,Float> map = new HashMap<>();
+        map.put(Const.RESULT, service.selJmtStars(entity));
+        return map;
     }
 }

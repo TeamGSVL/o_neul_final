@@ -103,23 +103,37 @@
 
                 const profileDiv = document.createElement('div');
                 const starDiv = document.createElement('div');
+                const timeDiv = document.createElement('div');
                 const ctntDiv = document.createElement('div');
 
-                profileDiv.innerHTML = `${item.username}`;
+                let writerProfileImg;
+
+                if(item.u_profileimg){
+                    if(item.u_profileimg.includes('http')){
+                        writerProfileImg = item.u_profileimg;
+                    }else {
+                        writerProfileImg = `/pic/user/${item.iuser}/${item.u_profileimg}`;
+                    }
+                }
+
+                profileDiv.classList.add('f-s-20');
+                profileDiv.innerHTML = `<img class="pfi-40" src="${writerProfileImg}">${item.username}`;
                 if(item.j_star>0){
                     for(let i = 0; i<item.j_star;i++){
                         starDiv.innerHTML+=`<i class="fa-solid fa-star"></i>`;
                     }
                 }else {
-                    starDiv.innerHTM = `<i class="fa-regular fa-star"></i>`;
+                    starDiv.innerHTML = `<i class="fa-regular fa-star"></i>`;
                 }
 
+                timeDiv.innerHTML = timepassed(item.j_rdt);
 
                 ctntDiv.innerHTML =`${item.j_ctnt}`;
 
                 itemDiv.append(subDiv);
                 subBoxDiv.append(profileDiv);
                 subBoxDiv.append(starDiv);
+                subBoxDiv.append(timeDiv);
                 subDiv.append(subBoxDiv);
 
                 if(item.iuser==iuser){
