@@ -6,6 +6,8 @@
     const email = dataElem.dataset.u_email;
     const nm = dataElem.dataset.u_nm;
     const profileImg = dataElem.dataset.u_profileimg
+    const u_rdt = dataElem.dataset.u_rdt.split(' ', 1);
+
 
 
     const profileFileElem = document.querySelector('#profile-file');
@@ -84,6 +86,7 @@
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-id-badge"></i>&nbsp;ID</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${uid}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-solid fa-person"></i>&nbsp;이름</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${nm}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-envelope"></i>&nbsp;이메일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${email}</div>
+                        <div class="f-s-15 flex-c-r"><i class="fa-solid fa-briefcase"></i>&nbsp;가입일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${u_rdt}</div>
                         `;
 
         if(myNicknameElem){
