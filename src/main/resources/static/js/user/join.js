@@ -136,14 +136,14 @@
             }
         })
 
-        joinFrmElem.upw_chk.addEventListener('change', function () {
+        joinFrmElem.upw_chk.addEventListener('focus', function () {
             const upwchkVal = joinFrmElem.upw_chk.value;
             const upwchkChkMsgElem = joinFrmElem.querySelector('#upwchk-chk-msg');
 
             if (upwchkVal !== joinFrmElem.u_pw.value) {
                 upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
                 return;
-            }else {
+            }else if(upwchkVal === joinFrmElem.u_pw.value){
                 upwchkChkMsgElem.innerHTML = '';
                 return;
             }

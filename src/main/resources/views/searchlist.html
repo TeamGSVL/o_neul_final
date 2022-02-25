@@ -1,0 +1,26 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="temp/thymeleaf_layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/searchlist.css}">
+    <script defer th:src="@{/js/searchlist.js}"></script>
+    <meta charset="UTF-8">
+    <title>searchlist</title>
+</head>
+<th:block layout:fragment="content">
+    <input type="hidden" id="search_keyword" th:value="${keyword}">
+    <section>
+        <div>
+            <div id="search_text"></div>
+        </div>
+        <div class="mt60">
+            <div class="search-list-box mt100" id="search_list_box">
+            </div>
+            <div class="flex-c-r mt100">
+                <div id="search_page_box" class="search-page-box flex-c-r g30"></div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>
