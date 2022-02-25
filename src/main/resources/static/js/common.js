@@ -195,7 +195,6 @@ searchBtn.addEventListener('submit',evt => {
 
 });
 
-}
 
 //현재 시간 구하기
 let today = new Date();
