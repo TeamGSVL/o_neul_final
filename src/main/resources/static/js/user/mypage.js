@@ -5,7 +5,10 @@
     const nickname = dataElem.dataset.u_nickname;
     const email = dataElem.dataset.u_email;
     const nm = dataElem.dataset.u_nm;
+    const rdt = dataElem.dataset.u_rdt;
     const profileImg = dataElem.dataset.u_profileimg
+    const u_rdt = dataElem.dataset.u_rdt.split(' ', 1);
+
 
 
     const profileFileElem = document.querySelector('#profile-file');
@@ -18,66 +21,51 @@
         })
     }
 
+
+
     const profileViewElem = document.querySelector('#profile-view');
     if (profileViewElem) {
+
+        const divElem = document.createElement('div');
+        profileViewElem.appendChild(divElem);
+
+        if(profileImg){
+            if(profileImg.includes('http')){
+                divElem.innerHTML = `<img src="${profileImg}" >`;
+            }else {
+                divElem.innerHTML = `<img src="/pic/user/${iuser}/${profileImg}" >`;
+            }
+        }else {
+            divElem.innerHTML = `<img src="/img/defaultProfile.png" >`;
+        }
+
         profileViewElem.addEventListener('click', function () {
             if (profileFileElem) {
                 profileFileElem.click();
             }
         })
     }
+
     //이미지 업로드
-    if(profileViewElem) {
-        fetch(`/user/mypage`, {
+
+    const uploadProfileImg = (img) => {
+        const fData = new FormData();
+        fData.append('u_profileimg', img);
+
+        fetch('/user/mypage', {
             'method': 'post',
-            'headers': {'Content-Type': 'application/json'},
-            'body': JSON.stringify({u_profileimg: profileImg})
-        })
-            .then(res => res.json())
-            .then((data) => {
-                console.log(1);
-                const divElem = document.createElement('div')
-                profileViewElem.appendChild(divElem);
-                divElem.innerHTML = `<img src="C:\\upload\\images\\${iuser}\\${profileImg}">`;
+            'body': fData
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
                 setProfileImg(data);
             }).catch((e) => {
             console.log(e);
         });
     }
-
-
-        // fetch('/user/mypage', {
-        //     'method': 'post',
-        //     'body': fData
-        // }).then(res => res.json())
-        //     .then(data => {
-        //         console.log("11");
-        //             const divElem = document.createElement('div')
-        //             profileViewElem.appendChild(divElem);
-        //             divElem.innerHTML = `<img src="/images/user/${iuser}/${profileImg}">`;
-        //
-        //         setProfileImg(data);
-        //     }).catch((e) => {
-        //     console.log(e);
-        // });
-
-
-
-    // if(profileViewElem){
-    //     const divElem = document.createElement('div')
-    //     profileViewElem.appendChild(divElem);
-    //     divElem.innerHTML = `<img src="/images/user/${iuser}/${profileImg}">`;
-    // }
-
     const setProfileImg = (data) => {
-        if (!data.result) {
-            return;
-        }
-        const src = `/images/user/${iuser}/${data.result}`;
-        console.log(22);
-        // const divElem = document.createElement('div')
-        // profileViewElem.appendChild(divElem);
-        // divElem.innerHTML = `<img src="/images/user/${iuser}/${profileImg}">`;
+        if(!data.result) { return; }
+        const src = `/pic/user/${iuser}/${data.result}`;
 
         const profileImgElem = profileViewElem.querySelector('img');
         profileImgElem.src = src;
@@ -103,12 +91,13 @@
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-id-badge"></i>&nbsp;ID</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${uid}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-solid fa-person"></i>&nbsp;이름</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${nm}</div>
                         <div class="f-s-15 flex-c-r"><i class="fa-regular fa-envelope"></i>&nbsp;이메일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${email}</div>
+                        <div class="f-s-15 flex-c-r"><i class="fa-regular fa-calendar-plus"></i>&nbsp;가입일</div><div style="font-family: 나눔고딕; color: #4d4d4d;">${rdt.split(' ')[0]}</div>
                         `;
 
         if(myNicknameElem){
 
             if(nickname == null){
-                myNicknameElem.innerHTML += `<div class="flex-c-c w100">닉네임을 설정해보세요!</div>`;
+                myNicknameElem.innerHTML += `<div class="flex-c-c w100 mt20">닉네임을 설정해보세요!</div>`;
             }else {
                 divElem.innerHTML += `<div class="f-s-15 flex-c-r"><i class="fa-regular fa-face-smile"></i>&nbsp;닉네임</div><div>${nickname}</div>`;
             }
@@ -261,3 +250,4 @@ nickBtnElem.addEventListener('click',e=>{
     console.log('asdsad');
     window.open('/user/nickname','popup','width=500,height=500');
 });
+

@@ -8,4 +8,6 @@ import lombok.Setter;
 
 public class JmtReviewVo extends  JmtReviewEntity{
     private String username;
+    private String u_nickname;
+    private String u_profileimg;
 }

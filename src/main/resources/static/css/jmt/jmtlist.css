@@ -55,6 +55,7 @@
     width: 400px;
     height: 310px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .jmt-list-box{
@@ -77,6 +78,11 @@
     background-size: 70%;
     background-position: 129px 151px;
 }
+
+.jmt-item-star i{
+    color: yellow;
+}
+
 .jmt-list-item img{
     cursor: pointer;
     width: 250px;
@@ -88,6 +94,8 @@
     /*font-weight: normal !important;*/
     color: rgb(112, 112, 112);
     font-size: 15px;
+    display: flex;
+    gap: 10px;
 }
 .jmt-item-span2{
     font-size: 18px;

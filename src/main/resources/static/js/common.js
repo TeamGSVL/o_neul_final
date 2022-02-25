@@ -2,9 +2,11 @@
 let globalConst = document.querySelector('#globalConst');
 let iuser;
 let pfnum;
+let profileImg;
 if(globalConst){
     iuser =globalConst.dataset.iuser;
     pfnum = globalConst.dataset.u_pfnum;
+    profileImg = globalConst.dataset.u_profileimg;
 }
 
 //img패치
@@ -160,9 +162,12 @@ const isZzimJMT = (zzim,myft) =>{
 
 // 공지사항으로 이동
     const noticeListMainElem = document.querySelector('.notice_list_main');
-    noticeListMainElem.addEventListener('click', e => {
-        location.href='/notice';
-    });
+    if(noticeListMainElem){
+        noticeListMainElem.addEventListener('click', e => {
+            location.href='/notice';
+        });
+    }
+
 
 //jmt 찜 추가
 const insZzimJMT  = (zzim,myft)=>{
@@ -180,6 +185,7 @@ const delZzimJMT  = (zzim,myft)=>{
 }
 //header 검색 작업
 const searchBtn = document.querySelector('#search_btn');
+
 searchBtn.addEventListener('submit',evt => {
     evt.preventDefault();
     let keyword = searchBtn.jmt.value;
@@ -189,3 +195,39 @@ searchBtn.addEventListener('submit',evt => {
 
 });
 
+}
+
+//현재 시간 구하기
+let today = new Date();
+let year = today.getFullYear();
+let month = today.getMonth();
+let data = today.getDate();
+let hours = today.getHours();
+let minutes = today.getMinutes();
+function timepassed(rdt){
+    let timearr = rdt.split(' ');
+    let timeymd = timearr[0].split('-');
+    let timehms = timearr[1].split(':');
+    var rdtDate = new Date(timeymd[0],parseInt(timeymd[1])-1,timeymd[2],timehms[0],timehms[1]);
+    var curDate = new Date(year,month,data,hours,minutes);
+    var elapsedSec = (curDate.getTime()-rdtDate.getTime())/60000;
+    if(elapsedSec<60){
+        return elapsedSec+'분 전';
+    }else if(elapsedSec>=60 && elapsedSec<=1440){
+        return Math.round(elapsedSec/60) + '시간 전';
+    }else if(elapsedSec>1440 && elapsedSec<= 7200){
+        return Math.round(elapsedSec/1440) + '일 전';
+    }else {
+        return timeymd.join('-');
+    }
+}
+
+
+//jmt 별점 가져오기
+const getJmtStars = (ijmt,myft)=>{
+    fetch(`/review/ajax/star?ijmt=${ijmt}`)
+        .then(res=>res.json())
+        .then(data=>{
+            myft(data.result);
+        })
+}

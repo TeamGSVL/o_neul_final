@@ -21,10 +21,10 @@
 
     if (joinFrmElem) {
         joinFrmElem.addEventListener('submit', (e) => {
+            e.preventDefault();
             const nickname = joinFrmElem.u_nickname.value;
             if(!nicknameRegex.test(nickname)){
                 alert('닉네임은 대소문자, 숫자, 한글 조합으로 2~6글자가 되어야 합니다.');
-                e.preventDefault();
             }
             else if (nicknameChkState !== 1) {
                 switch (nicknameChkState) {
@@ -35,15 +35,24 @@
                         alert('닉네임 중복 체크를 해주세요!');
                         break;
                 }
-                e.preventDefault();
+            }else {
+                fetch(`/user/nickname`,{
+                    method : 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({u_nickname: nickname})
+                }).then(res=>res.json())
+                    .then(data=>{
+                        if(data==1){
+                            opener.location.href='/user/logout';
+                            window.close();
+                        }else {
+                            alert('알수없는 오류');
+                        }
+                    })
             }
+
         });
 
-        // joinFrmElem.u_nickname.addEventListener('keyup', () => {
-        //     const nicknameChkMsgElem = joinFrmElem.querySelector('#nickname-chk-msg');
-        //     nicknameChkMsgElem.innerText = '';
-        //     nicknameChkState = 2;
-        // });
 
         joinFrmElem.u_nickname.addEventListener('keyup', () => {
             const nicknameVal = joinFrmElem.u_nickname.value;

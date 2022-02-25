@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script defer th:src="@{/js/user/nickname.js}"></script>
+    <script defer th:inline="javascript" th:src="@{/js/common.js}"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -12,7 +13,7 @@
 <section class="login-container flex-c-c">
     <div class="video-login-container ">
         <h1>닉네임 변경</h1>
-        <form th:action="@{/user/nickname}" method="post" id="join-frm">
+        <form id="join-frm">
             <div><label>변경 닉네임 : <input type="text" name="u_nickname" required></label></div>
             <div><span id="nickname-chk-msg"></span></div>
             <div><input type="submit" value="변경" id="submitBtn"></div>

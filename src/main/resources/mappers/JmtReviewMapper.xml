@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="selReviewList" resultMap="JmtReviewListMap">
-        SELECT A.*, B.u_nm AS username
+        SELECT A.*, B.u_nm AS username,B.u_profileimg,B.u_nickname
         FROM o_jmt_review A
         LEFT JOIN o_user B
         ON A.iuser = B.iuser
@@ -58,4 +58,9 @@
             (#{icmt},#{item})
         </foreach>
     </insert>
+
+<!--    하나의 jmt에 총 별점 몇점인지-->
+    <select id="selJmtStars" resultType="Float">
+        SELECT sum(j_star)/COUNT(j_star) FROM o_jmt_review WHERE ijmt = ${ijmt};
+    </select>
 </mapper>
