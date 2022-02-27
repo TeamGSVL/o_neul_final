@@ -1,6 +1,5 @@
 {
     const keyword = document.querySelector('#search_keyword');
-    console.log(keyword.value);
     keywordval = keyword.value;
 
     let jmtArr = []
@@ -22,36 +21,8 @@
                     j_x : item.x,
                     j_y : item.y
                 }
-                const searchListBox = document.querySelector('#search_list_box');
-
-                let divElem = document.createElement('div');
-                let divpnElem = document.createElement('div');
-                let divboxElem = document.createElement('div');
-
-                divElem.classList.add('search-list-item');
-                divElem.addEventListener('click', ev => {
-                    location.href = `/jmt/${item.id}`;
-                });
-                divpnElem.innerHTML = `
-                        <div class="f-s-30">${item.place_name}</div>
-                    `;
-                divboxElem.innerHTML = `
-                        <div>${item.phone}</div>
-                        <div>${item.address_name}</div>
-                        <div>${item.road_address_name}</div>
-                    `;
-
-                divElem.append(divpnElem);
-                divElem.append(divboxElem);
-
-
-                searchListBox.append(divElem);
-
                 jmtArr.push(JmtEntity);
-
-
             });
-            console.log(jmtArr);
             fetch('/jmt/ajax', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
@@ -60,9 +31,58 @@
                 .then(data=>{
                     jmtArr = data;
 
+                    jmtArr.forEach(item=>{
+                        const searchListBox = document.querySelector('#search_list_box');
+
+                        let divElem = document.createElement('div');
+
+
+                        let divInfoElem = document.createElement('div');
+                        let divImgElem = document.createElement('div');
+                        let divpnElem = document.createElement('div');
+                        let divboxElem = document.createElement('div');
+
+                        console.log(item);
+
+                        divElem.classList.add('search-list-item');
+
+                        divImgElem.classList.add('flex-c-r');
+                        divImgElem.classList.add('g10');
+
+                        divElem.addEventListener('click', ev => {
+                            location.href = `/jmt/${item.ijmt}`;
+                        });
+                        divpnElem.innerHTML = `
+                        <div class="f-s-30">${item.j_placenm}</div>
+                    `;
+                        divboxElem.innerHTML = `
+                        <div>${item.j_phone}</div>
+                        <div>${item.j_oldaddr}</div>
+                        <div>${item.j_newaddr}</div>
+                    `;
+
+                        if(item.jpList.length>0){
+                            for(let i = 0;i<item.jpList.length;i++){
+                                if(!item.jpList[i].orgurl.includes('naver')){
+                                    let imgElem = document.createElement('img');
+                                    imgElem.src = item.jpList[i].orgurl;
+                                    divImgElem.append(imgElem);
+                                }
+                            }
+                        }
+
+                        divInfoElem.append(divpnElem);
+                        divInfoElem.append(divboxElem);
+
+                        divElem.append(divInfoElem);
+                        divElem.append(divImgElem);
+
+                        searchListBox.append(divElem);
+                    })
+
                     let searchTextElem = document.querySelector('#search_text');
                     searchTextElem.innerHTML=`
-                                검색 결과 ${jmtArr.length}개의 음식점을 찾았습니다.
+                               ${keywordval} 검색 결과 ${jmtArr.length}개의 음식점을 찾았습니다.
                             `;
                 });
 

@@ -10,6 +10,10 @@
     width: 270px;
     height: 40px;
 }
+.join-info-container span{
+    display: block;
+    height: 20px;
+}
 
 
 .video-join-container{
