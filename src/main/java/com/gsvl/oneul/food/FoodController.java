@@ -32,7 +32,6 @@ public class FoodController {
     @ResponseBody
     @PostMapping()
     public List<FoodResultVO> getConditions(@RequestBody FoodConditionEntity entity){
-        System.out.println(entity.getRowcnt());
         List<FoodResultVO> list = foodService.getFoodList(entity);
         return list;
     }
