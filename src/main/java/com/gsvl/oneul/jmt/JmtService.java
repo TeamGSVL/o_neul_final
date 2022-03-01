@@ -23,7 +23,9 @@ public class JmtService {
     private MyKakaoJson myKakaoJson;
 
     public JmtVO insJmt(JmtEntity entity){
+
         JmtVO dbVo = selJmt(entity);
+
         if (dbVo == null){
             String kakaoJson = myKakaoJson.connectKaKaoJson(entity.getIjmt());
 
