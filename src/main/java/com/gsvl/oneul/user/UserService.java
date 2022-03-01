@@ -104,8 +104,11 @@ public class UserService {
     // 닉네임 변경(마이페이지)
     public int changeNickname(UserEntity entity) {
         entity.setIuser(auth.getLoginUserPk());
-        System.out.println(entity);
-        return mapper.updNickname(entity);
+
+        auth.getLoginUser().setU_nickname(entity.getU_nickname());
+
+        int result = mapper.updNickname(entity);
+        return result;
     }
 
     // 닉네임 중복 체크(닉네임 변경)

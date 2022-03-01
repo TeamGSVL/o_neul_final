@@ -32,6 +32,9 @@ public class JmtReviewService {
     public JmtReviewVo selReview(JmtReviewEntity entity){ return mapper.selReview(entity);}
     //삭제
     public int delReview(JmtReviewEntity entity){
+        delImg(entity);
+        return mapper.delReview(entity);}
+    public void delImg(JmtReviewEntity entity){
         List<String> list  = mapper.selReviewImg(entity);
         if(list!=null){
             mapper.delReviewImg(entity);
@@ -42,14 +45,15 @@ public class JmtReviewService {
 
             }
         }
-        return mapper.delReview(entity);}
+    }
     //수정
-    public int updReview(JmtReviewEntity entity){ return mapper.updReview(entity);}
+    public int updReview(JmtReviewEntity entity){
+        return mapper.updReview(entity);}
 
     //리뷰 사진
     public int uploadReviewImg(MultipartFile[] mf,JmtReviewEntity entity){
         if(mf == null){return 0;}
-
+        delImg(entity);
         //리뷰사진 저장경로
         final String PATH = Const.UPLOAD_IMG_PATH+"/jmt/"+entity.getIjmt()+"/"+entity.getIcmt();
         List<String> list = new ArrayList<>();
@@ -66,5 +70,10 @@ public class JmtReviewService {
 
     public float selJmtStars(JmtReviewEntity entity){
         return mapper.selJmtStars(entity);
+    }
+
+    //이미지 가져오기
+    public List<String>selReviewImg(JmtReviewEntity entity){
+        return mapper.selReviewImg(entity);
     }
 }

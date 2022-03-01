@@ -48,11 +48,19 @@ public class JmtReviewRestController {
     }
 
     //리뷰 이미지
+    @GetMapping("/img")
+    public List<String> getImg(JmtReviewEntity entity){
+        return service.selReviewImg(entity);
+    }
+
+
+    //insert
     @PostMapping("/img")
     public int insImg(MultipartFile[] jmtRvImgArr,JmtReviewEntity entity){
         service.uploadReviewImg(jmtRvImgArr,entity);
         return 1;
     }
+
     @GetMapping("/star")
     public Map<String,Float> selJmtStars(JmtReviewEntity entity){
         Map<String,Float> map = new HashMap<>();

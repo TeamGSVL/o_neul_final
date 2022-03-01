@@ -10,6 +10,7 @@
     const previewImage = document.getElementById("review_img_preveiw");
     const imgFileName = document.getElementById("imgfile_nm");
 
+
     imgFilesElem.addEventListener('change',e=>{
         removeChild(previewImage);
         imgFileName.innerHTML=null;
@@ -88,6 +89,20 @@
                 });
             }
             if(reviewChangeBtnElem){
+                /* 사진이미지 보여주기
+                fetch(`/review/ajax/img?icmt=${icmtElem.value}`)
+                    .then(res=>res.json())
+                    .then(data=>{
+                        data.forEach(item=>{
+                            let imgElem = document.createElement('img');
+                            imgElem.src = `/pic/jmt/${ijmt}/${icmtElem.value}/${item}`;
+                            previewImage.append(imgElem);
+                        })
+                        console.log(data);
+                    })
+
+                 */
+
                 reviewChangeBtnElem.addEventListener('click',e=>{
                     const param = {
                         iuser,
@@ -105,7 +120,26 @@
                         .then(res => res.json())
                         .then((data) => {
 
-                            location.href=`/jmt/${ijmt}`;
+                            if(imgFilesElem){
+                                const fData = new FormData();
+
+                                fData.append('ijmt',ijmt);
+                                fData.append('icmt',icmtElem.value);
+
+                                Array.from(imgFilesElem.files).forEach(uplFile=>{
+                                    fData.append('jmtRvImgArr',uplFile);
+
+                                });
+                                fetch(`/review/ajax/img`,{
+                                    'method':'POST',
+                                    'body':fData
+                                }).then(res=>res.json())
+                                    .then(data=>{
+                                        console.log(data);
+                                        location.href=`/jmt/${ijmt}`;
+
+                                    })
+                            }
                         }).catch((e) =>{
                         console.log(e);
                     });
@@ -133,6 +167,7 @@
 
         if(updStarElem){
             rating.setRate(updStarElem.value);
+            starLate = updStarElem.value;
         }
 
         document.addEventListener('DOMContentLoaded', function(){
@@ -148,5 +183,5 @@
     })();
 
 
-
+    console.log(starLate);
 }
