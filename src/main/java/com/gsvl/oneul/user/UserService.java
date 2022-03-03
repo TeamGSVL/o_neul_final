@@ -6,12 +6,11 @@ import com.gsvl.oneul.common.security.SecurityUserService;
 import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.common.utils.MyFileUtils;
 
-import com.gsvl.oneul.user.model.UserDTO;
+import com.gsvl.oneul.user.model.*;
 
-import com.gsvl.oneul.user.model.UserEntity;
-import com.gsvl.oneul.user.model.UserVo;
-import com.gsvl.oneul.user.model.zzimEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,18 @@ public class UserService {
 
 
     @Autowired private AuthenticationFacade auth;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    //    private static final String FROM_ADDRESS = "ju39001@naver.com";
+    public void mailSend(MailDto mailDto){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mailDto.getAddress());
+        message.setSubject(mailDto.getTitle());
+        message.setText(mailDto.getMessage());
+        javaMailSender.send(message);
+    }
 
 
     public int join(UserEntity entity){

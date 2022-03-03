@@ -1,12 +1,12 @@
 package com.gsvl.oneul.user;
 
 import com.gsvl.oneul.food.model.FoodResultVO;
-import com.gsvl.oneul.user.model.UserDTO;
-import com.gsvl.oneul.user.model.UserEntity;
-import com.gsvl.oneul.user.model.UserVo;
-import com.gsvl.oneul.user.model.zzimEntity;
+import com.gsvl.oneul.user.model.*;
 import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -29,8 +29,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService service;
+
+    @GetMapping("/find")
+    public void find(){}
+
+    @PostMapping("/find")
+    @ResponseBody
+    public void findMail(@RequestBody MailDto mailDto) {
+        service.mailSend(mailDto);
+    }
+
+
+    @GetMapping("/mail")
+    public void emailproc(){}
+
+    @PostMapping("/mail")
+    @ResponseBody
+    public void execMail(@RequestBody MailDto mailDto) {
+        service.mailSend(mailDto);
+    }
 
 
     @GetMapping("/login")

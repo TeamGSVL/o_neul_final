@@ -24,4 +24,5 @@ public class Const {
     public final static String SUBKEYENTITY = "subKey";
 
     public final static String RESULT = "result";
+    public static final String LOGIN_USER = "loginUser";
 }
