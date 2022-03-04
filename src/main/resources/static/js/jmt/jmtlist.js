@@ -62,11 +62,7 @@
                 // 정상적으로 검색이 완료됐으면
                 // 검색 목록과 마커를 표출합니다
                 if(pageCount>pagination.last){
-                    //형님 알아서 하세요
                     if(isConnected == 0){
-
-                        //랜덤에서 가져온 id값
-
 
                         console.log(jmtArr);
                         fetch('/jmt/ajax', {

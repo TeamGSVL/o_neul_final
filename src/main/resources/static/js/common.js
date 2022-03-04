@@ -185,50 +185,16 @@ const delZzimJMT  = (zzim,myft)=>{
 }
 //header 검색 작업
 const searchBtn = document.querySelector('#search_btn');
-if(searchBtn){
-    searchBtn.addEventListener('submit',evt => {
-        evt.preventDefault();
-        let keyword = searchBtn.jmt.value;
-        var ps = new kakao.maps.services.Places();
-        ps.keywordSearch(keyword, placesSearchCB, {
-            category_group_code: 'FD6',
-        });
-        function placesSearchCB(data, status, pagination) {
-            if (status === kakao.maps.services.Status.OK) {
-                let jmtArr = []
-                let jmtEntity = {
-                    ijmt : data[0].id,
-                    j_placenm : data[0].place_name,
-                    j_phone : data[0].phone,
-                    j_oldaddr : data[0].address_name,
-                    j_newaddr : data[0].road_address_name,
-                    j_x : data[0].x,
-                    j_y : data[0].y
-                }
-                console.log(jmtEntity);
-                jmtArr.push(jmtEntity);
-                fetch('/jmt/ajax', {
-                    method: 'post',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(jmtArr)
-                }).then(res=>res.json())
-                    .then(data=>{
-                        location.href = `/jmt/${jmtEntity.ijmt}`;
-                    });
 
-            } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-                alert('검색하신 맛집이 데이터에 없습니다.')
-                return;
+searchBtn.addEventListener('submit',evt => {
+    evt.preventDefault();
+    let keyword = searchBtn.jmt.value;
 
-            } else if (status === kakao.maps.services.Status.ERROR) {
-                alert('검색 결과 중 오류가 발생했습니다.');
-                return;
+    location.href = `/searchlist?keyword=${keyword}`;
 
-            }
-        }
-    });
 
-}
+});
+
 
 //현재 시간 구하기
 let today = new Date();
@@ -254,6 +220,7 @@ function timepassed(rdt){
         return timeymd.join('-');
     }
 }
+
 
 //jmt 별점 가져오기
 const getJmtStars = (ijmt,myft)=>{

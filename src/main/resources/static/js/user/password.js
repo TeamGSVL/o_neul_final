@@ -1,9 +1,9 @@
-
+{
     const data = document.querySelector('#globalConst');
 
-    if(data.dataset.u_pfnum != 1){
+    if (data.dataset.u_pfnum != 1) {
         alert('오늘 회원으로 로그인 해주세요.');
-        location.href='/main';
+        location.href = '/main';
     }
 
     var changeElem = document.querySelector('#change');
@@ -77,7 +77,7 @@
         });
 
         const allpwElem = document.querySelector('#allpw');
-        if(allpwElem) {
+        if (allpwElem) {
             allpwElem.addEventListener('keyup', function () {
                 const pwVal = changeElem.u_pw.value;
                 const pwChkMsgElem = changeElem.querySelector('#upw-chk-msg');
@@ -101,6 +101,4 @@
     }
 
 
-
-
-
+}

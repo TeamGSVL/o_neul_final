@@ -18,22 +18,30 @@ public class NoticeController {
 
     // 공지사항 리스트 뷰
     @GetMapping()
-    public String noticeList(NoticeDto dto, Model model) {
+    public String selNoticeList(Model model, NoticeDto dto) {
         model.addAttribute(Const.NOTICE, service.selNoticeList(dto));
-        return "/notice/notice";
+        return "/notice/list";
     }
+
 
     // 공지사항 리스트
     @ResponseBody
     @GetMapping("/list")
-    public List<NoticeEntity> noticeListView(NoticeDto dto) {
+    public List<NoticeEntity> selNoticeListView(NoticeDto dto) {
         return service.selNoticeList(dto);
     }
 
     // 공지사항 디테일 뷰
-    @GetMapping("/noticedetail")
+    @GetMapping("/detail")
     public String detailListView(NoticeDto dto, Model model) {
         model.addAttribute(Const.NOTICE_DETAIL, service.selNoticeDetail(dto));
-        return "/notice/noticedetail";
+        return "/notice/detail";
+    }
+
+    // 공지사항 페이지
+    @ResponseBody
+    @GetMapping("/maxpage")
+    public int selMaxPage(NoticeDto dto) {
+        return service.selMaxPage(dto).getResult();
     }
 }

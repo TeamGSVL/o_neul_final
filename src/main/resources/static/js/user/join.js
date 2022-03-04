@@ -199,20 +199,26 @@
 
                 if (!pwRegex.test(pwVal)) {
                     pwChkMsgElem.innerHTML = '비밀번호는 대소문자, 숫자, 특수문자 포함 8글자 이상 되어야 합니다.';
-                } else if(pwRegex.test(pwVal)){
+                } else if (pwRegex.test(pwVal)) {
                     pwChkMsgElem.innerHTML = '사용 가능한 비밀번호 입니다.';
-
                 }
-                if (upwchkVal !== pwVal) {
-                    upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
-
-                } else if(upwchkVal === pwVal){
-                    upwchkChkMsgElem.innerHTML = '';
-
-                }
-            })
-
+            });
         }
+
+
+        joinFrmElem.upw_chk.addEventListener('focus', function () {
+            const upwchkVal = joinFrmElem.upw_chk.value;
+            const upwchkChkMsgElem = joinFrmElem.querySelector('#upwchk-chk-msg');
+
+            if (upwchkVal !== joinFrmElem.u_pw.value) {
+                upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
+                return;
+            }else if(upwchkVal === joinFrmElem.u_pw.value){
+                upwchkChkMsgElem.innerHTML = '';
+                return;
+            }
+        })
+
 
 
         joinFrmElem.u_nm.addEventListener('keyup', function () {
@@ -260,3 +266,5 @@
     }
 
 }
+
+

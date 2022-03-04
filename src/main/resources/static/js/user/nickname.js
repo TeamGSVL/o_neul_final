@@ -43,7 +43,7 @@
                 }).then(res=>res.json())
                     .then(data=>{
                         if(data==1){
-                            opener.location.href='/user/logout';
+                            opener.location.reload();
                             window.close();
                         }else {
                             alert('알수없는 오류');
