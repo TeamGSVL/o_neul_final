@@ -12,4 +12,7 @@ public class MailDto {
     private String address;
     private String title;
     private String message;
+    private String u_id;
+    private String u_nm;
+    private String u_email;
 }

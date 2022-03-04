@@ -2,6 +2,7 @@ package com.gsvl.oneul.user;
 
 import com.gsvl.oneul.user.model.UserDTO;
 import com.gsvl.oneul.user.model.UserEntity;
+import com.gsvl.oneul.user.model.UserVo;
 import com.gsvl.oneul.user.model.zzimEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,6 +18,9 @@ public interface UserMapper {
 
     UserEntity idChk(UserEntity entity);        //아이디 중복 체크(회원가입)
     UserEntity emailChk(UserEntity entity);     //이메일 중복 체크(회원가입)
+    UserEntity idFind(UserEntity entity);
+    UserEntity pwFind(UserEntity entity);
+    UserEntity pwFindUser(UserEntity entity);
 
     List<zzimEntity> zzimFoodList(zzimEntity entity); //찜 음식 목록
     List<zzimEntity> zzimJmtList(zzimEntity entity);

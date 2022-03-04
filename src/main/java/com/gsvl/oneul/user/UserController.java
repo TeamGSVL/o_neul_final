@@ -33,14 +33,44 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping("/find")
-    public void find(){}
+    @GetMapping("/idfind")
+    public void idFind(){}
 
-    @PostMapping("/find")
+    @PostMapping("/idfind")
     @ResponseBody
-    public void findMail(@RequestBody MailDto mailDto) {
-        service.mailSend(mailDto);
+    public String findid(@RequestBody UserEntity entity){
+        UserEntity result = service.idFindresult(entity);
+        service.idmailSend(result);
+        return "redirect:/user/login";
     }
+
+    @PostMapping("/idfindchk")
+    @ResponseBody
+    public Map<String, Integer> idFindProc(@RequestBody UserEntity entity) {
+        Map<String, Integer> res = new HashMap();
+        res.put("idFind", service.idFind(entity));
+        return res;
+    }
+
+    @GetMapping("/pwfind")
+    public void pwFind(){}
+
+    @PostMapping("/pwfind")
+    @ResponseBody
+    public String findpw(@RequestBody UserEntity entity){
+        service.pwmailSend(entity);
+        service.pwFindUser(entity);
+        return "redirect:/user/login";
+    }
+
+    @PostMapping("/pwfindchk")
+    @ResponseBody
+    public Map<String, Integer> pwFindProc(@RequestBody UserEntity entity) {
+        Map<String, Integer> res = new HashMap();
+        res.put("pwFind", service.pwFind(entity));
+        return res;
+    }
+
 
 
     @GetMapping("/mail")

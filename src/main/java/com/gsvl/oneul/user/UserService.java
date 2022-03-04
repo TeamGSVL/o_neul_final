@@ -42,6 +42,23 @@ public class UserService {
         javaMailSender.send(message);
     }
 
+    public void idmailSend(UserEntity entity){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(entity.getU_email());
+        message.setSubject("[오늘]회원 아이디 정보");
+        message.setText("아이디 : " + entity.getU_id());
+        javaMailSender.send(message);
+    }
+
+    public void pwmailSend(UserEntity entity){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(entity.getU_email());
+        message.setSubject("[오늘]회원 비밀번호 정보");
+        message.setText("비밀번호가 전송된 임시 비밀번호로 변경되었습니다 로그인 후 비밀번호를 변경해 주세요.\n임시 비밀번호 : " + entity.getU_pw());
+        javaMailSender.send(message);
+    }
+
+
 
     public int join(UserEntity entity){
         //패스워드 암호화
@@ -65,6 +82,19 @@ public class UserService {
     public int emailChk(UserEntity entity) {
         UserEntity result = mapper.emailChk(entity);
         return result == null ? 1 : 0;
+    }
+
+    public int idFind(UserEntity entity) {
+        UserEntity result = mapper.idFind(entity);
+        return result == null ? 0 : 1;
+    }
+    public int pwFind(UserEntity entity) {
+        UserEntity result = mapper.pwFind(entity);
+        return result == null ? 0 : 1;
+    }
+
+    public UserEntity idFindresult(UserEntity entity){
+         return mapper.idFind(entity);
     }
 
 
@@ -138,6 +168,11 @@ public class UserService {
         String hashedPw = BCrypt.hashpw(vo.getU_pw(), BCrypt.gensalt());
         vo.setU_pw(hashedPw);
         return mapper.updUser(vo);
+    }
+    public UserEntity pwFindUser(UserEntity entity) {
+        String hashedPw = BCrypt.hashpw(entity.getU_pw(), BCrypt.gensalt());
+        entity.setU_pw(hashedPw);
+        return mapper.pwFindUser(entity);
     }
 
     // 비밀번호 변경시 현재 비밀번호 체크
