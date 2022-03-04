@@ -25,16 +25,26 @@
                             <th>
                                 <!--디테일 제목-->
                                 <div th:text="${noticedetail.n_title}"></div>
+
+                                <!-- 작성 시간 -->
+                                <div class="notice_time" th:text="${noticedetail.n_rdt}"></div>
                             </th>
                         </tr>
+
                     </thead>
                     <tbody>
                         <tr>
                             <!--디테일 내용-->
-                            <td th:text="${noticedetail.n_ctnt}"></td>
+                            <td class="notice_ctnt" th:text="${noticedetail.n_ctnt}"></td>
                         </tr>
                     </tbody>
                 </table>
+                <!-- 수정 / 삭제 -->
+                <div class="notice_mod_del">
+                    <button id="notice_mod" class="btn btn-primary">수정</button>
+                    <button id="notice_del" class="btn btn-primary">삭제</button>
+                </div>
+
                 <button id="list_btn" class="list_btn">목록</button>
             </div>
         </div>

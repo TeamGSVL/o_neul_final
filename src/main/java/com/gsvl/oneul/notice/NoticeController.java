@@ -28,6 +28,7 @@ public class NoticeController {
     @ResponseBody
     @GetMapping("/list")
     public List<NoticeEntity> selNoticeListView(NoticeDto dto) {
+
         return service.selNoticeList(dto);
     }
 
@@ -43,5 +44,17 @@ public class NoticeController {
     @GetMapping("/maxpage")
     public int selMaxPage(NoticeDto dto) {
         return service.selMaxPage(dto).getResult();
+    }
+
+    // 공지사항 글쓰기
+    @GetMapping("/write")
+    public void write(@ModelAttribute("entity") NoticeEntity entity) {
+        System.out.println(entity);
+    }
+
+    @PostMapping("/write")
+    public String writeProc(NoticeEntity entity) {
+        service.insNotice(entity);
+        return "redirect:/notice";
     }
 }

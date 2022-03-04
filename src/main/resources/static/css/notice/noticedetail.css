@@ -17,3 +17,11 @@
     height: 40px;
     font-size: 14px;
 }
+
+.notice_time {
+    text-align: end;
+}
+
+.notice_mod_del {
+    text-align: start;
+}

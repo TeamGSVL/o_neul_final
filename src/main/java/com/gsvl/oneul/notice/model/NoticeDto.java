@@ -1,12 +1,9 @@
 package com.gsvl.oneul.notice.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-public class NoticeDto {
-    private int inotice;
+@Data
+public class NoticeDto extends NoticeEntity{
     private int recordCount;
     private int currentPage;
     private int startIdx;

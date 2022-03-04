@@ -9,6 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface NoticeMapper {
+    // 공지사항 글쓰기
+    int insNotice(NoticeEntity entity);
+
     // 공지사항 리스트
     List<NoticeEntity> selNoticeList(NoticeDto dto);
 

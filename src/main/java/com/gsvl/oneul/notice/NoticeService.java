@@ -12,6 +12,13 @@ import java.util.List;
 public class NoticeService {
     @Autowired private NoticeMapper mapper;
 
+    // 공지사항 글쓰기
+    public int insNotice(NoticeEntity entity) {
+        entity.setIuser(entity.getIuser());
+        System.out.println(entity);
+        return mapper.insNotice(entity);
+    }
+
     // 공지사항 리스트
     public List<NoticeEntity> selNoticeList(NoticeDto dto) {
         int startIdx = (dto.getCurrentPage() - 1) * dto.getRecordCount();

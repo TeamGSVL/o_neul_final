@@ -9,7 +9,6 @@ public class NoticeEntity {
     private int iuser;
     private String n_title;
     private String n_ctnt;
-    private String n_tel;
     private int n_hits;
     private int n_isdel;
     private String n_rdt;
