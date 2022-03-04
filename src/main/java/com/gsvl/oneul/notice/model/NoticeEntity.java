@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class NoticeEntity {
+
     private int inotice;
     private int iuser;
     private String n_title;
