@@ -38,6 +38,29 @@
         }
     };
 
+    // Random Code 생성
+    function createCode(objArr, iLength) {
+        var arr = objArr;
+        var randomStr = "";
+
+        for (var j=0; j<iLength; j++) {
+            randomStr += arr[Math.floor(Math.random()*arr.length)];
+        }
+
+        return randomStr
+    }
+
+
+    // 숫자 + 문자 + 특수문자
+    function getRandomCode(iLength) {
+        var arr="0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,~,`,!,@,#,$,%,^,&,*,(,),-,+,|,_,=,\,[,],{,},<,>,?,/,.,;".split(",");
+
+        var rnd = createCode(arr, iLength);
+        return rnd;
+    }
+
+
+    var emailCheck = 0;
     // 이메일 중복 확인 메시지
     const setEmailChkMsg = (data) => {
         emailChkState = data.email; //0 or 1
@@ -45,13 +68,52 @@
         const emailChkMsgElem = joinFrmElem.querySelector('#email-chk-msg');
         switch (data.email) {
             case 0:
-                emailChkMsgElem.innerText = '이미 사용중인 이메일 입니다.';
+                alert('이미 사용중인 이메일 입니다.');
                 break;
             case 1:
-                emailChkMsgElem.innerText = '사용할 수 있는 이메일 입니다.';
+                alert('인증 메일이 발송되었습니다.');
+                const randomPassword = getRandomCode(10);
+                const mailval = joinFrmElem.u_email.value + '@' + joinFrmElem.addres.value;
+                fetch(`/user/mail`, {
+                    'method': 'post',
+                    'headers': {'Content-Type': 'application/json'},
+                    'body': JSON.stringify({
+                        address: mailval,
+                        title: "오늘 회원가입 인증 메일",
+                        message: "인증번호 : " + randomPassword
+                    })
+                })
+                    .then(res => res.json())
+                    .then((data) => {
+                        console.log(data);
+                    }).catch((e) => {
+                    console.log(e);
+                });
+                const mailpassword = document.querySelector('#mailpassword');
+                const divElem = document.createElement('div');
+                mailpassword.appendChild(divElem);
+                divElem.innerHTML=`<div><label>인증번호 입력</label></div>
+                                   <span><input type="text" id="inEmail"></span>
+                                   <span><input type="button" value="인증" id="inEmailBtn" class="email-chk-btn flex-c-r g30"></span>`;
+
+                const inEmailElem = document.querySelector('#inEmail');
+                const inEmailBtn = document.querySelector('#inEmailBtn');
+                if(inEmailBtn){
+                    inEmailBtn.addEventListener('click',function (){
+                        if(randomPassword === inEmailElem.value){
+                            alert('이메일 인증이 완료되었습니다.');
+                            emailCheck = 1;
+                        }else{
+                            alert('인증번호가 맞지 않습니다.');
+                        }
+                    })
+                }
+
                 break;
         }
     };
+
+
     //서브밋 버튼 이벤트
     if (joinFrmElem) {
         joinFrmElem.addEventListener('submit', (e) => {
@@ -76,7 +138,11 @@
             } else if (!emailRegex.test(email)) {
                 alert('이메일은 대소문자, 숫자 포함 3~20글자가 되어야 합니다.');
                 e.preventDefault();
-            } else if (idChkState !== 1) {
+            } else if(emailCheck !== 1){
+                alert('이메일 인증번호를 확인해주세요.');
+                e.preventDefault();
+            }
+            else if (idChkState !== 1) {
                 switch (idChkState) {
                     case 0:
                         alert('다른 아이디를 사용해 주세요!');
@@ -195,6 +261,10 @@
                 console.log(e);
             });
         });
+
+
     }
+
 }
+
 

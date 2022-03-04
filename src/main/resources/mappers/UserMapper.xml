@@ -29,6 +29,34 @@
           and u_pfnum = 1;
     </select>
 
+    <select id="idFind" resultType="UserEntity">
+        SELECT *
+        FROM o_user
+        WHERE u_email = #{u_email}
+          and u_pfnum = 1
+          and u_nm = #{u_nm};
+    </select>
+
+    <select id="pwFind" resultType="UserEntity">
+        SELECT *
+        FROM o_user
+        WHERE u_email = #{u_email}
+          and u_pfnum = 1
+          and u_nm = #{u_nm}
+          and u_id = #{u_id};
+    </select>
+
+
+    <update id="pwFindUser">
+        UPDATE o_user
+        SET u_pw = #{u_pw}
+        WHERE u_email = #{u_email}
+          and u_pfnum = 1
+          and u_nm = #{u_nm}
+          and u_id = #{u_id};
+    </update>
+
+
     <!--  찜목록  -->
     <select id="zzimFoodList" resultType="zzimEntity">
         SELECT B.f_nm, B.f_img, B.ifood

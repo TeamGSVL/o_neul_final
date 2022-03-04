@@ -5,7 +5,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/user/join.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
-    <script defer th:src="@{/js/user/join.js}"></script>
+    <script defer th:src="@{/js/user/idfind.js}"></script>
     <link rel="stylesheet" th:href="@{/css/video.css}">
     <script defer th:src="@{/js/video.js}"></script>
     <meta charset="UTF-8">
@@ -18,30 +18,11 @@
             <div class="line"><a href="/"><img class="join-logo" src="/img/logo.png"></a></div>
         </div>
         <div class="flex-c-r">
-            <form th:action="@{/user/join}" method="post" id="join-frm" class="join-form mt40">
+            <form th:action="@{/user/idfind}" method="post" id="join-frm" class="join-form flex-c-c mt40">
                 <div class="join-info-container">
-                    <div><label for="u_id">id</label></div>
-                    <input type="text" name="u_id" id="u_id" required>
-                    <div><span id="id-chk-msg"></span></div>
-
-                    <div id="allpw">
-                        <div><label for="u_pw">pw</label></div>
-                        <input type="password" name="u_pw" id="u_pw" required>
-                        <div><span id="upw-chk-msg"></span></div>
-
-                        <div><label for="u_pw_re">pw-check</label></div>
-                        <input type="password" name="upw_chk" id="u_pw_re" required>
-                        <div><span id="upwchk-chk-msg"></span></div>
-                    </div>
-
                     <div><label for="u_nm">name</label></div>
                     <input type="text" name="u_nm" id="u_nm" required>
                     <div><span id="nm-chk-msg"></span></div>
-                </div>
-                <div class="flex-c-c ">
-                    <hr class="mt40 mb50 wd500">
-                </div>
-                <div class="join-email-container">
                     <span><label>e-mail</label></span>
                     <div>
                         <input type="text" name="u_email" required>&nbsp;@&nbsp;<input class="email-domain" type="text"
@@ -55,28 +36,22 @@
                             <option value="bing.com">bing.com</option>
                         </select>
                     </div>
-                    <span></span>
 
+                    <div><button type="button" class="email-chk-btn ipbtn" id="email-btn-chk">회원정보 인증</button>
+                        <span id="email-chk-msg"></span></div>
+                    <div id="mailpassword">
 
-                    <span><button type="button" class="email-chk-btn" id="email-btn-chk">이메일 중복 체크</button><span
-                            id="email-chk-msg"></span></span>
-
+                    </div>
                 </div>
-                <div class="flex-c-c">
-                    <hr class="mt40 mb20 wd500">
-                </div>
-
+                <hr class="mt40 mb20">
                 <div class="flex-c-r g30">
-                    <input class="email-chk-btn ipbtn" type="submit" value="JOIN">
-                    <input class="email-chk-btn ipbtn" type="reset" value="RESET">
+                    <div><input type="button" id="resultBtn" value="확인" class="email-chk-btn ipbtn"></div>
                 </div>
             </form>
         </div>
     </div>
 
 </section>
-<video class="back_video" autoplay muted loop>
-    <source src="/video/backvideo.mp4" type="video/mp4">
-</video>
+
 </body>
 </html>
