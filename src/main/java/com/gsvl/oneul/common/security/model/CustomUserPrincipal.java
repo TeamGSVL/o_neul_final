@@ -31,7 +31,7 @@ public class CustomUserPrincipal implements UserDetails, OAuth2User {
     //권환을 리턴해주는 메소드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getAuth()!=null?user.getAuth():"ROLE_USER"));
     }
 
     @Override
