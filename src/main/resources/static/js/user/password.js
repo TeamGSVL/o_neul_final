@@ -81,8 +81,7 @@
             allpwElem.addEventListener('keyup', function () {
                 const pwVal = changeElem.u_pw.value;
                 const pwChkMsgElem = changeElem.querySelector('#upw-chk-msg');
-                const upwchkVal = changeElem.chkupw.value;
-                const upwchkChkMsgElem = changeElem.querySelector('#upwchk-chk-msg');
+
 
                 if (!pwRegex.test(pwVal)) {
                     pwChkMsgElem.innerHTML = '비밀번호는 대소문자, 숫자, 특수문자 포함 8글자 이상 되어야 합니다.';
@@ -91,10 +90,16 @@
                 } else {
                     pwChkMsgElem.innerHTML = '사용 가능한 비밀번호 입니다.';
                 }
+            })
+            changeElem.chkupw.addEventListener('keyup', function (){
+                const upwchkVal = changeElem.chkupw.value;
+                const upwchkChkMsgElem = changeElem.querySelector('#upwchk-chk-msg');
                 if (upwchkVal !== changeElem.u_pw.value) {
                     upwchkChkMsgElem.innerHTML = '비밀번호를 확인해 주세요.';
-                } else {
+                    return;
+                } else if(upwchkVal === changeElem.u_pw.value) {
                     upwchkChkMsgElem.innerHTML = '';
+                    return;
                 }
             })
         }
