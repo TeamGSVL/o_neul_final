@@ -16,7 +16,7 @@ public interface NoticeMapper {
     List<NoticeEntity> selNoticeList(NoticeDto dto);
 
     // 공지사항 디테일
-    NoticeEntity selNoticeDetail(NoticeDto dto);
+    NoticeEntity selNoticeDetail(NoticeEntity entity);
 
     // 공지사항 페이지
     ResultVo selMaxPage(NoticeDto dto);
@@ -24,6 +24,6 @@ public interface NoticeMapper {
     // 공지사항 조회수
     int addHits(NoticeDto dto);
 
-    // 공지사항 삭제(isdel이용)
+    // 공지사항 수정, 삭제(isdel)
     int upNotice(NoticeEntity entity);
 }

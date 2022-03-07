@@ -37,7 +37,7 @@ public class NoticeController {
     @GetMapping("/detail")
     public String detailListView(NoticeDto dto, Model model) {
         model.addAttribute(Const.NOTICE_DETAIL, service.selNoticeDetail(dto));
-        return "/notice/detail";
+        return "notice/detail";
     }
 
     // 공지사항 페이지
@@ -59,10 +59,25 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
+    // 공지사항 수정
+    @GetMapping("/update")
+    public void mod(NoticeDto dto,Model model) {
+        NoticeEntity entity = new NoticeEntity();
+        entity = service.selNoticeDetail(dto);
+        model.addAttribute(Const.DATA, entity);
+        System.out.println(entity);
+    }
+
+    @PostMapping("/update")
+    public String modProc( NoticeEntity entity) {
+        service.upNotice(entity);
+        return "redirect:/notice?inotice=" + entity.getInotice();
+    }
+
     // 공지사항 삭제
     @GetMapping("/del")
     public String  delProc(NoticeEntity entity) {
-        int result = service.delNotice(entity);
+        service.delNotice(entity);
         return "redirect:/notice";
     }
 }
