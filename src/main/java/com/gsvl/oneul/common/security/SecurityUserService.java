@@ -5,10 +5,13 @@ import com.gsvl.oneul.user.UserMapper;
 import com.gsvl.oneul.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 
 //이곳에서 로그인을 위해 sel,회원가입을 위한 join을 묶어줌
@@ -33,6 +36,10 @@ public class SecurityUserService implements UserDetailsService {
             if(u_pfunum==1){
                 throw new AuthenticationServiceException(String.format("아이디를 찾을수 없음"));
             }
+        }
+        System.out.println(resultEntity.getAuth());
+        if(resultEntity.getAuth()!=null){
+            resultEntity.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(resultEntity.getAuth())));
         }
         return resultEntity;
     }

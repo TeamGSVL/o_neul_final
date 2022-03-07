@@ -9,26 +9,46 @@
     </insert>
 
     <select id="selNoticeList" resultType="NoticeEntity">
-        SELECT inotice, n_title, n_rdt, n_hits
-        FROM o_notice
+        SELECT A.inotice, A.n_title, A.n_rdt, A.n_hits
+        FROM o_notice A
+        WHERE n_isdel = 0
         ORDER BY inotice DESC
         LIMIT ${startIdx}, ${recordCount}
     </select>
 
     <select id="selNoticeDetail" resultType="NoticeEntity">
-        SELECT n_title, n_ctnt, n_rdt
-        FROM o_notice
-        WHERE inotice = ${inotice}
+        SELECT A.n_title, A.n_ctnt, A.n_rdt
+        FROM o_notice A
+        WHERE A.n_isdel = 0
+        AND inotice = ${inotice}
     </select>
 
     <select id="selMaxPage" resultType="ResultVo">
         SELECT CEIL(COUNT(inotice) / ${recordCount}) AS result
         FROM o_notice
+        WHERE n_isdel = 0
     </select>
 
     <update id="addHits">
         UPDATE o_notice
         SET n_hits = n_hits + 1
         WHERE inotice = ${inotice}
+    </update>
+
+    <update id="upNotice">
+        UPDATE o_notice
+        <set>
+            <if test=" n_title != null and n_title != '' ">
+                n_title = #{n_title},
+            </if>
+            <if test=" n_ctnt != null and n_ctnt != '' ">
+                n_ctnt = #{n_ctnt},
+            </if>
+            <if test=" n_isdel == 1 ">
+                n_isdel = 1
+            </if>
+        </set>
+        WHERE inotice = ${inotice}
+        AND iuser = ${iuser}
     </update>
 </mapper>

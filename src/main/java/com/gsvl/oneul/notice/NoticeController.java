@@ -3,6 +3,7 @@ package com.gsvl.oneul.notice;
 import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.notice.model.NoticeDto;
 import com.gsvl.oneul.notice.model.NoticeEntity;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +56,13 @@ public class NoticeController {
     @PostMapping("/write")
     public String writeProc(NoticeEntity entity) {
         service.insNotice(entity);
+        return "redirect:/notice";
+    }
+
+    // 공지사항 삭제
+    @GetMapping("/del")
+    public String  delProc(NoticeEntity entity) {
+        int result = service.delNotice(entity);
         return "redirect:/notice";
     }
 }

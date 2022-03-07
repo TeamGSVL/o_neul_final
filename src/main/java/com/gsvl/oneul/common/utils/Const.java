@@ -26,7 +26,7 @@ public class Const {
 
     public final static String KEYWORD = "keyword";
 
-
+    public final static String DATA = "data";
 
     public final static String RESULT = "result";
 
