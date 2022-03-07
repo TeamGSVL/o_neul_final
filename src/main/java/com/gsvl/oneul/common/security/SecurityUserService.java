@@ -37,10 +37,8 @@ public class SecurityUserService implements UserDetailsService {
                 throw new AuthenticationServiceException(String.format("아이디를 찾을수 없음"));
             }
         }
-        System.out.println(resultEntity.getAuth());
-        if(resultEntity.getAuth()!=null){
-            resultEntity.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(resultEntity.getAuth())));
-        }
+        
+
         return resultEntity;
     }
 
