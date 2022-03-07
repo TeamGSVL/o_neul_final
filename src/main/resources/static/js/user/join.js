@@ -93,8 +93,8 @@
                 const divElem = document.createElement('div');
                 mailpassword.appendChild(divElem);
                 divElem.innerHTML=`<div><label>인증번호 입력</label></div>
-                                   <span><input type="text" id="inEmail"></span>
-                                   <span><input type="button" value="인증" id="inEmailBtn" class="email-chk-btn flex-c-r g30"></span>`;
+                                   <div><input type="text" id="inEmail">
+                                   <input type="button" value="인증" id="inEmailBtn" class="email-chk-btn ipbtn"></div>`;
 
                 const inEmailElem = document.querySelector('#inEmail');
                 const inEmailBtn = document.querySelector('#inEmailBtn');
@@ -206,7 +206,7 @@
         }
 
 
-        joinFrmElem.upw_chk.addEventListener('focus', function () {
+        joinFrmElem.upw_chk.addEventListener('keyup', function () {
             const upwchkVal = joinFrmElem.upw_chk.value;
             const upwchkChkMsgElem = joinFrmElem.querySelector('#upwchk-chk-msg');
 
