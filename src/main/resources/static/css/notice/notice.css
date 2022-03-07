@@ -7,3 +7,14 @@
     height: 100%;
     padding: 50px 100px;
 }
+
+.page-link {
+    color: #252323;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: darkblue;
+    border-color: black;
+}

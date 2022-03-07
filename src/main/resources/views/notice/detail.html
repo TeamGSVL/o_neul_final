@@ -1,6 +1,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="temp/thymeleaf_layout">
 <head>
     <link rel="stylesheet"  th:href="@{/css/notice/noticedetail.css}">
@@ -25,16 +26,30 @@
                             <th>
                                 <!--디테일 제목-->
                                 <div th:text="${noticedetail.n_title}"></div>
+
+                                <!-- 작성 시간 -->
+                                <div class="notice_time" th:text="${noticedetail.n_rdt}"></div>
                             </th>
                         </tr>
+
                     </thead>
                     <tbody>
                         <tr>
                             <!--디테일 내용-->
-                            <td th:text="${noticedetail.n_ctnt}"></td>
+                            <td class="notice_ctnt" th:text="${noticedetail.n_ctnt}"></td>
                         </tr>
                     </tbody>
                 </table>
+                <!-- 수정 / 삭제 -->
+                <div class="notice_mod_del">
+                    <div id="data" th:data="inotice">
+                        <a th:href="@{/notice/write}">
+                            <button class="btn btn-primary" type="submit">수정</button>
+                        </a>
+                        <button id="notice_del" class="btn btn-primary">삭제</button>
+                    </div>
+                </div>
+
                 <button id="list_btn" class="list_btn">목록</button>
             </div>
         </div>

@@ -3,6 +3,7 @@ package com.gsvl.oneul.notice;
 import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.notice.model.NoticeDto;
 import com.gsvl.oneul.notice.model.NoticeEntity;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class NoticeController {
     @ResponseBody
     @GetMapping("/list")
     public List<NoticeEntity> selNoticeListView(NoticeDto dto) {
+
         return service.selNoticeList(dto);
     }
 
@@ -43,5 +45,24 @@ public class NoticeController {
     @GetMapping("/maxpage")
     public int selMaxPage(NoticeDto dto) {
         return service.selMaxPage(dto).getResult();
+    }
+
+    // 공지사항 글쓰기
+    @GetMapping("/write")
+    public void write(@ModelAttribute("entity") NoticeEntity entity) {
+        System.out.println(entity);
+    }
+
+    @PostMapping("/write")
+    public String writeProc(NoticeEntity entity) {
+        service.insNotice(entity);
+        return "redirect:/notice";
+    }
+
+    // 공지사항 삭제
+    @GetMapping("/del")
+    public String  delProc(NoticeEntity entity) {
+        int result = service.delNotice(entity);
+        return "redirect:/notice";
     }
 }

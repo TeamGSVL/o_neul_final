@@ -1,6 +1,9 @@
 package com.gsvl.oneul.user.model;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 
 @Getter
@@ -21,6 +24,7 @@ public class UserEntity{
     private String u_rdt;
     private String u_mdt;
     private String auth;
+    private Collection<? extends GrantedAuthority> authorities;
 
 
 }
