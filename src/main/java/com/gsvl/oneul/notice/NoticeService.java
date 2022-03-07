@@ -7,6 +7,7 @@ import com.gsvl.oneul.notice.model.ResultVo;
 import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,6 +46,13 @@ public class NoticeService {
     // 공지사항 페이지
     public ResultVo selMaxPage(NoticeDto dto) {
         return mapper.selMaxPage(dto);
+    }
+
+    // 공지사항 수정
+    public int upNotice(NoticeEntity entity) {
+        System.out.println("-----------------");
+        System.out.println(entity);
+        return mapper.upNotice(entity);
     }
 
     // 공지사항 삭제
