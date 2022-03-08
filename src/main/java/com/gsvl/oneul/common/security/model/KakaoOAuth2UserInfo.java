@@ -20,8 +20,9 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo{
 
     @Override
     public String getId() {
-        int id = (int)attributes.get("id");
-        return Integer.toString(id);
+        String email = (String)kakaoAccount.get("email");
+        String id = email.split("@")[0];
+        return id;
     }
 
     @Override

@@ -222,6 +222,7 @@ function timepassed(rdt){
 }
 
 
+
 //jmt 별점 가져오기
 const getJmtStars = (ijmt,myft)=>{
     fetch(`/review/ajax/star?ijmt=${ijmt}`)
@@ -230,3 +231,37 @@ const getJmtStars = (ijmt,myft)=>{
             myft(data.result);
         })
 }
+
+//로딩
+function LoadingWithMask() {
+
+    var maskHeight = window.document.body.scrollHeight;
+    var maskWidth  = window.document.body.clientWidth;
+
+
+    var loadingImg ='';
+
+    loadingImg +="<div id='loadingImg'>";
+    loadingImg +=" <img src='LoadingImg.gif' style='position: relative; display: block; margin: 0px auto;'/>";
+    loadingImg +="</div>";
+
+
+    // //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
+    // $('#mask').css({
+    //     'width' : maskWidth
+    //     ,'height': maskHeight
+    //     ,'opacity' :'0.3'
+    // });
+    let maskElem = document.querySelector('#mask');
+    console.log(maskHeight);
+    console.log(maskWidth);
+    maskElem.style.width = maskHeight;
+    maskElem.style.height = maskWidth;
+    maskElem.style.opacity = '0.3';
+
+    //마스크 표시
+    maskElem.style.display='block';
+    // loadingImg.style.display='block';
+
+}
+

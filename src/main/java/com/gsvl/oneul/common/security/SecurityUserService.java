@@ -37,7 +37,7 @@ public class SecurityUserService implements UserDetailsService {
                 throw new AuthenticationServiceException(String.format("아이디를 찾을수 없음"));
             }
         }
-        
+
 
         return resultEntity;
     }

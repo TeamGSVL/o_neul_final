@@ -146,16 +146,25 @@
 .jmt-review-util i{
     color: #555555;
 }
+
+.jmt-detail-other{
+    color: #656565;
+    padding: 30px;
+    width: 70%;
+    height: 100%;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
 .jmt-list-item img{
     cursor: pointer;
     width: 250px;
     height: 170px;
     border-radius: 15px;
 }
+
+.jmt-list-item i{
+    color: yellow;
+}
 .jmt-dflist{
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    justify-items: center;
-    align-items: center;
-    gap: 50px;
+
 }

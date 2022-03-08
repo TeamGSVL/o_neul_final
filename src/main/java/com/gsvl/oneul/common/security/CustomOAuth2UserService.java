@@ -35,7 +35,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         //DB에 값 있나 체크 없으면 insert
         if(chkUser == null) {
             securityUserService.join(user);
-            chkUser = user;
+            chkUser = securityUserService.loadUserByUsernameAndProvider(user.getU_id(), user.getU_pfnum());
         }
         CustomUserPrincipal loginUser = new CustomUserPrincipal(chkUser, attributes);
         return loginUser;

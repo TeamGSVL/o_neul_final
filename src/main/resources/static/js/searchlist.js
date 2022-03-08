@@ -87,7 +87,8 @@
                 });
 
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-            alert('검색하신 맛집이 데이터에 없습니다.')
+            alert('검색하신 맛집이 데이터에 없습니다.');
+            location.href='/';
             return;
 
         } else if (status === kakao.maps.services.Status.ERROR) {
@@ -98,3 +99,4 @@
     }
 
 }
+LoadingWithMask();

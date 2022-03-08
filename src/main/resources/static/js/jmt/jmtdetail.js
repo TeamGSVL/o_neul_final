@@ -78,12 +78,23 @@
                             divElem.addEventListener('click', ev => {
                                 location.href = `/jmt/${item.ijmt}`;
                             });
-
-                            imgElem.src = item.jpList[0].orgurl;
+                            console.log(item);
+                            imgElem.src = `/img/imgerr.jpg`;
+                            if(item.jpList.length>0){
+                                for(let i = 0;i<item.jpList.length;i++){
+                                    if(!item.jpList[i].orgurl.includes('naver')){
+                                        imgElem.src = item.jpList[i].orgurl;
+                                        break;
+                                    }
+                                }
+                            }
+                            imgElem.addEventListener("error", e=>{
+                                imgElem.src = `/img/imgerr.jpg`;
+                            })
                             divImgElem.append(imgElem);
 
                             divpnElem.innerHTML = `
-                                <div class="f-s-30">${item.j_placenm}</div>
+                                <div class="f-s-15">[${item.j_catenm}] ${item.j_placenm}</div>
                             `;
                             let starCount = Math.round(item.jstars);
                             const starDiv = document.createElement('div');
@@ -188,7 +199,7 @@
                 const timeDiv = document.createElement('div');
                 const ctntDiv = document.createElement('div');
 
-                let writerProfileImg;
+                let writerProfileImg = '/img/defaultProfile.png';
 
                 if(item.u_profileimg){
                     if(item.u_profileimg.includes('http')){

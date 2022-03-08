@@ -8,6 +8,14 @@
     const rdt = dataElem.dataset.u_rdt;
     const profileImg = dataElem.dataset.u_profileimg
 
+    console.log(iuser);
+    console.log(uid);
+    console.log(nickname);
+    console.log(email);
+    console.log(nm);
+    console.log(rdt);
+    console.log(profileImg);
+
 
 
     const profileFileElem = document.querySelector('#profile-file');
@@ -147,6 +155,10 @@
 
 
             imgElem.src = item.f_img;
+            imgElem.addEventListener('error',e=>{
+                imgElem.src = `/img/logo_png`;
+            });
+
             fnmDiv.innerHTML = item.f_nm;
             delDiv.innerHTML = `<i class="fa-solid fa-circle-minus"></i>`;
 
@@ -201,6 +213,10 @@
                 }else {
                     imgElem.src = `/img/logo_png`;
                 }
+                imgElem.addEventListener('error',e=>{
+                    imgElem.src = `/img/logo_png`;
+                });
+
                 fnmDiv.innerHTML = item.j_placenm;
                 delDiv.innerHTML = `<i class="fa-solid fa-circle-minus"></i>`;
 
