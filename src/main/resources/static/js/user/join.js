@@ -1,11 +1,15 @@
 {
     let idChkState = 2; //0: 아이디 사용 불가능, 1:아이디 사용가능, 2: 체크 안함
     let emailChkState = 2;
-    const idRegex = /^([a-zA-Z0-9]{4,15})$/; //대소문자+숫자 조합으로 4~15글자
+    // const idRegex = /^([a-zA-Z0-9]{4,15})$/; //대소문자+숫자 조합으로 4~15글자
+    const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,15}$/; //대소문자+숫자 조합으로 4~15글자
     const pwRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
     //대소문자+숫자+특수문자 조합으로 8글자이상
     const nmRegex = /^([가-힣]{2,5})$/;
-    const emailRegex = /^([a-zA-Z0-9]{3,20})$/;
+    // const emailRegex = /^([a-zA-Z0-9]{3,20})$/;
+    const emailRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,20}$/; //대소문자+숫자 조합으로 4~15글자
+
+    var mailElem = 0;
 
     const joinFrmElem = document.querySelector('#join-frm');
 
@@ -91,10 +95,13 @@
                 });
                 const mailpassword = document.querySelector('#mailpassword');
                 const divElem = document.createElement('div');
-                mailpassword.appendChild(divElem);
-                divElem.innerHTML=`<div><label>인증번호 입력</label></div>
+                if(mailElem === 0) {
+                    mailpassword.appendChild(divElem);
+                    divElem.innerHTML = `<div><label>인증번호 입력</label></div>
                                    <div><input type="text" id="inEmail">
                                    <input type="button" value="인증" id="inEmailBtn" class="email-chk-btn ipbtn"></div>`;
+                    mailElem = 1;
+                }
 
                 const inEmailElem = document.querySelector('#inEmail');
                 const inEmailBtn = document.querySelector('#inEmailBtn');
@@ -245,7 +252,7 @@
             } else if (!emailRegex.test(joinFrmElem.u_email.value)) {
                 alert('이메일은 대소문자, 숫자 포함 3~20글자가 되어야 합니다.');
                 return;
-            } else if (joinFrmElem.addres.value === null) {
+            } else if (joinFrmElem.addres.value === '') {
                 alert('주소를 입력해 주세요.')
                 return;
             }
