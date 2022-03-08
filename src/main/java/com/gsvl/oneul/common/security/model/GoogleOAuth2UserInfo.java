@@ -15,9 +15,9 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo{
             String key = mapIter.next();
             Object value = attributes.get( key );
 
-            System.out.println(key);
-            System.out.println("+++++++++++++++++++++++++++++");
-            System.out.println(value);
+//            System.out.println(key);
+//            System.out.println("+++++++++++++++++++++++++++++");
+//            System.out.println(value);
 
         }
     }

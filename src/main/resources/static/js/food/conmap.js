@@ -21,9 +21,13 @@ const makeJmtDiv = (item)=>{
     divElem.classList.add('flex-c-c');
 
     imgElem.classList.add('rcrest-img');
+    imgElem.style.cursor = 'pointer';
     imgElem.addEventListener('error',e=>{
         imgElem.src='/img/imgerr.jpg';
     });
+    imgElem.addEventListener('click',e=>{
+        location.href = `/jmt/${item.basicInfo.cid}`;
+    })
     if(item.photo&&item.photo.photoList){
         imgElem.src= item.photo.photoList[0].list[0].orgurl;
     }else {
@@ -83,7 +87,31 @@ function getMapCurAddrKeyWord(foodNm) {
                 // 정상적으로 검색이 완료됐으면
                 // 검색 목록과 마커를 표출합니다
                 displayPlaces(data);
-                console.log(data);
+                let jmtArr = [];
+                data.forEach(item=>{
+                    let JmtEntity = {
+                        ijmt : item.id,
+                        j_placenm : item.place_name,
+                        j_phone : item.phone,
+                        j_oldaddr : item.address_name,
+                        j_newaddr : item.road_address_name,
+                        j_x : item.x,
+                        j_y : item.y
+                    }
+
+                    jmtArr.push(JmtEntity);
+
+                });
+
+                fetch('/jmt/ajax', {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jmtArr)
+                })
+                    .then(res => res.json())
+                    .then((data) => {
+                        console.log(data)
+                    });
 
             } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
                 let maptitleElem = document.querySelector('#map_title');

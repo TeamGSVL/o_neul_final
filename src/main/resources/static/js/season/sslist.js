@@ -94,7 +94,7 @@ startBtn.addEventListener('click',evt => {
     console.log('start');
     console.log(btnSwitch);
     if(btnSwitch==0){
-        timeCode = setInterval(makeImgShuffle,10);
+        timeCode = setInterval(makeImgShuffle,100);
         btnSwitch=1;
     }else {
         alert('이미 시작되었습니다.');

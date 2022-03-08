@@ -96,11 +96,15 @@
             </div>
 
         </section>
-        <section>
-            <h1>이 식당 주변 맛집</h1>
-            <div class="jmt-dflist" id="jmt_dflist"></div>
-        </section>
-
+        <div class="flex-c-c mt60">
+            <section class="jmt-detail-other">
+                <div class="line"><i class="fa-solid fa-utensils clr-main"></i></div>
+                <div class="flex-c-c mt20">
+                    <div class="text-emph" th:inline="text">[[${jmtdeatil.j_placenm}]] 주변 맛집</div>
+                </div>
+                <div class="jmt-dflist mt40 flex-c-r g50" id="jmt_dflist"></div>
+            </section>
+        </div>
     </section>
 </th:block>
 </html>
