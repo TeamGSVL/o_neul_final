@@ -3,7 +3,6 @@ package com.gsvl.oneul.notice;
 import com.gsvl.oneul.common.utils.Const;
 import com.gsvl.oneul.notice.model.NoticeDto;
 import com.gsvl.oneul.notice.model.NoticeEntity;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,6 @@ public class NoticeController {
     @ResponseBody
     @GetMapping("/list")
     public List<NoticeEntity> selNoticeListView(NoticeDto dto) {
-
         return service.selNoticeList(dto);
     }
 
@@ -62,10 +60,7 @@ public class NoticeController {
     // 공지사항 수정
     @GetMapping("/update")
     public void mod(NoticeDto dto,Model model) {
-        NoticeEntity entity = new NoticeEntity();
-        entity = service.selNoticeDetail(dto);
-        model.addAttribute(Const.DATA, entity);
-        System.out.println(entity);
+        model.addAttribute(Const.DATA, service.selNoticeDetail(dto));
     }
 
     @PostMapping("/update")

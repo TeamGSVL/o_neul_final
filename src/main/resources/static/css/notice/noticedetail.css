@@ -25,3 +25,7 @@
 .notice_mod_del {
     text-align: start;
 }
+
+tr, td, div {
+    font-size: 20px;
+}

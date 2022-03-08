@@ -6,6 +6,21 @@
 
     const noticeListElem = document.querySelector('#notice_list');
 
+    // 새 글 추가시 new 표시.
+    function newtimepassed(rdt){
+        let timearr = rdt.split(' ');
+        let timeymd = timearr[0].split('-');
+        let timehms = timearr[1].split(':');
+        var rdtDate = new Date(timeymd[0],parseInt(timeymd[1])-1,timeymd[2],timehms[0],timehms[1]);
+        var curDate = new Date(year,month,data,hours,minutes);
+        var elapsedSec = (curDate.getTime()-rdtDate.getTime())/60000;
+        if(elapsedSec <= 1440){
+            return "New";
+        } else if(elapsedSec > 1440){
+            return '';
+        }
+    }
+
 
     // 공지사항 리스트 정보 가져오기
     const getList = () => {
@@ -90,9 +105,9 @@
 
             trElem.innerHTML = `
                 <td>${item.inotice}</td>
-                <td>${item.n_title}</td>
+                <td>${item.n_title} <span class="new_icon">${newtimepassed(item.n_rdt)}</span></td>
                 <td>${item.n_hits}</td>
-                <td>${item.n_rdt}</td>
+                <td>${item.n_rdt.split(' ')[0]}</td>
             `;
             trElem.addEventListener('click', e => {
                 location.href = `/notice/detail?inotice=${item.inotice}`;

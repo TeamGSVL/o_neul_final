@@ -4,11 +4,8 @@ import com.gsvl.oneul.common.security.AuthenticationFacade;
 import com.gsvl.oneul.notice.model.NoticeDto;
 import com.gsvl.oneul.notice.model.NoticeEntity;
 import com.gsvl.oneul.notice.model.ResultVo;
-import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
