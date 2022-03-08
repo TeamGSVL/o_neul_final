@@ -2,7 +2,7 @@
     const keyword = document.querySelector('#search_keyword');
     keywordval = keyword.value;
 
-    let jmtArr = []
+    let jmtArr = [];
 
     var ps = new kakao.maps.services.Places();
     ps.keywordSearch(keywordval, placesSearchCB, {
