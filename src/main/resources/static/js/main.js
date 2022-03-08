@@ -3,9 +3,7 @@ const foodListElem = document.querySelector('#food_list');//오늘의 음식 리
 //
 const makeImg = (item,data,codeNum) =>{
 
-    console.log('확인');
-    console.log(data);
-    console.log(item);
+
     let divElem = document.createElement('div');
     let divBoxElem = document.createElement('div');
     let divConElem = document.createElement('div');

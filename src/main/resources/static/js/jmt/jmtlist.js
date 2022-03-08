@@ -273,6 +273,7 @@
                 jmtListBox.append(divElem);
 
             });
+            LoadingCancel();
         }
         // 검색결과 목록 하단에 페이지번호를 표시는 함수
         //여기서 jmtArr에 값을 추가해줌
@@ -372,3 +373,4 @@
         }
     });
 }
+LoadingStart();

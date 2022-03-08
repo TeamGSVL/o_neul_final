@@ -395,3 +395,19 @@ input[type=password]{
 .rpImg{
     height: 150px;
 }
+.loading-back{
+    position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;
+}
+
+.loading-box{
+    display: none;
+}
+
+.loading-img{
+    position: absolute; z-index:9001; left:50%; top:50%; transform: translate(-50%, -50%); margin: 0px auto;
+}
+.loading-text{
+    position: absolute; z-index:9001; left:50%; top:38%; transform: translate(-50%, -50%); margin: 0px auto;
+    background-color: white;
+    padding: 5px;
+}

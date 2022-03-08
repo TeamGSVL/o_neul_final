@@ -233,35 +233,32 @@ const getJmtStars = (ijmt,myft)=>{
 }
 
 //로딩
-function LoadingWithMask() {
+function LoadingStart() {
 
-    var maskHeight = window.document.body.scrollHeight;
-    var maskWidth  = window.document.body.clientWidth;
-
-
-    var loadingImg ='';
-
-    loadingImg +="<div id='loadingImg'>";
-    loadingImg +=" <img src='LoadingImg.gif' style='position: relative; display: block; margin: 0px auto;'/>";
-    loadingImg +="</div>";
+    var maskHeight = window.innerHeight;
+    var maskWidth  = window.innerWidth;
 
 
-    // //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채웁니다.
-    // $('#mask').css({
-    //     'width' : maskWidth
-    //     ,'height': maskHeight
-    //     ,'opacity' :'0.3'
-    // });
+
     let maskElem = document.querySelector('#mask');
-    console.log(maskHeight);
-    console.log(maskWidth);
-    maskElem.style.width = maskHeight;
-    maskElem.style.height = maskWidth;
+    let loadingImgElem = document.querySelector('#loading_box');
+
+    maskElem.style.width = `${maskWidth}px`;
+    maskElem.style.height = `${maskHeight}px`;
     maskElem.style.opacity = '0.3';
+
 
     //마스크 표시
     maskElem.style.display='block';
-    // loadingImg.style.display='block';
-
+    loadingImgElem.style.display='block';
+    document.body.style.overflow='hidden';
+}
+//로딩 끝
+function LoadingCancel(){
+    let maskElem = document.querySelector('#mask');
+    let loadingImgElem = document.querySelector('#loading_box');
+    maskElem.style.display='none';
+    loadingImgElem.style.display='none';
+    document.body.style.overflow='visible';
 }
 
