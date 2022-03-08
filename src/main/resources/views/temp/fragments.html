@@ -7,7 +7,12 @@
     data-u_pfnum=${auth.u_pfnum}, data-u_id=${auth.u_id}, data-u_email=${auth.u_email}, data-u_nickname=${auth.u_nickname}, data-u_rdt=${auth.u_rdt}"></span>
 
     <!--                    <div sec:authentication="principal.username"></div>-->
-    <div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>
+    <div id='mask' class="loading-back"></div>
+    <div class="loading-box" id="loading_box">
+        <img class="loading-img" id='loadingImg' src='/img/loading.gif'/>
+        <div class="loading-text">100번돌면 쓰러짐ㅋㅋ</div>
+    </div>
+
     <header class="bg-pink hg-100">
         <section class="header-logo ">
             <div class="mr50">

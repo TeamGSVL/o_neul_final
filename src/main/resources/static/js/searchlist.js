@@ -42,34 +42,52 @@
                         let divpnElem = document.createElement('div');
                         let divboxElem = document.createElement('div');
 
-                        console.log(item);
 
                         divElem.classList.add('search-list-item');
 
                         divImgElem.classList.add('flex-c-r');
-                        divImgElem.classList.add('g10');
+                        divImgElem.classList.add('g50');
+
+                        divElem.style.cursor = 'pointer';
 
                         divElem.addEventListener('click', ev => {
                             location.href = `/jmt/${item.ijmt}`;
                         });
                         divpnElem.innerHTML = `
-                        <div class="f-s-30">${item.j_placenm}</div>
+                        <div class="f-s-30 text-emph">${item.j_placenm}</div>
                     `;
+                        console.log(item);
                         divboxElem.innerHTML = `
-                        <div>${item.j_phone}</div>
-                        <div>${item.j_oldaddr}</div>
                         <div>${item.j_newaddr}</div>
                     `;
+                        let starCount = Math.round(item.jstars);
+                        const starDiv = document.createElement('div');
+                        starDiv.classList.add('jmt-star-count');
+                        if (starCount > 0) {
+                            for (let i = 0; i < starCount; i++) {
+                                starDiv.innerHTML += `<i class="fa-solid fa-star"></i>`;
+                            }
+                        } else {
+                            starDiv.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                        }
+                        starDiv.innerHTML += `(${item.jstars})`;
+
+                        divboxElem.append(starDiv);
+
 
                         if(item.jpList.length>0){
                             for(let i = 0;i<item.jpList.length;i++){
                                 if(!item.jpList[i].orgurl.includes('naver')){
                                     let imgElem = document.createElement('img');
+                                    imgElem.addEventListener('error',e=>{
+                                        imgElem.src = '/img/imgerr.jpg';
+                                    })
                                     imgElem.src = item.jpList[i].orgurl;
                                     divImgElem.append(imgElem);
                                 }
                             }
                         }
+
 
                         divInfoElem.append(divpnElem);
                         divInfoElem.append(divboxElem);
@@ -84,6 +102,7 @@
                     searchTextElem.innerHTML=`
                                ${keywordval} 검색 결과 ${jmtArr.length}개의 음식점을 찾았습니다.
                             `;
+                    LoadingCancel();
                 });
 
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
@@ -99,4 +118,4 @@
     }
 
 }
-LoadingWithMask();
+LoadingStart();
