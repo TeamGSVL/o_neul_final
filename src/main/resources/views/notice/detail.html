@@ -28,7 +28,7 @@
                                 <div th:text="${noticedetail.n_title}"></div>
 
                                 <!-- 작성 시간 -->
-                                <div class="notice_time" th:text="${noticedetail.n_rdt}"></div>
+                                <div class="notice_time" th:text="${noticedetail.n_rdt.split(' ')[0]}"></div>
                             </th>
                         </tr>
 

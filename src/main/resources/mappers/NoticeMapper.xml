@@ -9,17 +9,17 @@
     </insert>
 
     <select id="selNoticeList" resultType="NoticeEntity">
-        SELECT A.inotice, A.n_title, A.n_rdt, A.n_hits
-        FROM o_notice A
+        SELECT inotice, n_title, n_rdt, n_hits
+        FROM o_notice
         WHERE n_isdel = 0
         ORDER BY inotice DESC
         LIMIT ${startIdx}, ${recordCount}
     </select>
 
     <select id="selNoticeDetail" resultType="NoticeEntity">
-        SELECT A.n_title, A.n_ctnt, A.n_rdt, A.inotice
-        FROM o_notice A
-        WHERE A.n_isdel = 0
+        SELECT n_title, n_ctnt, n_rdt, inotice
+        FROM o_notice
+        WHERE n_isdel = 0
         AND inotice = ${inotice}
     </select>
 
