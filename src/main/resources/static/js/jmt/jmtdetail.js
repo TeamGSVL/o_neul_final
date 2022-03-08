@@ -20,6 +20,7 @@
     (function(){
         'use strict'
 
+        let jmtArr = [];
         const jmtMapElem = document.querySelector('#jmtmap'); //지도를 표시할 div
         const dataxElem = document.querySelector('#datax');
         const datayElem = document.querySelector('#datay');
@@ -27,6 +28,87 @@
                 center: new kakao.maps.LatLng(parseFloat( datayElem.dataset.y),parseFloat( dataxElem.dataset.x)), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
+        var ps = new kakao.maps.services.Places();
+        ps.keywordSearch('맛집', placesSearchCB, {
+            location: options.center,
+            radius: 500,
+            size: 5,
+            category_group_code: 'FD6'
+        });
+        function placesSearchCB(data, status, pagination) {
+            if (status === kakao.maps.services.Status.OK) {
+                console.log(data);
+                data.forEach(item=>{
+                    let JmtEntity = {
+                        ijmt : item.id,
+                        j_placenm : item.place_name,
+                        j_phone : item.phone,
+                        j_oldaddr : item.address_name,
+                        j_newaddr : item.road_address_name,
+                        j_x : item.x,
+                        j_y : item.y
+                    }
+                    if(JmtEntity.ijmt!=ijmt){
+                        jmtArr.push(JmtEntity);
+
+                    }
+                });
+                fetch('/jmt/ajax', {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jmtArr)
+                }).then(res=>res.json())
+                    .then(data=>{
+                        jmtArr = data;
+                        let listCount = 0;
+                        jmtArr.forEach(item=> {
+                            if (listCount < 4) {
+                            const jmtListBox = document.querySelector('#jmt_dflist');
+                            let divElem = document.createElement('div');
+                            let spanElem = document.createElement('span');
+                            let imgElem = document.createElement('img');
+                            let divImgElem = document.createElement('div');
+                            let divpnElem = document.createElement('div');
+
+                            divElem.classList.add('jmt-list-item');
+
+                            divImgElem.classList.add('g10');
+
+
+                            divElem.addEventListener('click', ev => {
+                                location.href = `/jmt/${item.ijmt}`;
+                            });
+
+                            imgElem.src = item.jpList[0].orgurl;
+                            divImgElem.append(imgElem);
+
+                            divpnElem.innerHTML = `
+                                <div class="f-s-30">${item.j_placenm}</div>
+                            `;
+                            let starCount = Math.round(item.jstars);
+                            const starDiv = document.createElement('div');
+                            starDiv.classList.add('jmt-item-star');
+                            if (starCount > 0) {
+                                for (let i = 0; i < starCount; i++) {
+                                    starDiv.innerHTML += `<i class="fa-solid fa-star"></i>`;
+                                }
+                            } else {
+                                starDiv.innerHTML = `<i class="fa-regular fa-star"></i>`;
+                            }
+                            starDiv.innerHTML += `(${item.jstars})`;
+
+                            spanElem.append(divImgElem);
+                            spanElem.append(divpnElem);
+                            spanElem.append(starDiv);
+                            divElem.append(spanElem);
+                            jmtListBox.append(divElem);
+                            listCount++
+                        }
+                        })
+                    });
+            }
+        }
+
 
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         var map = new kakao.maps.Map(jmtMapElem, options);
