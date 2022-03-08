@@ -1,8 +1,8 @@
 {
     let emailChkState = 2;
-    const idRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,15}$/; //대소문자+숫자 조합으로 4~15글자
+    const idRegex = /^([a-zA-Z0-9]{4,15})$/; //대소문자+숫자 조합으로 4~15글자
     const nmRegex = /^([가-힣]{2,5})$/;
-    const emailRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,20}$/; //대소문자+숫자 조합으로 4~15글자
+    const emailRegex = /^([a-zA-Z0-9]{3,20})$/;
 
     const joinFrmElem = document.querySelector('#join-frm');
     var mailElem = 0;
@@ -106,14 +106,14 @@
             const email = joinFrmElem.u_email.value;
             const uid = joinFrmElem.u_id.value;
             if (!idRegex.test(uid)) {
-                alert('아이디는 대소문자, 숫자 포함 4~15글자가 되어야 합니다.');
+                alert('아이디는 대소문자, 숫자로 4~15글자가 되어야 합니다.');
                 e.preventDefault();
             }
             else if (!nmRegex.test(nm)) {
                 alert('이름은 한글로 2~5글자가 되어야 합니다.');
                 e.preventDefault();
             } else if (!emailRegex.test(email)) {
-                alert('이메일은 대소문자, 숫자 포함 3~20글자가 되어야 합니다.');
+                alert('이메일은 대소문자, 숫자로 3~20글자가 되어야 합니다.');
                 e.preventDefault();
             } else if (emailCheck !== 1) {
                 alert('이메일 인증을 확인해주세요.');
@@ -156,7 +156,7 @@
                 idChkMsgElem.innerHTML = '아이디는 4자 이상 작성해 주세요.';
                 return;
             } else if (!idRegex.test(idVal)) {
-                idChkMsgElem.innerHTML = '아이디는 대소문자, 숫자 포함 4~15글자가 되어야 합니다.';
+                idChkMsgElem.innerHTML = '아이디는 대소문자, 숫자로 4~15글자가 되어야 합니다.';
                 return;
             } else {
                 idChkMsgElem.innerHTML = '';
@@ -191,7 +191,7 @@
                 alert('이메일은 3자 이상 작성해 주세요.');
                 return;
             } else if (!emailRegex.test(joinFrmElem.u_email.value)) {
-                alert('이메일은 대소문자, 숫자 포함 3~20글자가 되어야 합니다.');
+                alert('이메일은 대소문자, 숫자로 3~20글자가 되어야 합니다.');
                 return;
             } else if (joinFrmElem.addres.value === '') {
                 alert('주소를 입력해 주세요.')
