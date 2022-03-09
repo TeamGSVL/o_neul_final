@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(              //로그인과 상관없이 매칭.
-                "/user/mypage" ,"/user/pwfind","/user/idfind","/user/nickname","/jmt/review/**"
+                "/user/mypage" ,"/user/nickname","/jmt/review/**"
                 )//로그인 안됐을때 못들어가게
                 .authenticated()// 위 주소창들은 인증authenitcated을 받아야한다.
                 .anyRequest().permitAll()//나머지는 다 통과
