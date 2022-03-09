@@ -188,7 +188,12 @@ const searchBtn = document.querySelector('#search_btn');
 
 searchBtn.addEventListener('submit',evt => {
     evt.preventDefault();
+
     let keyword = searchBtn.jmt.value;
+    if(keyword==''){
+        alert('검색어를 입력하세요!');
+        return false;
+    }
 
     location.href = `/searchlist?keyword=${keyword}`;
 
