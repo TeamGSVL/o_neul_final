@@ -25,7 +25,7 @@
     };
 
 
-    const pwRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+    const pwRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,50}$/;
     if (changeElem) {
         changeElem.addEventListener('submit', function (e) {
             const currentupwVal = changeElem.currentupw.value;
@@ -84,7 +84,7 @@
 
 
                 if (!pwRegex.test(pwVal)) {
-                    pwChkMsgElem.innerHTML = '비밀번호는 대소문자, 숫자, 특수문자 포함 8글자 이상 되어야 합니다.';
+                    pwChkMsgElem.innerHTML = '영문자, 숫자, 특수문자로 8글자 이상 작성해 주세요.';
                 } else if (pwVal === changeElem.currentupw.value) {
                     pwChkMsgElem.innerHTML = '비밀번호는 이전과 같을 수 없습니다.';
                 } else {
