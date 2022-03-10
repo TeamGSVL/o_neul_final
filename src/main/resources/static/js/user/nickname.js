@@ -66,7 +66,7 @@
                 return;
             }
             else if(!nicknameRegex.test(nicknameVal)) {
-                nicknameChkMsgElem.innerHTML = '닉네임은 대소문자, 숫자 조합으로 2~6글자가 되어야 합니다.';
+                nicknameChkMsgElem.innerHTML = '대소문자, 숫자, 한글로 작성해 주세요.';
                 return;
             }
             fetch(`/user/nicknameChk/${nicknameVal}`)
